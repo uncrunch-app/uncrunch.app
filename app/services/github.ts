@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { getSession } from 'next-auth/react';
+import { CustomSessionUser } from '../api/auth/[...nextauth]/route';
 
 export const githubApi = createApi({
   reducerPath: 'githubApi',
@@ -7,7 +8,8 @@ export const githubApi = createApi({
     baseUrl: 'https://api.github.com/',
     prepareHeaders: async (headers) => {
       const session = await getSession();
-      const token = session?.user?.token;
+      const user = session?.user as CustomSessionUser | undefined; // Используем тип CustomSessionUser
+      const token = user?.token;
       if (token) {
         headers.set('Authorization', `Bearer ${token}`);
       }

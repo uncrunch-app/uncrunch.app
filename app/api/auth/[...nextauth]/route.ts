@@ -1,7 +1,27 @@
-// app/auth/[...nextauth]/route.ts
-
 import NextAuth, { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
+import { JWT } from 'next-auth/jwt';
+
+// Определяем типы для пользователя и JWT токена
+interface CustomUser {
+  id: string;
+  token: string;
+  service: 'github' | 'forgejo';
+}
+
+interface CustomJWT extends JWT {
+  token: string;
+  service: 'github' | 'forgejo';
+}
+
+// Типизируем пользователя в сессии
+export interface CustomSessionUser {
+  name?: string | null;
+  email?: string | null;
+  image?: string | null;
+  token: string;
+  service: 'github' | 'forgejo';
+}
 
 const createCredentialsProvider = (id: string, name: string, service: 'github' | 'forgejo') =>
   CredentialsProvider({
@@ -12,7 +32,11 @@ const createCredentialsProvider = (id: string, name: string, service: 'github' |
     },
     authorize: async (credentials) => {
       const token = credentials?.token ?? '';
-      return token ? { id: '1', token, service } : null;
+      if (token) {
+        const user: CustomUser = { id: '1', token, service };
+        return user;
+      }
+      return null;
     }
   });
 
@@ -23,29 +47,26 @@ const options: NextAuthOptions = {
   ],
   callbacks: {
     async jwt({ token, user }) {
-      if (user && 'token' in user && 'service' in user) {
-        return {
+      if (user) {
+        const customUser = user as CustomUser;
+        token = {
           ...token,
-          token: (user as any).token,
-          service: (user as any).service,
-        };
+          token: customUser.token,
+          service: customUser.service,
+        } as CustomJWT;
       }
       return token;
     },
     async session({ session, token }) {
-      return {
-        ...session,
-        user: {
-          ...session.user,
-          token: (token as any).token,
-          service: (token as any).service,
-        },
-      };
+      // Расширяем session.user типом CustomSessionUser
+      session.user = {
+        ...session.user,
+        token: (token as CustomJWT).token,
+        service: (token as CustomJWT).service,
+      } as CustomSessionUser;
+      return session;
     }
-  },
-  pages: {
-    signIn: '/login', // Указываем страницу логина
-  },
+  }
 };
 
 const handler = NextAuth(options);
