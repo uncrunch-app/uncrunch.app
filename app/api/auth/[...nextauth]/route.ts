@@ -42,7 +42,10 @@ const options: NextAuthOptions = {
         },
       };
     }
-  }
+  },
+  pages: {
+    signIn: '/login', // Указываем страницу логина
+  },
 };
 
 const handler = NextAuth(options);

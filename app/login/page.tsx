@@ -2,15 +2,20 @@
 
 import { signIn } from 'next-auth/react';
 import { FormEvent, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 
 const LoginPage = () => {
   const [token, setToken] = useState('');
   const [service, setService] = useState<'github' | 'forgejo'>('github');
+  const searchParams = useSearchParams();
+
+  // Извлекаем callbackUrl из параметров строки запроса
+  const callbackUrl = searchParams.get('callbackUrl') || '/';
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     const provider = service === 'github' ? 'github-token' : 'forgejo-token';
-    await signIn(provider, { token, callbackUrl: '/' });
+    await signIn(provider, { token, callbackUrl }); // Передача callbackUrl
   };
 
   return (

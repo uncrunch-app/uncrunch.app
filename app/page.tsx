@@ -3,7 +3,6 @@
 'use client';
 
 import { useSession, signOut } from 'next-auth/react';
-import { useEffect, useState } from 'react';
 import { useGetUserDataQuery } from './services/github';
 
 const HomePage = () => {
@@ -11,10 +10,6 @@ const HomePage = () => {
   const { data: userData, error, isLoading } = useGetUserDataQuery();
 
   console.log(session);
-
-  if (!session) {
-    return <div>Loading...</div>;
-  }
 
   return (
     <div>
