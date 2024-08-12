@@ -1,52 +1,46 @@
-import NextAuth, { NextAuthOptions, User } from 'next-auth';
+// app/auth/[...nextauth]/route.ts
+
+import NextAuth, { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
-interface CustomUser extends User {
-  token: string;
-}
-
-declare module 'next-auth' {
-  interface Session {
-    user: {
-      token: string;
-    };
-  }
-}
-
-declare module 'next-auth/jwt' {
-  interface JWT {
-    token: string;
-  }
-}
+const createCredentialsProvider = (id: string, name: string, service: 'github' | 'forgejo') =>
+  CredentialsProvider({
+    id: `${id}-token`,
+    name: `${name} Token`,
+    credentials: {
+      token: { label: `${name} Token`, type: "text" }
+    },
+    authorize: async (credentials) => {
+      const token = credentials?.token ?? '';
+      return token ? { id: '1', token, service } : null;
+    }
+  });
 
 const options: NextAuthOptions = {
   providers: [
-    CredentialsProvider({
-      name: 'Credentials',
-      credentials: {
-        token: { label: "Token", type: "text" }
-      },
-      authorize: async (credentials) => {
-        const token = credentials?.token ?? '';
-        if (token) {
-          const user: CustomUser = { id: '1', token };
-          return user;
-        } else {
-          return null;
-        }
-      }
-    })
+    createCredentialsProvider('github', 'GitHub', 'github'),
+    createCredentialsProvider('forgejo', 'Forgejo', 'forgejo')
   ],
   callbacks: {
     async jwt({ token, user }) {
-      if (user) {
-        token.token = (user as CustomUser).token;
+      if (user && 'token' in user && 'service' in user) {
+        return {
+          ...token,
+          token: (user as any).token,
+          service: (user as any).service,
+        };
       }
       return token;
     },
     async session({ session, token }) {
-      session.user = { token: token.token };
-      return session;
+      return {
+        ...session,
+        user: {
+          ...session.user,
+          token: (token as any).token,
+          service: (token as any).service,
+        },
+      };
     }
   }
 };

@@ -10,6 +10,8 @@ const HomePage = () => {
   const { data: session } = useSession();
   const { data: userData, error, isLoading } = useGetUserDataQuery();
 
+  console.log(session);
+
   if (!session) {
     return <div>Loading...</div>;
   }
@@ -21,7 +23,12 @@ const HomePage = () => {
       {error && <p>Error fetching data</p>}
       {userData && (
         <div>
-          <img src={userData.avatar_url} alt={userData.name} width={50} height={50} />
+          <img
+            src={userData.avatar_url}
+            alt={userData.name}
+            width={50}
+            height={50}
+          />
           <p>{userData.name}</p>
         </div>
       )}
