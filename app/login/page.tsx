@@ -2,25 +2,55 @@
 
 import { signIn } from 'next-auth/react';
 import { FormEvent, useState } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams, useRouter } from 'next/navigation';
+import { useLazyGetUserDataQuery } from '../services/github';
 
 const LoginPage = () => {
   const [token, setToken] = useState('');
   const [service, setService] = useState<'github' | 'forgejo'>('github');
+  const [error, setError] = useState<string | null>(null);
   const searchParams = useSearchParams();
+  const router = useRouter();
+  const [triggerGetUserData] = useLazyGetUserDataQuery();
 
-  // Извлекаем callbackUrl из параметров строки запроса
   const callbackUrl = searchParams.get('callbackUrl') || '/';
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    setError(null);
+
+    let name = null;
+    let email = null;
+    let image = null;
+
+    if (service === 'github') {
+      const { data, error: githubError } = await triggerGetUserData({ token });
+
+      if (githubError) {
+        setError((githubError as any).data?.message || 'Invalid GitHub token');
+        return;
+      }
+
+      // Если запрос успешен, извлекаем данные пользователя
+      name = data?.name || null;
+      email = data?.email || null;
+      image = data?.avatar_url || null;
+    }
+
     const provider = service === 'github' ? 'github-token' : 'forgejo-token';
-    await signIn(provider, { token, callbackUrl }); // Передача callbackUrl
+    const result = await signIn(provider, { token, redirect: false, callbackUrl, name, email, image });
+
+    if (result?.error) {
+      setError(result.error || 'Invalid token or login failed');
+    } else {
+      router.push(callbackUrl);
+    }
   };
 
   return (
     <div>
       <h1>Login</h1>
+      {error && <p style={{ color: 'red' }}>{error}</p>}
       <form onSubmit={handleSubmit}>
         <div>
           <label>
