@@ -1,11 +1,13 @@
-/* eslint-disable @next/next/no-img-element */
+// app/home/page.tsx
 
-'use client';
+import { getServerSession } from 'next-auth';
+import { authOptions } from './api/auth/[...nextauth]/route';
+import SignOutButton from '@/src/components/SignOutButton';
+import Image from 'next/image';
 
-import { useSession, signOut } from 'next-auth/react';
-
-const HomePage = () => {
-  const { data: session } = useSession();
+export default async function HomePage() {
+  // Получение данных сессии на сервере
+  const session = await getServerSession(authOptions);
 
   return (
     <div>
@@ -13,7 +15,7 @@ const HomePage = () => {
       {session?.user && (
         <div>
           {session.user.image && (
-            <img
+            <Image
               src={session.user.image}
               alt={session.user.name || ''}
               width={50}
@@ -21,12 +23,11 @@ const HomePage = () => {
             />
           )}
           <p>{session.user.name}</p>
-          <p>{session.user.email}</p>
+          {session.user.email && <p>{session.user.email}</p>}
+          {/* Вставляем клиентский компонент */}
+          <SignOutButton />
         </div>
       )}
-      <button onClick={() => signOut()}>Sign Out</button>
     </div>
   );
-};
-
-export default HomePage;
+}

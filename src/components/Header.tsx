@@ -1,15 +1,21 @@
-'use client';
+// app/components/Header.tsx
 
-import { signOut, useSession } from 'next-auth/react';
+import { getServerSession } from 'next-auth';
+import SignOutButton from './SignOutButton'; // Импортируем клиентский компонент
+import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 
-const Header = () => {
-  const { data: session } = useSession();
+export default async function Header() {
+  // Получаем данные сессии на сервере
+  const session = await getServerSession(authOptions);
 
   return (
     <header>
-      {session && <button onClick={() => signOut()}>Sign Out</button>}
+      {session?.user ? (
+        // Если есть сессия, рендерим клиентский компонент
+        <SignOutButton />
+      ) : (
+        <p>Please log in</p>
+      )}
     </header>
   );
-};
-
-export default Header;
+}

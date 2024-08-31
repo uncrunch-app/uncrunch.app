@@ -1,35 +1,40 @@
 import NextAuth, { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { JWT } from 'next-auth/jwt';
+import { GitServiceType } from '@/src/shared/types';
 
-// Определяем типы для пользователя и JWT токена
-interface CustomUser {
-  id: string;
-  token: string;
-  service: 'github' | 'forgejo';
+// Общие поля для пользователя, JWT и сессии, включая token
+interface BaseUserInfo {
   name?: string | null;
   email?: string | null;
   image?: string | null;
+  service: GitServiceType;
+  token: string;
 }
 
-interface CustomJWT extends JWT {
-  token: string;
-  service: 'github' | 'forgejo';
-  name?: string | null;
-  email?: string | null;
-  image?: string | null;
+// Пользователь с id
+interface CustomUser extends BaseUserInfo {
+  id: string;  // id уникален только для пользователя
 }
+
+// JWT, которое включает базовую информацию
+interface CustomJWT extends JWT, BaseUserInfo {}
 
 // Типизируем пользователя в сессии
-export interface CustomSessionUser {
-  name?: string | null;
-  email?: string | null;
-  image?: string | null;
-  token: string;
-  service: 'github' | 'forgejo';
-}
+export interface CustomSessionUser extends BaseUserInfo {}
 
-const createCredentialsProvider = (id: string, name: string, service: 'github' | 'forgejo') =>
+// Вспомогательная функция для обработки пользователя
+const getUser = (credentials: any, service: 'github' | 'forgejo'): CustomUser | null => {
+  const token = credentials?.token ?? '';
+  const name = credentials?.name ?? null;
+  const email = credentials?.email ?? null;
+  const image = credentials?.image ?? null;
+
+  return token ? { id: '1', token, service, name, email, image } : null;
+};
+
+// Фабрика провайдеров для авторизации через токен
+const createCredentialsProvider = (id: string, name: string, service: GitServiceType) =>
   CredentialsProvider({
     id: `${id}-token`,
     name: `${name} Token`,
@@ -39,21 +44,10 @@ const createCredentialsProvider = (id: string, name: string, service: 'github' |
       email: { label: "Email", type: "text" },
       image: { label: "Image", type: "text" }
     },
-    authorize: async (credentials) => {
-      const token = credentials?.token ?? '';
-      const name = credentials?.name ?? null;
-      const email = credentials?.email ?? null;
-      const image = credentials?.image ?? null;
-
-      if (token) {
-        const user: CustomUser = { id: '1', token, service, name, email, image };
-        return user;
-      }
-      return null;
-    }
+    authorize: (credentials) => getUser(credentials, service)
   });
 
-const options: NextAuthOptions = {
+export const authOptions: NextAuthOptions = {
   providers: [
     createCredentialsProvider('github', 'GitHub', 'github'),
     createCredentialsProvider('forgejo', 'Forgejo', 'forgejo')
@@ -61,32 +55,18 @@ const options: NextAuthOptions = {
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        const customUser = user as CustomUser;
-        token = {
-          ...token,
-          token: customUser.token,
-          service: customUser.service,
-          name: customUser.name,
-          email: customUser.email,
-          image: customUser.image,
-        } as CustomJWT;
+        const { token: userToken, service, name, email, image } = user as CustomUser;
+        token = { ...token, token: userToken, service, name, email, image } as CustomJWT;
       }
       return token;
     },
     async session({ session, token }) {
-      // Расширяем session.user типом CustomSessionUser
-      session.user = {
-        ...session.user,
-        token: (token as CustomJWT).token,
-        service: (token as CustomJWT).service,
-        name: (token as CustomJWT).name || null,
-        email: (token as CustomJWT).email || null,
-        image: (token as CustomJWT).image || null,
-      } as CustomSessionUser;
+      const { token: userToken, service, name, email, image } = token as CustomJWT;
+      session.user = { token: userToken, service, name, email, image } as CustomSessionUser;
       return session;
     }
   }
 };
 
-const handler = NextAuth(options);
+const handler = NextAuth(authOptions);
 export { handler as GET, handler as POST };
