@@ -1,7 +1,17 @@
 import { ReactNode } from 'react';
 import Providers from '../src/components/Providers';
-import Header from '@/src/components/Header';
-import Head from 'next/head';
+import { Header } from '@/src/3-widgets/header';
+import '@/src/6-shared/styles/global.scss'
+
+import 'normalize.css/normalize.css';
+import '@fontsource/inter/200.css';
+import '@fontsource/inter/300.css';
+import '@fontsource/inter/400.css';
+import '@fontsource/inter/500.css';
+import '@fontsource/inter/600.css';
+import '@fontsource/inter/700.css';
+import '@fontsource/inter/800.css';
+import '@fontsource/inter/900.css';
 
 export const metadata = {
   title: 'Uncrunch',
@@ -46,19 +56,11 @@ export const metadata = {
     ],
   },
   manifest: '/manifest.webmanifest',
-}
+};
 
 const RootLayout = ({ children }: { children: ReactNode }) => {
   return (
     <html lang="ru">
-      <Head>
-        <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png" />
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png" />
-        <link rel="manifest" href="/manifest.webmanifest" />
-        <meta name="theme-color" content="#ffffff" />
-        <title>{metadata.title}</title>
-      </Head>
       <body>
         <Providers>
           <Header />

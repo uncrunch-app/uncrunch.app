@@ -1,0 +1,16 @@
+// Logo.module.scss
+
+.logoContainer {
+  width: var(--logo-width);
+  height: var(--logo-height);
+
+  rect {
+    fill: var(--logo-bg-color);
+    stroke: var(--logo-border-color, none);
+    stroke-width: var(--logo-border-width, 0);
+  }
+
+  path {
+    fill: var(--logo-color);
+  }
+}

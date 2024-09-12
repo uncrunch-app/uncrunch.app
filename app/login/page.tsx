@@ -4,7 +4,7 @@ import { signIn } from 'next-auth/react';
 import { FormEvent, useState } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { useLazyGetUserDataQuery } from '../services/github';
-import { GitServiceType } from '@/src/shared/types';
+import { GitServiceType } from '@/src/6-shared/types';
 
 const LoginPage = () => {
   const [token, setToken] = useState('');

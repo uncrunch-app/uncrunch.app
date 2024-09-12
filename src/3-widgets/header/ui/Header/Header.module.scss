@@ -1,0 +1,13 @@
+.headerContainer {
+  background-color: var(--color-green);
+  padding: 10px 20px;
+  color: var(--color-cream);
+  display: flex;
+  justify-content: space-between;
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}

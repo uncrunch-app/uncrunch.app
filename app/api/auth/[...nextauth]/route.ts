@@ -1,7 +1,7 @@
 import NextAuth, { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { JWT } from 'next-auth/jwt';
-import { GitServiceType } from '@/src/shared/types';
+import { GitServiceType } from '@/src/6-shared/types';
 
 // Общие поля для пользователя, JWT и сессии, включая token
 interface BaseUserInfo {

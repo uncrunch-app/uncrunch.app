@@ -1,0 +1,22 @@
+import { COLOR_CREAM, COLOR_GREEN } from './colors';
+
+import {
+  WIDTH_S_MOBILE,
+  WIDTH_M_MOBILE,
+  WIDTH_L_MOBILE,
+  WIDTH_TABLET,
+  WIDTH_S_LAPTOP,
+  WIDTH_L_LAPTOP,
+  WIDTH_DESKTOP,
+} from './breakpoints';
+
+export { COLOR_CREAM, COLOR_GREEN };
+export {
+  WIDTH_S_MOBILE,
+  WIDTH_M_MOBILE,
+  WIDTH_L_MOBILE,
+  WIDTH_TABLET,
+  WIDTH_S_LAPTOP,
+  WIDTH_L_LAPTOP,
+  WIDTH_DESKTOP,
+};

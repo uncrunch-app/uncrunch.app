@@ -2,16 +2,19 @@
   "name": "uncrunch-next-auth",
   "version": "0.1.0",
   "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
+"scripts": {
+  "dev": "npm run convert-scss-to-ts && next dev",
+  "build": "npm run convert-scss-to-ts && next build",
+  "start": "npm run convert-scss-to-ts && next start",
+  "lint": "next lint",
+  "convert-scss-to-ts": "node scripts/convert-sass-to-ts.mjs src/6-shared/constants/colors.scss src/6-shared/constants/colors.ts"
+},
   "dependencies": {
+    "@fontsource/inter": "^5.0.21",
     "@reduxjs/toolkit": "^2.2.6",
     "next": "^14.2.5",
     "next-auth": "^4.24.7",
+    "normalize.css": "^8.0.1",
     "react": "^18",
     "react-dom": "^18",
     "react-redux": "^9.1.2"
@@ -22,6 +25,7 @@
     "@types/react-dom": "^18",
     "eslint": "^8",
     "eslint-config-next": "14.2.5",
+    "sass": "^1.78.0",
     "typescript": "^5"
   }
 }
