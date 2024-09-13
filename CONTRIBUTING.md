@@ -4,7 +4,7 @@ We're excited that you're interested in contributing to the `uncrunch`! All type
 
 ## Reporting Bugs
 
-Before reporting a bug, please check if it has already been reported. You can search through existing issues [here](https://github.com/uncrunch/uncrunch.app/issues).
+Before reporting a bug, please check if it has already been reported. You can search through existing issues [here](https://github.com/uncrunch-app/uncrunch.app/issues).
 
 If you find a new issue and believe it's a bug, please open a new issue. Include as many details as possible, describe the problem, and provide steps to reproduce it, ideally with code or screenshots.
 
