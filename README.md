@@ -23,5 +23,12 @@ Thanks again for your support, it is much appreciated! 🙏
 <h2> © License</h2>
 <a href="https://github.com/uncrunch-app/uncrunch.app/blob/main/LICENSE">GNU GPL v3.0</a> © 2024 <a href="https://github.com/uncrunch-app">Uncrunch</a> and <a href="https://github.com/uncrunch-app/uncrunch.app/graphs/contributors">contributors</a>
 
+<br/>
+<br/>
+
+<a href="https://github.com/uncrunch-app/uncrunch.app/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=uncrunch-app/uncrunch.app" />
+</a>
+
 <h2>❤ Fund this project</h2>
 <a href="https://donate.teplostanski.dev" target="_blank">donate.teplostanski.dev</a>
