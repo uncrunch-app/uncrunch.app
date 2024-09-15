@@ -1,6 +1,6 @@
 // githubUserApi.ts
-import { githubApiBaseQuery } from '@/src/6-shared/api/githubApiConfig';
-import { createApi } from '@reduxjs/toolkit/query/react';
+import { githubApiBaseQuery } from '@/src/6-shared/api/githubApiConfig'
+import { createApi } from '@reduxjs/toolkit/query/react'
 
 export const githubUserApi = createApi({
   reducerPath: 'githubUserApi',
@@ -10,21 +10,21 @@ export const githubUserApi = createApi({
       queryFn: async (arg, _queryApi, _extraOptions, fetchWithBQ) => {
         const headers = arg?.token
           ? { Authorization: `Bearer ${arg.token}` }
-          : undefined;
+          : undefined
 
         const result = await fetchWithBQ({
           url: 'user',
           headers,
-        });
+        })
 
         if (result.error) {
-          return { error: result.error };
+          return { error: result.error }
         }
 
-        return { data: result.data };
+        return { data: result.data }
       },
     }),
   }),
-});
+})
 
-export const { useGetUserDataQuery, useLazyGetUserDataQuery } = githubUserApi;
+export const { useGetUserDataQuery, useLazyGetUserDataQuery } = githubUserApi

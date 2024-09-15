@@ -1,1 +1,1 @@
-export type GitServiceType = 'github' | 'forgejo';
+export type GitServiceType = 'github' | 'forgejo'

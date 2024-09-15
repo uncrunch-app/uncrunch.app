@@ -2,15 +2,20 @@
   "name": "uncrunch-next-auth",
   "version": "0.1.0",
   "private": true,
-"scripts": {
-  "dev": "npm run convert-scss-to-ts && next dev",
-  "build": "npm run convert-scss-to-ts && next build",
-  "start": "npm run convert-scss-to-ts && next start",
-  "lint": "next lint",
-  "convert-scss-to-ts": "node scripts/convert-sass-to-ts.mjs src/6-shared/constants/colors.scss src/6-shared/constants/colors.ts"
-},
+  "scripts": {
+    "dev": "npm run convert-scss-to-ts && next dev",
+    "build": "npm run convert-scss-to-ts && next build",
+    "start": "npm run convert-scss-to-ts && next start",
+    "lint": "next lint",
+    "format": "prettier . --write",
+    "convert-scss-to-ts": "node scripts/convert-sass-to-ts.mjs src/6-shared/constants/colors.scss src/6-shared/constants/colors.ts"
+  },
   "dependencies": {
+    "@emotion/react": "^11.13.3",
+    "@emotion/styled": "^11.13.0",
     "@fontsource/inter": "^5.0.21",
+    "@mui/material": "^6.1.0",
+    "@mui/styles": "^6.1.0",
     "@reduxjs/toolkit": "^2.2.6",
     "next": "^14.2.5",
     "next-auth": "^4.24.7",
@@ -25,6 +30,7 @@
     "@types/react-dom": "^18",
     "eslint": "^8",
     "eslint-config-next": "14.2.5",
+    "prettier": "^3.3.3",
     "sass": "^1.78.0",
     "typescript": "^5"
   }

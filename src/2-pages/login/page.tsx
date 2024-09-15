@@ -1,46 +1,46 @@
-'use client';
+'use client'
 
-import { signIn, useSession } from 'next-auth/react';
-import { FormEvent, useState } from 'react';
-import { useSearchParams, useRouter } from 'next/navigation';
-import { GitServiceType } from '@/src/6-shared/types';
-import { useLazyGetUserDataQuery } from '@/src/5-entities/user';
-import { CustomSessionUser } from '../../../app/api/auth/[...nextauth]/route';
-import { SignOutButton } from '@/src/6-shared/ui';
+import { signIn, useSession } from 'next-auth/react'
+import { FormEvent, useState } from 'react'
+import { useSearchParams, useRouter } from 'next/navigation'
+import { GitServiceType } from '@/src/6-shared/types'
+import { useLazyGetUserDataQuery } from '@/src/5-entities/user'
+import { CustomSessionUser } from '../../../app/api/auth/[...nextauth]/route'
+import { SignOutButton } from '@/src/6-shared/ui'
 
 const LoginPage = () => {
-  const [token, setToken] = useState('');
-  const [service, setService] = useState<GitServiceType | null>(null);
-  const [error, setError] = useState<string | null>(null);
-  const searchParams = useSearchParams();
-  const router = useRouter();
-  const [triggerGetUserData] = useLazyGetUserDataQuery();
+  const [token, setToken] = useState('')
+  const [service, setService] = useState<GitServiceType | null>(null)
+  const [error, setError] = useState<string | null>(null)
+  const searchParams = useSearchParams()
+  const router = useRouter()
+  const [triggerGetUserData] = useLazyGetUserDataQuery()
 
-  const { data: session, status } = useSession();
-  const callbackUrl = searchParams.get('callbackUrl') || '/';
+  const { data: session, status } = useSession()
+  const callbackUrl = searchParams.get('callbackUrl') || '/'
 
   const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    setError(null);
+    e.preventDefault()
+    setError(null)
 
-    let name = null;
-    let login = null;
-    let image = null;
+    let name = null
+    let login = null
+    let image = null
 
     if (service === 'github') {
-      const { data, error: githubError } = await triggerGetUserData({ token });
+      const { data, error: githubError } = await triggerGetUserData({ token })
 
       if (githubError) {
-        setError((githubError as any).data?.message || 'Invalid GitHub token');
-        return;
+        setError((githubError as any).data?.message || 'Invalid GitHub token')
+        return
       }
 
-      name = data?.name || null;
-      login = data?.login || null;
-      image = data?.avatar_url || null;
+      name = data?.name || null
+      login = data?.login || null
+      image = data?.avatar_url || null
     }
 
-    const provider = service === 'github' ? 'github-token' : 'forgejo-token';
+    const provider = service === 'github' ? 'github-token' : 'forgejo-token'
     const result = await signIn(provider, {
       token,
       redirect: false,
@@ -48,29 +48,29 @@ const LoginPage = () => {
       name,
       login,
       image,
-    });
+    })
 
     if (result?.error) {
-      setError(result.error || 'Invalid token or login failed');
+      setError(result.error || 'Invalid token or login failed')
     } else {
-      router.push(callbackUrl);
+      router.push(callbackUrl)
     }
-  };
+  }
 
   // Показываем индикатор загрузки, пока сессия не определена
   if (status === 'loading') {
-    return <div>Loading...</div>;
+    return <div>Loading...</div>
   }
 
   // Если пользователь уже авторизован, рендерим сообщение
   if (status === 'authenticated' && session?.user) {
-    const user = session.user as CustomSessionUser;
+    const user = session.user as CustomSessionUser
     return (
       <div>
         <h1>Вы уже авторизованы как {user.name || user.login}</h1>
         <SignOutButton />
       </div>
-    );
+    )
   }
 
   // Если пользователь не авторизован, рендерим форму авторизации
@@ -112,7 +112,7 @@ const LoginPage = () => {
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default LoginPage;
+export default LoginPage

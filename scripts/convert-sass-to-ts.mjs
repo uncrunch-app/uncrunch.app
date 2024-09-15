@@ -1,6 +1,6 @@
-import * as sass from 'sass';
-import fs from 'fs/promises';
-import path from 'path';
+import * as sass from 'sass'
+import fs from 'fs/promises'
+import path from 'path'
 
 /**
  * Определяет тип переменной на основе её значения.
@@ -9,8 +9,8 @@ import path from 'path';
  * @returns Тип переменной: 'string' или 'number'.
  */
 const determineType = (value) => {
-  return isNaN(value) ? 'string' : 'number';
-};
+  return isNaN(value) ? 'string' : 'number'
+}
 
 /**
  * Конвертирует SCSS переменные в TypeScript файл.
@@ -20,17 +20,17 @@ const determineType = (value) => {
  */
 const convertSassToTs = async (sassFilePath, tsOutputPath) => {
   try {
-    const result = sass.compile(sassFilePath);
-    const cssContent = result.css.toString();
+    const result = sass.compile(sassFilePath)
+    const cssContent = result.css.toString()
 
-    const variableRegex = /--([\w-]+):\s*([^;]+);/g;
+    const variableRegex = /--([\w-]+):\s*([^;]+);/g
 
-    const variables = [];
-    let match;
+    const variables = []
+    let match
     while ((match = variableRegex.exec(cssContent)) !== null) {
-      const value = match[2].trim();
-      const type = determineType(value);
-      variables.push({ name: match[1], value, type });
+      const value = match[2].trim()
+      const type = determineType(value)
+      variables.push({ name: match[1], value, type })
     }
 
     const tsContent = variables
@@ -38,18 +38,18 @@ const convertSassToTs = async (sassFilePath, tsOutputPath) => {
         (variable) =>
           `export const ${variable.name.toUpperCase().replace(/-/g, '_')}: ${variable.type} = ${variable.type === 'number' ? Number(variable.value) : `'${variable.value}'`};`
       )
-      .join('\n');
+      .join('\n')
 
-    await fs.writeFile(tsOutputPath, tsContent);
-    console.info(`SCSS переменные успешно конвертированы в ${tsOutputPath}`);
+    await fs.writeFile(tsOutputPath, tsContent)
+    console.info(`SCSS переменные успешно конвертированы в ${tsOutputPath}`)
   } catch (error) {
-    console.error('Ошибка при конвертации SCSS переменных:', error);
+    console.error('Ошибка при конвертации SCSS переменных:', error)
   }
-};
+}
 
 // Получение путей из аргументов командной строки
-const args = process.argv.slice(2);
-const sassFilePath = path.resolve(args[0]);
-const tsOutputPath = path.resolve(args[1]);
+const args = process.argv.slice(2)
+const sassFilePath = path.resolve(args[0])
+const tsOutputPath = path.resolve(args[1])
 
-convertSassToTs(sassFilePath, tsOutputPath);
+convertSassToTs(sassFilePath, tsOutputPath)

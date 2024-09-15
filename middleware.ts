@@ -1,13 +1,13 @@
 // middleware.ts
 
-import { withAuth } from 'next-auth/middleware';
+import { withAuth } from 'next-auth/middleware'
 
 export default withAuth({
   pages: {
     signIn: '/login',
     signOut: '/login',
   },
-});
+})
 
 export const config = {
   matcher: [
@@ -17,4 +17,4 @@ export const config = {
      */
     '/((?!login).*)',
   ],
-};
+}

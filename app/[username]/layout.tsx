@@ -1,3 +1,3 @@
-import HomePageLayout from "@/src/1-app/layouts/HomePageLayout";
+import HomePageLayout from '@/src/1-app/layouts/HomePageLayout'
 
-export default HomePageLayout;
+export default HomePageLayout

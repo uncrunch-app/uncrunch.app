@@ -65,32 +65,35 @@
 //}
 
 // app/[username]/page.tsx
-import { getServerSession } from 'next-auth';
-import { authOptions, CustomSessionUser } from '../../../app/api/auth/[...nextauth]/route';
-import { notFound, redirect } from 'next/navigation';
+import { getServerSession } from 'next-auth'
+import {
+  authOptions,
+  CustomSessionUser,
+} from '../../../app/api/auth/[...nextauth]/route'
+import { notFound, redirect } from 'next/navigation'
 
 interface HomePageProps {
   params: {
-    username: string;
-  };
+    username: string
+  }
 }
 
 export default async function HomePage({ params }: HomePageProps) {
-  const session = await getServerSession(authOptions);
-  const customUser = session?.user as CustomSessionUser;
-  
+  const session = await getServerSession(authOptions)
+  const customUser = session?.user as CustomSessionUser
+
   // Проверяем наличие сессии
   if (!session) {
     // Если пользователь не авторизован, перенаправляем на страницу логина или показываем 404
-    return notFound();
+    return notFound()
   }
 
-  const { username } = params;
-  const sessionUsername = `~${customUser.login}`; // Формируем sessionUsername
+  const { username } = params
+  const sessionUsername = `~${customUser.login}` // Формируем sessionUsername
 
   // Если логин не совпадает с текущим пользователем, делаем редирект на рутовый роут
   if (sessionUsername !== username) {
-    return redirect('/'); // Редирект на рутовый роут
+    return redirect('/') // Редирект на рутовый роут
   }
 
   // Рендерим страницу пользователя
@@ -99,5 +102,5 @@ export default async function HomePage({ params }: HomePageProps) {
       <h1>Welcome, {username}!</h1>
       <p>This is your profile page.</p>
     </div>
-  );
+  )
 }

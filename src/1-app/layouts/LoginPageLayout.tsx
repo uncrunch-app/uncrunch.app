@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode } from 'react'
 
 const LoginPageLayout = ({ children }: { children: ReactNode }) => {
   return (
@@ -6,7 +6,7 @@ const LoginPageLayout = ({ children }: { children: ReactNode }) => {
       <h1>LOGIN LAYOUT</h1>
       {children}
     </>
-  );
-};
+  )
+}
 
-export default LoginPageLayout;
+export default LoginPageLayout

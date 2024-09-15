@@ -1,3 +1,3 @@
-import LoginPageLayout from "@/src/1-app/layouts/LoginPageLayout";
+import LoginPageLayout from '@/src/1-app/layouts/LoginPageLayout'
 
-export default LoginPageLayout;
+export default LoginPageLayout

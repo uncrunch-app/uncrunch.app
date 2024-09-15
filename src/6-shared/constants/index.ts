@@ -1,4 +1,4 @@
-import { COLOR_CREAM, COLOR_GREEN } from './colors';
+import { COLOR_CREAM, COLOR_GREEN } from './colors'
 
 import {
   WIDTH_S_MOBILE,
@@ -8,9 +8,9 @@ import {
   WIDTH_S_LAPTOP,
   WIDTH_L_LAPTOP,
   WIDTH_DESKTOP,
-} from './breakpoints';
+} from './breakpoints'
 
-export { COLOR_CREAM, COLOR_GREEN };
+export { COLOR_CREAM, COLOR_GREEN }
 export {
   WIDTH_S_MOBILE,
   WIDTH_M_MOBILE,
@@ -19,4 +19,4 @@ export {
   WIDTH_S_LAPTOP,
   WIDTH_L_LAPTOP,
   WIDTH_DESKTOP,
-};
+}
