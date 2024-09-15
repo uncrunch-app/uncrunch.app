@@ -6,7 +6,7 @@ import { GitServiceType } from '@/src/6-shared/types';
 // Общие поля для пользователя, JWT и сессии, включая token
 interface BaseUserInfo {
   name?: string | null;
-  email?: string | null;
+  login?: string | null; // Убираем email, добавляем login
   image?: string | null;
   service: GitServiceType;
   token: string;
@@ -24,16 +24,15 @@ interface CustomJWT extends JWT, BaseUserInfo {}
 export interface CustomSessionUser extends BaseUserInfo {}
 
 // Вспомогательная функция для обработки пользователя
-const getUser = (credentials: any, service: 'github' | 'forgejo'): CustomUser | null => {
+const getUser = (credentials: any, service: GitServiceType): CustomUser | null => {
   const token = credentials?.token ?? '';
   const name = credentials?.name ?? null;
-  const email = credentials?.email ?? null;
+  const login = credentials?.login ?? null;  // Используем login вместо email
   const image = credentials?.image ?? null;
 
-  return token ? { id: '1', token, service, name, email, image } : null;
+  return token ? { id: '1', token, service, name, login, image } : null;
 };
 
-// Фабрика провайдеров для авторизации через токен
 const createCredentialsProvider = (id: string, name: string, service: GitServiceType) =>
   CredentialsProvider({
     id: `${id}-token`,
@@ -41,7 +40,7 @@ const createCredentialsProvider = (id: string, name: string, service: GitService
     credentials: {
       token: { label: `${name} Token`, type: "text" },
       name: { label: "Name", type: "text" },
-      email: { label: "Email", type: "text" },
+      login: { label: "Login", type: "text" }, // Заменяем на login
       image: { label: "Image", type: "text" }
     },
     authorize: (credentials) => getUser(credentials, service)
@@ -55,14 +54,17 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        const { token: userToken, service, name, email, image } = user as CustomUser;
-        token = { ...token, token: userToken, service, name, email, image } as CustomJWT;
+        const { token: userToken, service, name, login, image } = user as CustomUser;
+        token = { ...token, token: userToken, service, name, login, image } as CustomJWT;
       }
       return token;
     },
     async session({ session, token }) {
-      const { token: userToken, service, name, email, image } = token as CustomJWT;
-      session.user = { token: userToken, service, name, email, image } as CustomSessionUser;
+      const { token: userToken, service, name, login, image } = token as CustomJWT;
+
+      // Добавляем login в session.user
+      session.user = { token: userToken, service, name, login, image } as CustomSessionUser;
+
       return session;
     }
   }
