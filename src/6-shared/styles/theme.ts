@@ -1,18 +1,16 @@
-// src/theme.ts
-import { createTheme } from '@mui/material/styles'
-import { COLOR_CREAM } from '../constants'
+import { createTheme } from '@mui/material/styles';
+import { COLOR_CREAM, COLOR_DARK, COLOR_GREEN } from '../constants';
+import '@/src/6-shared/constants/colors.scss';
 
-import '@/src/6-shared/constants/colors.scss'
-
-import 'normalize.css/normalize.css'
-import '@fontsource/inter/200.css'
-import '@fontsource/inter/300.css'
-import '@fontsource/inter/400.css'
-import '@fontsource/inter/500.css'
-import '@fontsource/inter/600.css'
-import '@fontsource/inter/700.css'
-import '@fontsource/inter/800.css'
-import '@fontsource/inter/900.css'
+import 'normalize.css/normalize.css';
+import '@fontsource/inter/200.css';
+import '@fontsource/inter/300.css';
+import '@fontsource/inter/400.css';
+import '@fontsource/inter/500.css';
+import '@fontsource/inter/600.css';
+import '@fontsource/inter/700.css';
+import '@fontsource/inter/800.css';
+import '@fontsource/inter/900.css';
 
 const theme = createTheme({
   breakpoints: {
@@ -26,12 +24,12 @@ const theme = createTheme({
   },
   palette: {
     primary: {
-      main: '#1f1f2d',
-      contrastText: '#fff',
+      main: COLOR_GREEN,
+      contrastText: COLOR_CREAM,
     },
     secondary: {
-      main: '#dc004e',
-      contrastText: '#fff',
+      main: COLOR_CREAM,
+      contrastText: COLOR_GREEN,
     },
     success: {
       main: '#4caf50',
@@ -42,14 +40,15 @@ const theme = createTheme({
       contrastText: '#fff',
     },
     background: {
-      default: '#f4f6f8', // цвет фона
-      paper: '#fff', // цвет фона для компонентов, как Card
+      default: '#f4f6f8',
+      paper: '#fff',
     },
     text: {
       primary: '#1f1f2d',
       secondary: '#6e6e6e',
       disabled: '#bdbdbd',
     },
+
   },
   typography: {
     fontFamily: '"Inter", sans-serif',
@@ -87,7 +86,7 @@ const theme = createTheme({
         body: {
           backgroundColor: COLOR_CREAM,
           fontFamily: '"Inter", sans-serif',
-          color: '#1f1f2d',
+          color: COLOR_DARK,
         },
         p: {
           margin: 0,
@@ -95,6 +94,6 @@ const theme = createTheme({
       },
     },
   },
-})
+});
 
-export default theme
+export default theme;
