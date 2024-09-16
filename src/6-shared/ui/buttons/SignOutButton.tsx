@@ -4,7 +4,7 @@ import { signOut } from 'next-auth/react'
 import Button from './Button'
 
 const SignOutButton = () => {
-  return <Button color='secondary' border onClick={() => signOut()}>Sign Out</Button>
+  return <Button color='secondary' border='secondary' onClick={() => signOut()}>Sign Out</Button>
 }
 
 export default SignOutButton

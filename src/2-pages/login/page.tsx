@@ -137,10 +137,10 @@ const LoginPage = () => {
         <>
           <p>Авторизоваться с помощью</p>
           <div className={styles.buttonContainer}>
-            <Button border onClick={() => setService('github')}>
+            <Button border='primary' onClick={() => setService('github')}>
               Токена GitHub
             </Button>
-            <Button border onClick={() => setService('forgejo')}>
+            <Button border='secondary' onClick={() => setService('forgejo')}>
               Токена Forgejo инстанса
             </Button>
           </div>
@@ -217,12 +217,12 @@ const LoginPage = () => {
             </FormControl>
 
             <div className={styles.buttonContainer}>
-              <Button type="submit" border>
+              <Button type="submit" border='primary'>
                 Sign In
               </Button>
               <Button
                 color="secondary"
-                border
+                border='primary'
                 type="button"
                 onClick={() => setService(null)}
               >
