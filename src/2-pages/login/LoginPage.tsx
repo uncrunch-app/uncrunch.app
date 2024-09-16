@@ -138,13 +138,25 @@ const LoginPage = () => {
         {service === null ? (
           <>
             <h1 className={styles.title}>Вход</h1>
-            <p className={styles.subtitle}>С помощью токена Github</p>
+
             <div className={styles.buttonContainer}>
-              <Button className={styles.button} border="primary" onClick={() => setService('github')}>
+              <p className={styles.subtitle}>С помощью токена Github</p>
+              <Button
+                className={styles.button}
+                border="primary"
+                onClick={() => setService('github')}
+              >
                 GitHub
               </Button>
-              <p className={styles.subtitle}>С помощью токена инстансов Forgejo (codeberg.org, git.disroot.org и пр.)</p>
-              <Button className={styles.button} border="primary" onClick={() => setService('forgejo')}>
+              <p className={styles.subtitle}>
+                С помощью токена инстансов Forgejo (codeberg.org,
+                git.disroot.org и пр.)
+              </p>
+              <Button
+                className={styles.button}
+                border="primary"
+                onClick={() => setService('forgejo')}
+              >
                 Forgejo
               </Button>
             </div>
