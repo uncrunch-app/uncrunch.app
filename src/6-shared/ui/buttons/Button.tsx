@@ -9,10 +9,10 @@ type BorderType = 'primary' | 'secondary' | undefined;
 
 export const hoverStyles: any = {
   primary: {
-    color: '#1900ff',
+    color: COLOR_GREEN,
   },
   secondary: {
-    color: '#00f7ff',
+    color: COLOR_CREAM,
   },
 };
 
