@@ -10,7 +10,7 @@
 **Supported Git hosting services:**
 
 - `GitHub`
-- `Forgejo` instances (`Codeberg`, `Disroot`, etc.)
+- `Forgejo` instances (`codeberg.org`, `git.disroot.org`, etc.)
 
 ## 🤝 Contributing
 
@@ -21,7 +21,7 @@ Before you contribute to the development of the project, read the [rules](https:
 Thanks again for your support, it is much appreciated! 🙏
 
 <h2> © License</h2>
-<a href="https://github.com/uncrunch-app/uncrunch.app/blob/main/LICENSE">GNU AGPL v3.0</a> © 2024 <a href="https://github.com/uncrunch-app">Uncrunch</a> and <a href="https://github.com/uncrunch-app/uncrunch.app/graphs/contributors">contributors</a>
+<a href="https://github.com/uncrunch-app/uncrunch.app/blob/main/LICENSE">AGPL-3.0 license</a> © 2024 <a href="https://github.com/uncrunch-app">Uncrunch</a> and contributors
 
 <br/>
 <br/>
