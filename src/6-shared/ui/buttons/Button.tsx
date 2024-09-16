@@ -1,40 +1,33 @@
-import { styled, Theme } from '@mui/material/styles';
-import MuiButton from '@mui/material/Button';
-import { ButtonProps as MuiButtonProps } from '@mui/material/Button';
+import { styled, Theme } from '@mui/material/styles'
+import MuiButton from '@mui/material/Button'
+import { ButtonProps as MuiButtonProps } from '@mui/material/Button'
 
 // Тип для color
-type ColorType = keyof Theme['palette'];
+type ColorType = keyof Theme['palette']
 
 // Расширяем ButtonProps
 interface CustomButtonProps extends Omit<MuiButtonProps, 'color'> {
-  color?: ColorType;
-  border?: boolean; // Новый проп для управления отображением бордера
+  color?: ColorType
+  border?: boolean
 }
 
-// src/styles/customButtonStyles.ts
 export const hoverStyles: any = {
   primary: {
-    backgroundColor: '#00FF00', // кастомный цвет для primary при hover
     color: '#FF00FF',
-    borderColor: '#00FFFF',
   },
   secondary: {
-    backgroundColor: '#FF00FF', // кастомный цвет для secondary при hover
-    color: '#00FF00',
-    borderColor: '#FFFF00',
+    color: '#ff0000'
+  }
+}
+
+export const borderColor: any = {
+  primary: {
+    color: '#FF00FF',
   },
-  success: {
-    backgroundColor: '#00FFFF',
-    color: '#FFFF00',
-    borderColor: '#00FF00',
-  },
-  warning: {
-    backgroundColor: '#FFFF00',
-    color: '#00FFFF',
-    borderColor: '#FF00FF',
-  },
-  // Добавь другие кастомные стили при необходимости
-};
+  secondary: {
+    color: '#ff0000'
+  }
+}
 
 const Button = styled(MuiButton, {
   shouldForwardProp: (prop) => prop !== 'color' && prop !== 'border',
@@ -43,12 +36,12 @@ const Button = styled(MuiButton, {
     Record<
       ColorType,
       {
-        backgroundColor: string;
-        color: string;
-        borderColor: string;
-        hoverBackgroundColor: string;
-        hoverColor: string;
-        hoverBorderColor: string;
+        backgroundColor: string
+        color: string
+        borderColor: string
+        hoverBackgroundColor: string
+        hoverColor: string
+        hoverBorderColor: string
       }
     >
   > = {
@@ -85,23 +78,24 @@ const Button = styled(MuiButton, {
       hoverBorderColor: theme.palette.success.main,
     },
     // Можно добавить другие варианты при необходимости
-  };
+  }
 
   // Получаем стили для кнопки по выбранному цвету
-  const styles = buttonStyles[color] || buttonStyles.primary;
+  const styles = buttonStyles[color] || buttonStyles.primary
 
   return {
     backgroundColor: styles?.backgroundColor,
     color: styles?.color,
-    border: border ? `2px solid ${styles?.borderColor}` : 'none', // Управление бордером
+    border: border ? `2px solid ${styles?.borderColor}` : 'none',
     borderRadius: '16px',
     padding: '8px 16px',
+    textTransform: 'none',
     '&:hover': {
       backgroundColor: styles?.hoverBackgroundColor,
       color: styles?.hoverColor,
       borderColor: border ? styles?.hoverBorderColor : 'none', // Управление бордером при ховере
     },
-  };
-});
+  }
+})
 
-export default Button;
+export default Button
