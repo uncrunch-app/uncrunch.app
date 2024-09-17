@@ -13,26 +13,44 @@ const determineType = (value) => {
 }
 
 /**
- * Конвертирует SCSS переменные в TypeScript файл.
+ * Конвертирует SCSS и CSS переменные в TypeScript файл.
  *
  * @param {string} sassFilePath Путь к файлу SCSS, содержащему переменные.
  * @param {string} tsOutputPath Путь к выходному файлу TypeScript.
  */
 const convertSassToTs = async (sassFilePath, tsOutputPath) => {
   try {
+    // Чтение исходного файла SCSS
+    const sassContent = await fs.readFile(sassFilePath, 'utf-8')
+
+    // Компиляция SCSS в CSS
     const result = sass.compile(sassFilePath)
     const cssContent = result.css.toString()
 
-    const variableRegex = /--([\w-]+):\s*([^;]+);/g
+    // Регулярное выражение для поиска SCSS переменных ($var) в исходном файле
+    const scssVariableRegex = /\$([\w-]+):\s*([^;]+);/g
+    const cssVariableRegex = /--([\w-]+):\s*([^;]+);/g
 
     const variables = []
+
+    // Извлечение SCSS переменных из исходного SCSS-файла
     let match
-    while ((match = variableRegex.exec(cssContent)) !== null) {
+    while ((match = scssVariableRegex.exec(sassContent)) !== null) {
+      const name = match[1].trim()
       const value = match[2].trim()
       const type = determineType(value)
-      variables.push({ name: match[1], value, type })
+      variables.push({ name, value, type })
     }
 
+    // Извлечение CSS переменных из скомпилированного CSS
+    while ((match = cssVariableRegex.exec(cssContent)) !== null) {
+      const name = match[1].trim()
+      const value = match[2].trim()
+      const type = determineType(value)
+      variables.push({ name, value, type })
+    }
+
+    // Генерация TypeScript содержимого
     const tsContent = variables
       .map(
         (variable) =>
@@ -41,9 +59,9 @@ const convertSassToTs = async (sassFilePath, tsOutputPath) => {
       .join('\n')
 
     await fs.writeFile(tsOutputPath, tsContent)
-    console.info(`SCSS переменные успешно конвертированы в ${tsOutputPath}`)
+    console.info(`SCSS и CSS переменные успешно конвертированы в ${tsOutputPath}`)
   } catch (error) {
-    console.error('Ошибка при конвертации SCSS переменных:', error)
+    console.error('Ошибка при конвертации переменных:', error)
   }
 }
 

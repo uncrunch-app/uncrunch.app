@@ -1,13 +1,20 @@
 > [!WARNING]
 > The application is under development
 
-# Uncrunch
+<div align="center">
+<img src="https://raw.githubusercontent.com/uncrunch-app/uncrunch.app/main/logo.svg" alt="Uncrunch Logo" width="64">
 
-[uncrunch.app](https://uncrunch.app)
+<h1>Uncrunch</h1>
 
-> Be productive, don't crunch! Your data is yours. Manage notes and tasks with trusted `Git hosting-powered` storage
+<a href="https://uncrunch.app">uncrunch.app</a>
 
-**Supported Git hosting services:**
+<b>Be productive, don’t crunch! Your data is yours. Manage markdown notes, tasks and store them on a trusted Git hosting.</b>
+
+  <img alt="Website" src="https://img.shields.io/website?url=https%3A%2F%2Funcrunch.app&up_message=online&up_color=07912E&down_message=offline&down_color=d94a4a&style=flat-square&label=uncrunch.app&labelColor=1f2033">
+
+</div>
+
+## 🦾 Supported Git hosting services:
 
 - `GitHub`
 - `Forgejo` instances (`codeberg.org`, `git.disroot.org`, etc.)

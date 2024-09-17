@@ -1,25 +1,34 @@
-import { createTheme } from '@mui/material/styles';
-import { COLOR_CREAM, COLOR_DARK, COLOR_GREEN } from '../constants';
-import '@/src/6-shared/constants/colors.scss';
+import { createTheme } from '@mui/material/styles'
 
-import 'normalize.css/normalize.css';
-import '@fontsource/inter/200.css';
-import '@fontsource/inter/300.css';
-import '@fontsource/inter/400.css';
-import '@fontsource/inter/500.css';
-import '@fontsource/inter/600.css';
-import '@fontsource/inter/700.css';
-import '@fontsource/inter/800.css';
-import '@fontsource/inter/900.css';
+import {
+  COLOR_BLACK,
+  COLOR_BLACK_20,
+  COLOR_BLACK_40,
+  COLOR_BLACK_60,
+  COLOR_CREAM,
+  COLOR_GREEN,
+  COLOR_RED,
+  COLOR_WHITE,
+  COLOR_YELLOW,
+} from '../constants/colors'
+import {
+  WIDTH_XS,
+  WIDTH_SM,
+  WIDTH_MD,
+  WIDTH_LG,
+  WIDTH_XL,
+} from '../constants/breakpoints'
+
+const FONT_FAMILY = '"Inter", sans-serif'
 
 const theme = createTheme({
   breakpoints: {
     values: {
-      xs: 0,
-      sm: 600,
-      md: 960,
-      lg: 1280,
-      xl: 1920,
+      xs: WIDTH_XS,
+      sm: WIDTH_SM,
+      md: WIDTH_MD,
+      lg: WIDTH_LG,
+      xl: WIDTH_XL,
     },
   },
   palette: {
@@ -32,48 +41,51 @@ const theme = createTheme({
       contrastText: COLOR_GREEN,
     },
     success: {
-      main: '#4caf50',
-      contrastText: '#fff',
+      main: COLOR_RED,
+      contrastText: COLOR_WHITE,
     },
     warning: {
-      main: '#ff9800',
-      contrastText: '#fff',
+      main: COLOR_YELLOW,
+      contrastText: COLOR_BLACK,
     },
     background: {
-      default: '#f4f6f8',
-      paper: '#fff',
+      default: COLOR_CREAM,
+      paper: COLOR_WHITE,
     },
     text: {
-      primary: '#1f1f2d',
-      secondary: '#6e6e6e',
-      disabled: '#bdbdbd',
+      primary: COLOR_BLACK,
+      secondary: COLOR_WHITE,
+      disabled: COLOR_BLACK_60,
     },
-
+    action: {
+      disabled: COLOR_BLACK_40,
+      disabledBackground: COLOR_BLACK_20,
+    },
   },
   typography: {
-    fontFamily: '"Inter", sans-serif',
+    fontFamily: FONT_FAMILY,
     h1: {
-      fontFamily: '"Inter", sans-serif',
+      fontFamily: FONT_FAMILY,
       fontWeight: 700,
       fontSize: '3rem',
     },
     h2: {
-      fontFamily: '"Inter", sans-serif',
+      fontFamily: FONT_FAMILY,
       fontWeight: 600,
       fontSize: '2.5rem',
     },
     body1: {
-      fontFamily: '"Inter", sans-serif',
+      fontFamily: FONT_FAMILY,
       fontWeight: 400,
       fontSize: '1rem',
     },
     body2: {
-      fontFamily: '"Inter", sans-serif',
+      fontFamily: FONT_FAMILY,
       fontWeight: 200,
       fontSize: '0.9rem',
     },
     button: {
-      fontFamily: '"Inter", sans-serif',
+      fontFamily: FONT_FAMILY,
       fontWeight: 500,
     },
   },
@@ -85,8 +97,8 @@ const theme = createTheme({
         },
         body: {
           backgroundColor: COLOR_CREAM,
-          fontFamily: '"Inter", sans-serif',
-          color: COLOR_DARK,
+          fontFamily: FONT_FAMILY,
+          color: COLOR_BLACK,
         },
         p: {
           margin: 0,
@@ -94,6 +106,6 @@ const theme = createTheme({
       },
     },
   },
-});
+})
 
-export default theme;
+export default theme

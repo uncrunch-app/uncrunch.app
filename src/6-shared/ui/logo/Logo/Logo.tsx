@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from './Logo.module.scss'
-import { COLOR_CREAM, COLOR_GREEN } from '@/src/6-shared/constants'
+import { COLOR_CREAM, COLOR_GREEN } from '@/src/6-shared/constants/colors'
 
 interface LogoProps {
   width?: string

@@ -8,7 +8,9 @@
     "start": "npm run convert-scss-to-ts && next start",
     "lint": "next lint",
     "format": "prettier . --write",
-    "convert-scss-to-ts": "node scripts/convert-sass-to-ts.mjs src/6-shared/constants/colors.scss src/6-shared/constants/colors.ts"
+    "convert-scss-to-ts": "npm run convert-colors-scss && npm run convert-breakpoints-scss",
+    "convert-colors-scss": "node scripts/convert-sass-to-ts.mjs src/6-shared/constants/colors.scss src/6-shared/constants/colors.ts",
+    "convert-breakpoints-scss": "node scripts/convert-sass-to-ts.mjs src/6-shared/constants/breakpoints.scss src/6-shared/constants/breakpoints.ts"
   },
   "dependencies": {
     "@emotion/react": "^11.13.3",

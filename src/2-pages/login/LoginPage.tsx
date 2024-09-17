@@ -19,10 +19,15 @@ import Visibility from '@mui/icons-material/Visibility'
 import VisibilityOff from '@mui/icons-material/VisibilityOff'
 import OutlinedInput from '@mui/material/OutlinedInput'
 import FormHelperText from '@mui/material/FormHelperText'
-import { COLOR_GREEN } from '@/src/6-shared/constants'
+import {
+  COLOR_GREEN,
+  COLOR_GREEN_10,
+  COLOR_GREEN_50,
+} from '@/src/6-shared/constants/colors'
 
 const LoginPage = () => {
   const [token, setToken] = useState('')
+  const [instanceUrl, setInstanceUrl] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   const [service, setService] = useState<GitServiceType | null>(null)
   const [error, setError] = useState<string | null>(null)
@@ -93,31 +98,52 @@ const LoginPage = () => {
 
   if (status === 'loading') {
     return (
-      <>
+      <div className={styles.container}>
         <div className={styles.skeletonContainer}>
-          <Skeleton width={220} height={24} animation="wave" />
+          <Skeleton
+            width={80}
+            variant="rounded"
+            height={48}
+            animation="wave"
+            sx={{ backgroundColor: COLOR_GREEN_10 }}
+          />
+
           <div className={styles.buttonContainer}>
             <Skeleton
-              width={134}
+              width="100%"
+              height={24}
+              animation="wave"
+              sx={{ backgroundColor: COLOR_GREEN_10 }}
+            />
+            <Skeleton
+              width="100%"
               height={44}
               variant="rounded"
               animation="wave"
               sx={{
                 borderRadius: '16px',
+                backgroundColor: COLOR_GREEN_10,
               }}
             />
             <Skeleton
-              width={206}
+              width="100%"
+              height={48}
+              animation="wave"
+              sx={{ backgroundColor: COLOR_GREEN_10 }}
+            />
+            <Skeleton
+              width="100%"
               height={44}
               variant="rounded"
               animation="wave"
               sx={{
                 borderRadius: '16px',
+                backgroundColor: COLOR_GREEN_10,
               }}
             />
           </div>
         </div>
-      </>
+      </div>
     )
   }
 
@@ -165,77 +191,132 @@ const LoginPage = () => {
           <div>
             <h1 className={styles.title}>Вход</h1>
             <form className={styles.form} onSubmit={handleSubmit}>
-              <FormControl
-                sx={{
-                  width: '100%',
-                  '& .MuiOutlinedInput-root': {
-                    '& fieldset': {
-                      borderColor: COLOR_GREEN,
-                      borderRadius: '18px', // Радиус бордера вне фокуса
-                    },
-                    '&:hover fieldset': {
-                      borderColor: 'darkgray',
-                    },
-                    '&.Mui-focused fieldset': {
-                      borderColor: COLOR_GREEN,
-                      borderRadius: '18px', // Радиус бордера при фокусе
-                    },
-                  },
-                }}
-                variant="outlined"
-              >
-                <InputLabel
-                  htmlFor="outlined-adornment-password"
-                  sx={{ color: COLOR_GREEN }}
-                >
-                  {`${service === 'github' ? 'Github' : 'Forgejo'} токен`}
-                </InputLabel>
-                <OutlinedInput
-                  id="outlined-adornment-password"
-                  type={showPassword ? 'text' : 'password'}
-                  value={token}
-                  onChange={(e) => setToken(e.target.value)}
-                  endAdornment={
-                    <InputAdornment position="end">
-                      <IconButton
-                        aria-label="toggle password visibility"
-                        onClick={handleClickShowPassword}
-                        onMouseDown={handleMouseDownPassword}
-                        onMouseUp={handleMouseUpPassword}
-                        edge="end"
-                        sx={{
-                          color: showPassword ? 'red' : COLOR_GREEN, // Цвет иконки (можно использовать условия)
-                        }}
-                      >
-                        {showPassword ? <VisibilityOff /> : <Visibility />}
-                      </IconButton>
-                    </InputAdornment>
-                  }
-                  label={`${service === 'github' ? 'GitHub' : 'Forgejo'} token`}
-                  sx={{
-                    color: COLOR_GREEN,
-                    '&:hover .MuiOutlinedInput-notchedOutline': {
-                      borderColor: 'darkgray',
-                    },
-                    '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                      borderWidth: '2px', // Толщина бордера при фокусе
-                    },
-                  }}
-                />
+              <div className={styles.inputContainer}>
+                {service === 'forgejo' && (
+                  <FormControl
+                    sx={{
+                      width: '100%',
+                      '& .MuiOutlinedInput-root': {
+                        '& fieldset': {
+                          borderColor: COLOR_GREEN,
+                          borderRadius: '18px', // Радиус бордера вне фокуса
+                        },
+                        '&:hover fieldset': {
+                          borderColor: COLOR_GREEN_50,
+                        },
+                        '&.Mui-focused fieldset': {
+                          borderColor: COLOR_GREEN,
+                          borderRadius: '18px', // Радиус бордера при фокусе
+                        },
+                      },
+                    }}
+                    variant="outlined"
+                  >
+                    <InputLabel
+                      htmlFor="instance-url"
+                      sx={{ color: COLOR_GREEN }}
+                    >
+                      URL
+                    </InputLabel>
+                    <OutlinedInput
+                      id="instance-url"
+                      type="text"
+                      value={instanceUrl}
+                      onChange={(e) => setInstanceUrl(e.target.value)}
+                      label={'URL'}
+                      sx={{
+                        color: COLOR_GREEN,
+                        '&:hover .MuiOutlinedInput-notchedOutline': {
+                          borderColor: 'red',
+                        },
+                        '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                          borderWidth: '2px', // Толщина бордера при фокусе
+                        },
+                      }}
+                    />
 
-                <FormHelperText
+                    <FormHelperText
+                      sx={{
+                        color: 'red',
+                      }}
+                      id="component-error-text"
+                    >
+                      {error}
+                    </FormHelperText>
+                  </FormControl>
+                )}
+                <FormControl
                   sx={{
-                    color: 'red',
+                    width: '100%',
+                    '& .MuiOutlinedInput-root': {
+                      '& fieldset': {
+                        borderColor: COLOR_GREEN,
+                        borderRadius: '18px', // Радиус бордера вне фокуса
+                      },
+                      '&:hover fieldset': {
+                        borderColor: COLOR_GREEN_50,
+                      },
+                      '&.Mui-focused fieldset': {
+                        borderColor: COLOR_GREEN,
+                        borderRadius: '18px', // Радиус бордера при фокусе
+                      },
+                    },
                   }}
-                  id="component-error-text"
+                  variant="outlined"
                 >
-                  {error}
-                </FormHelperText>
-              </FormControl>
+                  <InputLabel
+                    htmlFor="outlined-adornment-password"
+                    sx={{ color: COLOR_GREEN }}
+                  >
+                    {`${service === 'github' ? 'Github' : 'Forgejo'} токен`}
+                  </InputLabel>
+                  <OutlinedInput
+                    id="outlined-adornment-password"
+                    type={showPassword ? 'text' : 'password'}
+                    value={token}
+                    onChange={(e) => setToken(e.target.value)}
+                    endAdornment={
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={handleClickShowPassword}
+                          onMouseDown={handleMouseDownPassword}
+                          onMouseUp={handleMouseUpPassword}
+                          edge="end"
+                          sx={{
+                            color: showPassword ? 'red' : COLOR_GREEN, // Цвет иконки (можно использовать условия)
+                          }}
+                        >
+                          {showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                    }
+                    label={`${service === 'github' ? 'GitHub' : 'Forgejo'} token`}
+                    sx={{
+                      color: COLOR_GREEN,
+                      '&:hover .MuiOutlinedInput-notchedOutline': {
+                        borderColor: 'red',
+                      },
+                      '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                        borderWidth: '2px', // Толщина бордера при фокусе
+                      },
+                    }}
+                  />
+
+                  <FormHelperText
+                    sx={{
+                      color: 'red',
+                    }}
+                    id="component-error-text"
+                  >
+                    {error}
+                  </FormHelperText>
+                </FormControl>
+              </div>
 
               <div className={styles.buttonContainer}>
                 <Button type="submit" border="primary">
-                  Sign In
+                  Войти
                 </Button>
                 <Button
                   color="secondary"
@@ -243,7 +324,7 @@ const LoginPage = () => {
                   type="button"
                   onClick={() => setService(null)}
                 >
-                  Back
+                  Назад
                 </Button>
               </div>
             </form>
