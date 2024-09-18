@@ -87,6 +87,9 @@ export default async function HomePage({ params }: HomePageProps) {
     // Если пользователь не авторизован, перенаправляем на страницу логина или показываем 404
     return notFound()
   }
+  
+  console.log(session.user);
+  
 
   const { username } = params
   const sessionUsername = `~${customUser.login}` // Формируем sessionUsername

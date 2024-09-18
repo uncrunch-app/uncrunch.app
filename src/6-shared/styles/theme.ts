@@ -1,16 +1,5 @@
 import { createTheme } from '@mui/material/styles'
-
-import {
-  COLOR_BLACK,
-  COLOR_BLACK_20,
-  COLOR_BLACK_40,
-  COLOR_BLACK_60,
-  COLOR_CREAM,
-  COLOR_GREEN,
-  COLOR_RED,
-  COLOR_WHITE,
-  COLOR_YELLOW,
-} from '../constants/colors'
+import * as COLOR from '@/src/6-shared/constants/colors'
 import {
   WIDTH_XS,
   WIDTH_SM,
@@ -33,33 +22,33 @@ const theme = createTheme({
   },
   palette: {
     primary: {
-      main: COLOR_GREEN,
-      contrastText: COLOR_CREAM,
+      main: COLOR.GREEN,
+      contrastText: COLOR.CREAM,
     },
     secondary: {
-      main: COLOR_CREAM,
-      contrastText: COLOR_GREEN,
+      main: COLOR.CREAM,
+      contrastText: COLOR.GREEN,
     },
     success: {
-      main: COLOR_RED,
-      contrastText: COLOR_WHITE,
+      main: COLOR.RED,
+      contrastText: COLOR.WHITE,
     },
     warning: {
-      main: COLOR_YELLOW,
-      contrastText: COLOR_BLACK,
+      main: COLOR.YELLOW,
+      contrastText: COLOR.BLACK,
     },
     background: {
-      default: COLOR_CREAM,
-      paper: COLOR_WHITE,
+      default: COLOR.CREAM,
+      paper: COLOR.WHITE,
     },
     text: {
-      primary: COLOR_BLACK,
-      secondary: COLOR_WHITE,
-      disabled: COLOR_BLACK_60,
+      primary: COLOR.BLACK,
+      secondary: COLOR.WHITE,
+      disabled: COLOR.BLACK_60,
     },
     action: {
-      disabled: COLOR_BLACK_40,
-      disabledBackground: COLOR_BLACK_20,
+      disabled: COLOR.BLACK_40,
+      disabledBackground: COLOR.BLACK_20,
     },
   },
   typography: {
@@ -96,12 +85,32 @@ const theme = createTheme({
           boxSizing: 'border-box',
         },
         body: {
-          backgroundColor: COLOR_CREAM,
+          backgroundColor: COLOR.CREAM,
           fontFamily: FONT_FAMILY,
-          color: COLOR_BLACK,
+          color: COLOR.BLACK,
         },
         p: {
           margin: 0,
+        },
+        '@keyframes mui-auto-fill': {
+          from: { display: 'block' },
+        },
+        '@keyframes mui-auto-fill-cancel': {
+          from: { display: 'block' },
+        },
+        'input:-webkit-autofill': {
+          backgroundColor: `${COLOR.GREEN} !important`,
+          WebkitTextFillColor: `${COLOR.BLACK_60} !important`,
+          transition:
+            'background-color 5000s ease-in-out 0s, color 5000s ease-in-out 0s',
+          borderRadius: 'inherit',
+          fontWeight: 500,
+        },
+        'input:-webkit-autofill:focus': {
+          WebkitTextFillColor: `${COLOR.GREEN_80} !important`,
+        },
+        'input:-webkit-autofill:hover': {
+          WebkitTextFillColor: `${COLOR.GREEN} !important`,
         },
       },
     },

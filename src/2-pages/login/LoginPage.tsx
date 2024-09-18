@@ -4,14 +4,13 @@ import { signIn, useSession } from 'next-auth/react'
 import { FormEvent, useEffect, useState } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
 import { GitServiceType } from '@/src/6-shared/types'
-import { useLazyGetUserDataQuery } from '@/src/5-entities/user'
+import { useLazyGetGithubUserDataQuery } from '@/src/5-entities/user'
 import { CustomSessionUser } from '../../../app/api/auth/[...nextauth]/route'
 import { SignOutButton } from '@/src/6-shared/ui'
 import styles from './LoginPage.module.scss'
 import Skeleton from '@mui/material/Skeleton'
 import Button from '@/src/6-shared/ui/buttons/Button'
 import IconButton from '@mui/material/IconButton'
-
 import InputLabel from '@mui/material/InputLabel'
 import InputAdornment from '@mui/material/InputAdornment'
 import FormControl from '@mui/material/FormControl'
@@ -19,21 +18,23 @@ import Visibility from '@mui/icons-material/Visibility'
 import VisibilityOff from '@mui/icons-material/VisibilityOff'
 import OutlinedInput from '@mui/material/OutlinedInput'
 import FormHelperText from '@mui/material/FormHelperText'
-import {
-  COLOR_GREEN,
-  COLOR_GREEN_10,
-  COLOR_GREEN_50,
-} from '@/src/6-shared/constants/colors'
+import * as COLOR from '@/src/6-shared/constants/colors'
+import { useLazyGetForgejoUserDataQuery } from '@/src/5-entities/user/api/forgejoUserApi'
+import { validateToken } from '@/src/6-shared/utils/validateToken'
+import Box from '@mui/material/Box'
+import CircularProgress from '@mui/material/CircularProgress'
 
 const LoginPage = () => {
   const [token, setToken] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
   const [instanceUrl, setInstanceUrl] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   const [service, setService] = useState<GitServiceType | null>(null)
   const [error, setError] = useState<string | null>(null)
   const searchParams = useSearchParams()
   const router = useRouter()
-  const [triggerGetUserData] = useLazyGetUserDataQuery()
+  const [triggerGetGithubUserData] = useLazyGetGithubUserDataQuery()
+  const [triggerGetForgejoUserData] = useLazyGetForgejoUserDataQuery()
 
   const { data: session, status } = useSession()
   const callbackUrl = searchParams.get('callbackUrl') || '/'
@@ -66,33 +67,57 @@ const LoginPage = () => {
     let login = null
     let image = null
 
-    if (service === 'github') {
-      const { data, error: githubError } = await triggerGetUserData({ token })
-
-      if (githubError) {
-        setError((githubError as any).data?.message || 'Invalid GitHub token')
-        return
+    try {
+      if (service === 'github') {
+        const result = await validateToken({
+          token,
+          trigger: triggerGetGithubUserData,
+        })
+        if (result.error) {
+          setError(result.error)
+          return
+        }
+        name = result.name
+        login = result.login
+        image = result.image
       }
 
-      name = data?.name || null
-      login = data?.login || null
-      image = data?.avatar_url || null
-    }
+      if (service === 'forgejo') {
+        const result = await validateToken({
+          token,
+          baseUrl: instanceUrl,
+          trigger: triggerGetForgejoUserData,
+        })
+        if (result.error) {
+          setError(result.error)
+          return
+        }
+        name = result.name
+        login = result.login
+        image = result.image
+      }
 
-    const provider = service === 'github' ? 'github-token' : 'forgejo-token'
-    const result = await signIn(provider, {
-      token,
-      redirect: false,
-      callbackUrl,
-      name,
-      login,
-      image,
-    })
+      // Авторизация через соответствующего провайдера
+      const provider = service === 'github' ? 'github-token' : 'forgejo-token'
+      const result = await signIn(provider, {
+        token,
+        redirect: false,
+        callbackUrl,
+        name,
+        login,
+        image,
+        instanceUrl,
+      })
 
-    if (result?.error) {
-      setError(result.error || 'Invalid token or login failed')
-    } else {
-      router.push(callbackUrl)
+      setIsLoading(true)
+
+      if (result?.error) {
+        setError(result.error || 'Invalid token or login failed')
+      } else {
+        router.push(callbackUrl)
+      }
+    } catch (error) {
+      setError('Error validating token or signing in')
     }
   }
 
@@ -105,7 +130,7 @@ const LoginPage = () => {
             variant="rounded"
             height={48}
             animation="wave"
-            sx={{ backgroundColor: COLOR_GREEN_10 }}
+            sx={{ backgroundColor: COLOR.GREEN_10 }}
           />
 
           <div className={styles.buttonContainer}>
@@ -113,7 +138,7 @@ const LoginPage = () => {
               width="100%"
               height={24}
               animation="wave"
-              sx={{ backgroundColor: COLOR_GREEN_10 }}
+              sx={{ backgroundColor: COLOR.GREEN_10 }}
             />
             <Skeleton
               width="100%"
@@ -122,14 +147,14 @@ const LoginPage = () => {
               animation="wave"
               sx={{
                 borderRadius: '16px',
-                backgroundColor: COLOR_GREEN_10,
+                backgroundColor: COLOR.GREEN_10,
               }}
             />
             <Skeleton
               width="100%"
               height={48}
               animation="wave"
-              sx={{ backgroundColor: COLOR_GREEN_10 }}
+              sx={{ backgroundColor: COLOR.GREEN_10 }}
             />
             <Skeleton
               width="100%"
@@ -138,12 +163,22 @@ const LoginPage = () => {
               animation="wave"
               sx={{
                 borderRadius: '16px',
-                backgroundColor: COLOR_GREEN_10,
+                backgroundColor: COLOR.GREEN_10,
               }}
             />
           </div>
         </div>
       </div>
+    )
+  }
+
+  if (isLoading) {
+    return (
+      //<div className={styles.container}>
+      <div className={styles.spinnerContainer}>
+        <CircularProgress />
+      </div>
+      //</div>
     )
   }
 
@@ -157,7 +192,6 @@ const LoginPage = () => {
     )
   }
 
-  // Если пользователь не авторизован, рендерим форму авторизации
   return (
     <div className={styles.container}>
       <div className={styles.skeletonContainer}>
@@ -198,15 +232,15 @@ const LoginPage = () => {
                       width: '100%',
                       '& .MuiOutlinedInput-root': {
                         '& fieldset': {
-                          borderColor: COLOR_GREEN,
-                          borderRadius: '18px', // Радиус бордера вне фокуса
+                          borderColor: COLOR.GREEN,
+                          borderRadius: '18px',
                         },
                         '&:hover fieldset': {
-                          borderColor: COLOR_GREEN_50,
+                          borderColor: COLOR.GREEN_50,
                         },
                         '&.Mui-focused fieldset': {
-                          borderColor: COLOR_GREEN,
-                          borderRadius: '18px', // Радиус бордера при фокусе
+                          borderColor: COLOR.GREEN,
+                          borderRadius: '18px',
                         },
                       },
                     }}
@@ -214,7 +248,7 @@ const LoginPage = () => {
                   >
                     <InputLabel
                       htmlFor="instance-url"
-                      sx={{ color: COLOR_GREEN }}
+                      sx={{ color: COLOR.GREEN }}
                     >
                       URL
                     </InputLabel>
@@ -225,16 +259,15 @@ const LoginPage = () => {
                       onChange={(e) => setInstanceUrl(e.target.value)}
                       label={'URL'}
                       sx={{
-                        color: COLOR_GREEN,
+                        color: COLOR.GREEN,
                         '&:hover .MuiOutlinedInput-notchedOutline': {
                           borderColor: 'red',
                         },
                         '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                          borderWidth: '2px', // Толщина бордера при фокусе
+                          borderWidth: '2px',
                         },
                       }}
                     />
-
                     <FormHelperText
                       sx={{
                         color: 'red',
@@ -250,15 +283,15 @@ const LoginPage = () => {
                     width: '100%',
                     '& .MuiOutlinedInput-root': {
                       '& fieldset': {
-                        borderColor: COLOR_GREEN,
-                        borderRadius: '18px', // Радиус бордера вне фокуса
+                        borderColor: COLOR.GREEN,
+                        borderRadius: '18px',
                       },
                       '&:hover fieldset': {
-                        borderColor: COLOR_GREEN_50,
+                        borderColor: COLOR.GREEN_50,
                       },
                       '&.Mui-focused fieldset': {
-                        borderColor: COLOR_GREEN,
-                        borderRadius: '18px', // Радиус бордера при фокусе
+                        borderColor: COLOR.GREEN,
+                        borderRadius: '18px',
                       },
                     },
                   }}
@@ -266,7 +299,7 @@ const LoginPage = () => {
                 >
                   <InputLabel
                     htmlFor="outlined-adornment-password"
-                    sx={{ color: COLOR_GREEN }}
+                    sx={{ color: COLOR.GREEN }}
                   >
                     {`${service === 'github' ? 'Github' : 'Forgejo'} токен`}
                   </InputLabel>
@@ -284,7 +317,7 @@ const LoginPage = () => {
                           onMouseUp={handleMouseUpPassword}
                           edge="end"
                           sx={{
-                            color: showPassword ? 'red' : COLOR_GREEN, // Цвет иконки (можно использовать условия)
+                            color: showPassword ? COLOR.RED : COLOR.GREEN,
                           }}
                         >
                           {showPassword ? <VisibilityOff /> : <Visibility />}
@@ -293,12 +326,17 @@ const LoginPage = () => {
                     }
                     label={`${service === 'github' ? 'GitHub' : 'Forgejo'} token`}
                     sx={{
-                      color: COLOR_GREEN,
+                      color: COLOR.GREEN,
                       '&:hover .MuiOutlinedInput-notchedOutline': {
                         borderColor: 'red',
                       },
                       '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                        borderWidth: '2px', // Толщина бордера при фокусе
+                        borderWidth: '2px',
+                      },
+                    }}
+                    inputProps={{
+                      form: {
+                        autoComplete: 'off',
                       },
                     }}
                   />

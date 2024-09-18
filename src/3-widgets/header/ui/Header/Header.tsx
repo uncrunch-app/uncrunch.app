@@ -1,6 +1,6 @@
-import LogoutButton from '@/src/6-shared/ui/buttons/SignOutButton'
+import SignOutButton from '@/src/6-shared/ui/buttons/SignOutButton'
 import { FC, memo } from 'react'
-//import { LogoutButton } from '@/4-features/logout';
+//import { SignOutButton } from '@/4-features/logout';
 import { UserCard } from '@/src/5-entities/user'
 import { Logo } from '@/src/6-shared/ui/logo'
 //import { RepoInfo } from '@/src/3-widgets/repos';
@@ -20,16 +20,15 @@ const Header: FC = async () => {
     <div className={styles.headerContainer}>
       <Logo width="48px" height="48px" />
       <div className={styles.userInfo}>
-        <LogoutButton />
-      </div>
-
-      {customUser && (
+        {customUser && (
         <UserCard
           login={customUser.login!}
           avatar_url={customUser.image!}
           name={customUser.name!}
         />
       )}
+      <SignOutButton />
+      </div>
     </div>
   )
 }

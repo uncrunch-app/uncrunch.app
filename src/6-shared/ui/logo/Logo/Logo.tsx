@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from './Logo.module.scss'
-import { COLOR_CREAM, COLOR_GREEN } from '@/src/6-shared/constants/colors'
+import * as COLOR from '@/src/6-shared/constants/colors'
 
 interface LogoProps {
   width?: string
@@ -30,8 +30,8 @@ const parseSize = (size: string): number => {
 const Logo: React.FC<LogoProps> = ({
   width = `${INIT_SVG_SIZE}px`,
   height = `${INIT_SVG_SIZE}px`,
-  color = COLOR_CREAM,
-  bgColor = COLOR_GREEN,
+  color = COLOR.CREAM,
+  bgColor = COLOR.GREEN,
   borderColor = 'none',
   borderWidth = '0',
   borderRadius = '0',

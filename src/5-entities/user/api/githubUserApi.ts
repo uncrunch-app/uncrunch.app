@@ -6,7 +6,7 @@ export const githubUserApi = createApi({
   reducerPath: 'githubUserApi',
   baseQuery: githubApiBaseQuery,
   endpoints: (builder) => ({
-    getUserData: builder.query<any, { token?: string }>({
+    getGithubUserData: builder.query<any, { token?: string }>({
       queryFn: async (arg, _queryApi, _extraOptions, fetchWithBQ) => {
         const headers = arg?.token
           ? { Authorization: `Bearer ${arg.token}` }
@@ -27,4 +27,4 @@ export const githubUserApi = createApi({
   }),
 })
 
-export const { useGetUserDataQuery, useLazyGetUserDataQuery } = githubUserApi
+export const { useGetGithubUserDataQuery, useLazyGetGithubUserDataQuery } = githubUserApi

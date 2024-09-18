@@ -3,13 +3,14 @@ import CredentialsProvider from 'next-auth/providers/credentials'
 import { JWT } from 'next-auth/jwt'
 import { GitServiceType } from '@/src/6-shared/types'
 
-// Общие поля для пользователя, JWT и сессии, включая token
+// Общие поля для пользователя, JWT и сессии, включая token и instanceUrl
 interface BaseUserInfo {
   name?: string | null
   login?: string | null // Убираем email, добавляем login
   image?: string | null
   service: GitServiceType
   token: string
+  instanceUrl?: string | null // Добавляем instanceUrl как необязательный параметр
 }
 
 // Пользователь с id
@@ -32,8 +33,9 @@ const getUser = (
   const name = credentials?.name ?? null
   const login = credentials?.login ?? null // Используем login вместо email
   const image = credentials?.image ?? null
+  const instanceUrl = credentials?.instanceUrl ?? null // Обрабатываем instanceUrl
 
-  return token ? { id: '1', token, service, name, login, image } : null
+  return token ? { id: '1', token, service, name, login, image, instanceUrl } : null
 }
 
 const createCredentialsProvider = (
@@ -49,6 +51,7 @@ const createCredentialsProvider = (
       name: { label: 'Name', type: 'text' },
       login: { label: 'Login', type: 'text' }, // Заменяем на login
       image: { label: 'Image', type: 'text' },
+      instanceUrl: { label: 'Instance URL', type: 'text', optional: true }, // Добавляем instanceUrl
     },
     authorize: (credentials) => getUser(credentials, service),
   })
@@ -67,6 +70,7 @@ export const authOptions: NextAuthOptions = {
           name,
           login,
           image,
+          instanceUrl, // Добавляем instanceUrl
         } = user as CustomUser
         token = {
           ...token,
@@ -75,6 +79,7 @@ export const authOptions: NextAuthOptions = {
           name,
           login,
           image,
+          instanceUrl, // Добавляем в токен
         } as CustomJWT
       }
       return token
@@ -86,15 +91,17 @@ export const authOptions: NextAuthOptions = {
         name,
         login,
         image,
+        instanceUrl, // Добавляем instanceUrl в сессию
       } = token as CustomJWT
 
-      // Добавляем login в session.user
+      // Добавляем instanceUrl и login в session.user
       session.user = {
         token: userToken,
         service,
         name,
         login,
         image,
+        instanceUrl, // Добавляем в сессию
       } as CustomSessionUser
 
       return session

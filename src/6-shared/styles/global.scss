@@ -1,2 +1,30 @@
 //@import '/src/6-shared/constants/breakpoints.scss';
 @import '/src/6-shared/constants/colors.scss';
+
+///* autofill-styles.css */
+//@keyframes mui-auto-fill {
+//  from {
+//    display: block;
+//  }
+//}
+
+//@keyframes mui-auto-fill-cancel {
+//  from {
+//    display: block;
+//  }
+//}
+
+//input:-webkit-autofill {
+//  transition: background-color 5000s ease-in-out 0s, color 5000s ease-in-out 0s;
+//  border-radius: inherit;
+//}
+
+//input:-webkit-autofill:focus {
+//  background-color: #f5f5f5 !important;
+//  -webkit-text-fill-color: #333 !important;
+//}
+
+//input:-webkit-autofill:hover {
+//  background-color: #f5f5f5 !important;
+//  -webkit-text-fill-color: #ce0a0a !important;
+//}

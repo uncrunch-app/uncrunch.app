@@ -1,8 +1,7 @@
 import { styled, Theme } from '@mui/material/styles'
 import MuiButton from '@mui/material/Button'
 import { ButtonProps as MuiButtonProps } from '@mui/material/Button'
-import { COLOR_CREAM, COLOR_GREEN } from '../../constants/colors'
-import { COLOR_GREEN_20, COLOR_GREEN_80 } from '../../constants/colors'
+import * as COLOR from '@/src/6-shared/constants/colors'
 
 type ColorType = keyof Theme['palette']
 
@@ -10,19 +9,19 @@ type BorderType = 'primary' | 'secondary' | undefined
 
 export const hoverStyles: any = {
   primary: {
-    border: COLOR_GREEN,
-    bg: COLOR_GREEN_80,
+    border: COLOR.GREEN,
+    bg: COLOR.GREEN_80,
   },
   secondary: {
-    border: COLOR_CREAM,
-    bg: COLOR_GREEN_20,
+    border: COLOR.CREAM,
+    bg: COLOR.GREEN_20,
   },
 }
 
 // Цвета бордера для разных состояний
 const borderColors: Record<'primary' | 'secondary', string> = {
-  primary: COLOR_GREEN,
-  secondary: COLOR_CREAM,
+  primary: COLOR.GREEN,
+  secondary: COLOR.CREAM,
 }
 
 // Расширяем ButtonProps
