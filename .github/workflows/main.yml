@@ -4,7 +4,7 @@ on:
   issue_comment:
     types: [created]
   issues:
-    types: [closed]
+    types: [opened, closed]
 
 jobs:
   block_issue:
@@ -15,3 +15,11 @@ jobs:
         with:
           token: ${{ github.token }}
           use-label: blocked
+      - name: Add blocked label
+        uses: actions/github-script@v6
+        with:
+          script: |
+            github.issues.addLabels({
+              issue_number: context.issue.number,
+              labels: ['blocked']
+            })
