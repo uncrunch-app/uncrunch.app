@@ -21,37 +21,25 @@ import FormHelperText from '@mui/material/FormHelperText'
 import * as COLOR from '@/src/6-shared/constants/colors'
 import { useLazyGetForgejoUserDataQuery } from '@/src/5-entities/user/api/forgejoUserApi'
 import { validateToken } from '@/src/6-shared/utils/validateToken'
-import Box from '@mui/material/Box'
 import CircularProgress from '@mui/material/CircularProgress'
+import Input from '@/src/6-shared/ui/textFields/Input'
 
 const LoginPage = () => {
   const [token, setToken] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [instanceUrl, setInstanceUrl] = useState('')
-  const [showPassword, setShowPassword] = useState(false)
   const [service, setService] = useState<GitServiceType | null>(null)
-  const [error, setError] = useState<string | null>(null)
-  const searchParams = useSearchParams()
-  const router = useRouter()
+  const [error, setError] = useState<string | undefined>(undefined)
+
   const [triggerGetGithubUserData] = useLazyGetGithubUserDataQuery()
   const [triggerGetForgejoUserData] = useLazyGetForgejoUserDataQuery()
 
   const { data: session, status } = useSession()
+
+  const searchParams = useSearchParams()
+  const router = useRouter()
+
   const callbackUrl = searchParams.get('callbackUrl') || '/'
-
-  const handleClickShowPassword = () => setShowPassword((show) => !show)
-
-  const handleMouseDownPassword = (
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    event.preventDefault()
-  }
-
-  const handleMouseUpPassword = (
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    event.preventDefault()
-  }
 
   useEffect(() => {
     if (!token) {
@@ -61,7 +49,7 @@ const LoginPage = () => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
-    setError(null)
+    setError(undefined)
 
     let name = null
     let login = null
@@ -174,11 +162,9 @@ const LoginPage = () => {
 
   if (isLoading) {
     return (
-      //<div className={styles.container}>
       <div className={styles.spinnerContainer}>
         <CircularProgress />
       </div>
-      //</div>
     )
   }
 
@@ -227,129 +213,24 @@ const LoginPage = () => {
             <form className={styles.form} onSubmit={handleSubmit}>
               <div className={styles.inputContainer}>
                 {service === 'forgejo' && (
-                  <FormControl
-                    sx={{
-                      width: '100%',
-                      '& .MuiOutlinedInput-root': {
-                        '& fieldset': {
-                          borderColor: COLOR.GREEN,
-                          borderRadius: '18px',
-                        },
-                        '&:hover fieldset': {
-                          borderColor: COLOR.GREEN_50,
-                        },
-                        '&.Mui-focused fieldset': {
-                          borderColor: COLOR.GREEN,
-                          borderRadius: '18px',
-                        },
-                      },
-                    }}
-                    variant="outlined"
-                  >
-                    <InputLabel
-                      htmlFor="instance-url"
-                      sx={{ color: COLOR.GREEN }}
-                    >
-                      URL
-                    </InputLabel>
-                    <OutlinedInput
-                      id="instance-url"
-                      type="text"
-                      value={instanceUrl}
-                      onChange={(e) => setInstanceUrl(e.target.value)}
-                      label={'URL'}
-                      sx={{
-                        color: COLOR.GREEN,
-                        '&:hover .MuiOutlinedInput-notchedOutline': {
-                          borderColor: 'red',
-                        },
-                        '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                          borderWidth: '2px',
-                        },
-                      }}
-                    />
-                    <FormHelperText
-                      sx={{
-                        color: 'red',
-                      }}
-                      id="component-error-text"
-                    >
-                      {error}
-                    </FormHelperText>
-                  </FormControl>
-                )}
-                <FormControl
-                  sx={{
-                    width: '100%',
-                    '& .MuiOutlinedInput-root': {
-                      '& fieldset': {
-                        borderColor: COLOR.GREEN,
-                        borderRadius: '18px',
-                      },
-                      '&:hover fieldset': {
-                        borderColor: COLOR.GREEN_50,
-                      },
-                      '&.Mui-focused fieldset': {
-                        borderColor: COLOR.GREEN,
-                        borderRadius: '18px',
-                      },
-                    },
-                  }}
-                  variant="outlined"
-                >
-                  <InputLabel
-                    htmlFor="outlined-adornment-password"
-                    sx={{ color: COLOR.GREEN }}
-                  >
-                    {`${service === 'github' ? 'Github' : 'Forgejo'} токен`}
-                  </InputLabel>
-                  <OutlinedInput
-                    id="outlined-adornment-password"
-                    type={showPassword ? 'text' : 'password'}
-                    value={token}
-                    onChange={(e) => setToken(e.target.value)}
-                    endAdornment={
-                      <InputAdornment position="end">
-                        <IconButton
-                          aria-label="toggle password visibility"
-                          onClick={handleClickShowPassword}
-                          onMouseDown={handleMouseDownPassword}
-                          onMouseUp={handleMouseUpPassword}
-                          edge="end"
-                          sx={{
-                            color: showPassword ? COLOR.RED : COLOR.GREEN,
-                          }}
-                        >
-                          {showPassword ? <VisibilityOff /> : <Visibility />}
-                        </IconButton>
-                      </InputAdornment>
-                    }
-                    label={`${service === 'github' ? 'GitHub' : 'Forgejo'} token`}
-                    sx={{
-                      color: COLOR.GREEN,
-                      '&:hover .MuiOutlinedInput-notchedOutline': {
-                        borderColor: 'red',
-                      },
-                      '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                        borderWidth: '2px',
-                      },
-                    }}
-                    inputProps={{
-                      form: {
-                        autoComplete: 'off',
-                      },
-                    }}
+                  <Input
+                    label={'URL'}
+                    value={instanceUrl}
+                    variant={'text'}
+                    onChange={(e) => setInstanceUrl(e.target.value)}
+                    id={'instance-url'}
+                    errorMessage={error}
                   />
-
-                  <FormHelperText
-                    sx={{
-                      color: 'red',
-                    }}
-                    id="component-error-text"
-                  >
-                    {error}
-                  </FormHelperText>
-                </FormControl>
+                )}
+                <Input
+                  label={`${service === 'github' ? 'Github' : 'Forgejo'} токен`}
+                  value={token}
+                  variant={'password'}
+                  onChange={(e) => setToken(e.target.value)}
+                  id={'outlined-password'}
+                  autoComplete={false}
+                  errorMessage={error}
+                />
               </div>
 
               <div className={styles.buttonContainer}>
