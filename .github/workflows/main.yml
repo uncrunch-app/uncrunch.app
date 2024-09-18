@@ -1,0 +1,17 @@
+name: Block issue if linked to open issue
+
+on:
+  issue_comment:
+    types: [created]
+  issues:
+    types: [closed]
+
+jobs:
+  block_issue:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Block Issues
+        uses: Levi-Lesches/blocking-issues@v2.0.1
+        with:
+          token: ${{ github.token }}
+          use-label: blocked
