@@ -1,27 +1,32 @@
 'use client'
 
 import { signIn, useSession } from 'next-auth/react'
-import { FormEvent, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
 import { GitServiceType } from '@/src/6-shared/types'
 import { useLazyGetGithubUserDataQuery } from '@/src/5-entities/user'
 import { CustomSessionUser } from '../../../app/api/auth/[...nextauth]/route'
 import { SignOutButton } from '@/src/6-shared/ui'
 import styles from './LoginPage.module.scss'
-import Skeleton from '@mui/material/Skeleton'
 import Button from '@/src/6-shared/ui/buttons/Button'
-import * as COLOR from '@/src/6-shared/constants/colors'
 import { useLazyGetForgejoUserDataQuery } from '@/src/5-entities/user/api/forgejoUserApi'
 import { validateToken } from '@/src/6-shared/utils/validateToken'
 import CircularProgress from '@mui/material/CircularProgress'
 import Input from '@/src/6-shared/ui/textFields/Input'
 
+import { useForm, Controller } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { forgejoSchema, githubSchema } from '@/src/5-entities/login'
+import { SkeletonLoader } from './ui/SkeletonLoader'
+
+type FormData = {
+  token: string
+  instanceUrl?: string
+}
+
 const LoginPage = () => {
-  const [token, setToken] = useState('')
   const [isLoading, setIsLoading] = useState(false)
-  const [instanceUrl, setInstanceUrl] = useState('')
   const [service, setService] = useState<GitServiceType | null>(null)
-  const [error, setError] = useState<string | undefined>(undefined)
 
   const [triggerGetGithubUserData] = useLazyGetGithubUserDataQuery()
   const [triggerGetForgejoUserData] = useLazyGetForgejoUserDataQuery()
@@ -33,28 +38,39 @@ const LoginPage = () => {
 
   const callbackUrl = searchParams.get('callbackUrl') || '/'
 
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+    setError,
+    clearErrors,
+  } = useForm<FormData>({
+    resolver: yupResolver(service === 'forgejo' ? forgejoSchema : githubSchema),
+  })
+  
   useEffect(() => {
-    if (!token) {
-      setError('')
-    }
-  }, [token])
+    clearErrors()
+  }, [service, clearErrors])
 
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault()
-    setError(undefined)
-
-    let name = null
-    let login = null
-    let image = null
+  const onSubmit = async (data: FormData) => {
+    const { token, instanceUrl } = data
+    console.log('Form submitted:', data)
+    console.log('Service:', service)
+    console.log('Token:', data.token)
+    console.log('Instance URL:', data.instanceUrl)
 
     try {
+      let name = null
+      let login = null
+      let image = null
+
       if (service === 'github') {
         const result = await validateToken({
           token,
           trigger: triggerGetGithubUserData,
         })
         if (result.error) {
-          setError(result.error)
+          setError('token', { message: result.error })
           return
         }
         name = result.name
@@ -69,7 +85,7 @@ const LoginPage = () => {
           trigger: triggerGetForgejoUserData,
         })
         if (result.error) {
-          setError(result.error)
+          setError('token', { message: result.error })
           return
         }
         name = result.name
@@ -77,7 +93,6 @@ const LoginPage = () => {
         image = result.image
       }
 
-      // Авторизация через соответствующего провайдера
       const provider = service === 'github' ? 'github-token' : 'forgejo-token'
       const result = await signIn(provider, {
         token,
@@ -92,62 +107,24 @@ const LoginPage = () => {
       setIsLoading(true)
 
       if (result?.error) {
-        setError(result.error || 'Invalid token or login failed')
+        setError('token', {
+          message: result.error || 'Invalid token or login failed',
+        })
       } else {
         router.push(callbackUrl)
       }
     } catch (error) {
-      setError('Error validating token or signing in')
+      console.error('Ошибка при входе в систему:', error)
+      setError('token', {
+        message: 'Ошибка при проверке токена или входе в систему',
+      })
     }
   }
 
   if (status === 'loading') {
     return (
       <div className={styles.container}>
-        <div className={styles.skeletonContainer}>
-          <Skeleton
-            width={80}
-            variant="rounded"
-            height={48}
-            animation="wave"
-            sx={{ backgroundColor: COLOR.GREEN_10 }}
-          />
-
-          <div className={styles.buttonContainer}>
-            <Skeleton
-              width="100%"
-              height={24}
-              animation="wave"
-              sx={{ backgroundColor: COLOR.GREEN_10 }}
-            />
-            <Skeleton
-              width="100%"
-              height={44}
-              variant="rounded"
-              animation="wave"
-              sx={{
-                borderRadius: '16px',
-                backgroundColor: COLOR.GREEN_10,
-              }}
-            />
-            <Skeleton
-              width="100%"
-              height={48}
-              animation="wave"
-              sx={{ backgroundColor: COLOR.GREEN_10 }}
-            />
-            <Skeleton
-              width="100%"
-              height={44}
-              variant="rounded"
-              animation="wave"
-              sx={{
-                borderRadius: '16px',
-                backgroundColor: COLOR.GREEN_10,
-              }}
-            />
-          </div>
-        </div>
+        <SkeletonLoader />
       </div>
     )
   }
@@ -176,24 +153,28 @@ const LoginPage = () => {
         {service === null ? (
           <>
             <h1 className={styles.title}>Вход</h1>
-
             <div className={styles.buttonContainer}>
               <p className={styles.subtitle}>С помощью токена Github</p>
               <Button
                 className={styles.button}
                 border="primary"
-                onClick={() => setService('github')}
+                onClick={() => {
+                  setService('github')
+                  console.log('Выбранный сервис: GitHub')
+                }}
               >
                 GitHub
               </Button>
               <p className={styles.subtitle}>
-                С помощью токена инстансов Forgejo (codeberg.org,
-                git.disroot.org и пр.)
+                С помощью токена инстансов Forgejo
               </p>
               <Button
                 className={styles.button}
                 border="primary"
-                onClick={() => setService('forgejo')}
+                onClick={() => {
+                  setService('forgejo')
+                  console.log('Выбранный сервис: Forgejo')
+                }}
               >
                 Forgejo
               </Button>
@@ -202,29 +183,54 @@ const LoginPage = () => {
         ) : (
           <div>
             <h1 className={styles.title}>Вход</h1>
-            <form className={styles.form} onSubmit={handleSubmit}>
+            <form
+              autoComplete="off"
+              className={styles.form}
+              onSubmit={handleSubmit(onSubmit)}
+            >
               <div className={styles.inputContainer}>
                 {service === 'forgejo' && (
-                  <Input
-                    label={'URL'}
-                    value={instanceUrl}
-                    variant={'text'}
-                    onChange={(e) => setInstanceUrl(e.target.value)}
-                    id={'instance-url'}
-                    errorMessage={error}
+                  <Controller
+                    name="instanceUrl"
+                    control={control}
+                    defaultValue=""
+                    render={({ field }) => (
+                      <Input
+                        label="URL"
+                        {...field}
+                        id="instance-url"
+                        errorMessage={errors.instanceUrl?.message}
+                        variant="text"
+                        value={field.value || ''}
+                        //inputProps={{ autoComplete: 'username' }}
+                        onChange={(e) => {
+                          field.onChange(e)
+                          clearErrors('instanceUrl')
+                        }}
+                      />
+                    )}
                   />
                 )}
-                <Input
-                  label={`${service === 'github' ? 'Github' : 'Forgejo'} токен`}
-                  value={token}
-                  variant={'password'}
-                  onChange={(e) => setToken(e.target.value)}
-                  id={'outlined-password'}
-                  autoComplete={false}
-                  errorMessage={error}
+                <Controller
+                  name="token"
+                  control={control}
+                  defaultValue=""
+                  render={({ field }) => (
+                    <Input
+                      label={`${service === 'github' ? 'Github' : 'Forgejo'} токен`}
+                      {...field}
+                      variant={'password'}
+                      id={'outlined-password'}
+                      inputProps={{ autoComplete: 'new-password' }}
+                      errorMessage={errors.token?.message}
+                      onChange={(e) => {
+                        field.onChange(e)
+                        clearErrors('token')
+                      }}
+                    />
+                  )}
                 />
               </div>
-
               <div className={styles.buttonContainer}>
                 <Button type="submit" border="primary">
                   Войти

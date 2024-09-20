@@ -1,35 +1,34 @@
-import { ChangeEvent, FC, useState, MouseEvent } from 'react'
+import {
+  ChangeEvent, useState,
+  MouseEvent,
+  forwardRef
+} from 'react'
 import FormControl from '@mui/material/FormControl'
 import InputLabel from '@mui/material/InputLabel'
-import OutlinedInput from '@mui/material/OutlinedInput'
+import OutlinedInput, { OutlinedInputProps } from '@mui/material/OutlinedInput'
 import FormHelperText from '@mui/material/FormHelperText'
 import * as COLOR from '@/src/6-shared/constants/colors'
 import InputAdornment from '@mui/material/InputAdornment'
 import IconButton from '@mui/material/IconButton'
 import VisibilityOff from '@mui/icons-material/VisibilityOff'
 import Visibility from '@mui/icons-material/Visibility'
+import ClearIcon from '@mui/icons-material/Clear'
 
 type InputVariant = 'text' | 'password'
 
-interface InputProps {
+interface InputProps extends Omit<OutlinedInputProps, 'label'> {
   label: string
   value: string
   variant: InputVariant
   onChange: (event: ChangeEvent<HTMLInputElement>) => void
   errorMessage?: string
   id: string
-  autoComplete?: boolean
 }
 
-const Input: FC<InputProps> = ({
-  label,
-  value,
-  onChange,
-  errorMessage,
-  id,
-  variant,
-  autoComplete = true,
-}) => {
+const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
+  { label, value, onChange, errorMessage, id, variant, ...props },
+  ref
+) {
   const [showPassword, setShowPassword] = useState(false)
 
   const handleClickShowPassword = () => setShowPassword((show) => !show)
@@ -38,99 +37,86 @@ const Input: FC<InputProps> = ({
     event.preventDefault()
   }
 
-  const handleMouseUpPassword = (event: MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault()
+  const handleClearInput = () => {
+    onChange({ target: { value: '' } } as ChangeEvent<HTMLInputElement>)
   }
 
   const getInputType = (
     variant: InputVariant,
     showPassword: boolean
   ): InputVariant => {
-    if (variant === 'password') {
-      return showPassword ? 'text' : 'password'
-    }
-
-    return 'text'
+    return variant === 'password'
+      ? showPassword
+        ? 'text'
+        : 'password'
+      : 'text'
   }
 
   return (
-    <>
-      <FormControl
-        sx={{
-          width: '100%',
-          '& .MuiOutlinedInput-root': {
-            '& fieldset': {
-              borderColor: COLOR.GREEN,
-              borderRadius: '18px',
-            },
-            '&:hover fieldset': {
-              borderColor: COLOR.GREEN_50,
-            },
-            '&.Mui-focused fieldset': {
-              borderColor: COLOR.GREEN,
-              borderRadius: '18px',
-            },
+    <FormControl
+      sx={{
+        width: '100%',
+        '& .MuiOutlinedInput-root': {
+          '& fieldset': {
+            borderColor: COLOR.GREEN,
+            borderRadius: '18px',
           },
-        }}
-        variant="outlined"
-      >
-        <InputLabel htmlFor={id} sx={{ color: COLOR.GREEN }}>
-          {label}
-        </InputLabel>
-        <OutlinedInput
-          id={id}
-          type={getInputType(variant, showPassword)}
-          value={value}
-          onChange={onChange}
-          label={label}
-          inputProps={
-            autoComplete
-              ? undefined
-              : {
-                  form: {
-                    autoComplete: 'off',
-                  },
-                }
-          }
-          endAdornment={
-            variant === 'password' && (
-              <InputAdornment position="end">
+          '&:hover fieldset': {
+            borderColor: COLOR.GREEN_50,
+          },
+          '&.Mui-focused fieldset': {
+            borderColor: COLOR.GREEN,
+            borderRadius: '18px',
+          },
+        },
+      }}
+      variant="outlined"
+    >
+      <InputLabel htmlFor={id} sx={{ color: COLOR.GREEN }}>
+        {label}
+      </InputLabel>
+      <OutlinedInput
+        sx={{ padding: '0 18px 0 0' }}
+        id={id}
+        type={getInputType(variant, showPassword)}
+        value={value}
+        onChange={onChange}
+        label={label}
+        inputRef={ref}
+        endAdornment={
+          <InputAdornment position="end">
+            <div style={{ display: 'flex', gap: '11px' }}>
+              {value && (
+                <IconButton
+                  aria-label="clear input"
+                  onClick={handleClearInput}
+                  edge="end"
+                  sx={{ color: COLOR.GREEN }}
+                >
+                  <ClearIcon />
+                </IconButton>
+              )}
+              {variant === 'password' && (
                 <IconButton
                   aria-label="toggle password visibility"
                   onClick={handleClickShowPassword}
                   onMouseDown={handleMouseDownPassword}
-                  onMouseUp={handleMouseUpPassword}
                   edge="end"
-                  sx={{
-                    color: showPassword ? COLOR.RED : COLOR.GREEN,
-                  }}
+                  sx={{ color: showPassword ? COLOR.RED : COLOR.GREEN }}
                 >
                   {showPassword ? <VisibilityOff /> : <Visibility />}
                 </IconButton>
-              </InputAdornment>
-            )
-          }
-          sx={{
-            color: COLOR.GREEN,
-            '&:hover .MuiOutlinedInput-notchedOutline': {
-              borderColor: 'red',
-            },
-            '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-              borderWidth: '2px',
-            },
-          }}
-        />
-        <FormHelperText
-          sx={{
-            color: 'red',
-          }}
-          id="error-text"
-        >
-          {errorMessage}
-        </FormHelperText>
-      </FormControl>
-    </>
+              )}
+            </div>
+          </InputAdornment>
+        }
+        {...props}
+      />
+      <FormHelperText sx={{ color: COLOR.RED }} id="error-text">
+        {errorMessage}
+      </FormHelperText>
+    </FormControl>
   )
-}
+})
 
 export default Input
