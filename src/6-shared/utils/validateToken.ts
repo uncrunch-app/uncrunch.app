@@ -34,8 +34,7 @@ export const validateToken = async <T>({
   if (error) {
     return {
       error:
-        (error as any).data?.message ||
-        `Invalid ${baseUrl ? 'Forgejo' : 'GitHub'} token${baseUrl ? ' or URL' : ''}`,
+        (error as any).data?.message,
     }
   }
 

@@ -1,3 +1,5 @@
+// app/auth/[...nextauth]/router.ts
+
 import NextAuth, { NextAuthOptions } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import { JWT } from 'next-auth/jwt'

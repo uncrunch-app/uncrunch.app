@@ -16,7 +16,7 @@ import Input from '@/src/6-shared/ui/textFields/Input'
 
 import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { forgejoSchema, githubSchema } from '@/src/5-entities/login'
+import { singleTokenSchema, tokenAndUrlSchema } from '@/src/5-entities/login'
 import { SkeletonLoader } from './ui/SkeletonLoader'
 
 type FormData = {
@@ -41,13 +41,13 @@ const LoginPage = () => {
   const {
     control,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
     setError,
     clearErrors,
   } = useForm<FormData>({
-    resolver: yupResolver(service === 'forgejo' ? forgejoSchema : githubSchema),
+    resolver: yupResolver(service === 'forgejo' ? tokenAndUrlSchema : singleTokenSchema),
   })
-  
+
   useEffect(() => {
     clearErrors()
   }, [service, clearErrors])
@@ -84,6 +84,8 @@ const LoginPage = () => {
           baseUrl: instanceUrl,
           trigger: triggerGetForgejoUserData,
         })
+        console.log(result)
+
         if (result.error) {
           setError('token', { message: result.error })
           return
@@ -91,6 +93,14 @@ const LoginPage = () => {
         name = result.name
         login = result.login
         image = result.image
+      }
+
+      // Проверка на undefined для name, login и image
+      if (name === undefined && login === undefined && image === undefined) {
+        setError('instanceUrl', {
+          message: 'Возможно, URL некорректный или данные недоступны.',
+        })
+        return
       }
 
       const provider = service === 'github' ? 'github-token' : 'forgejo-token'
@@ -202,7 +212,6 @@ const LoginPage = () => {
                         errorMessage={errors.instanceUrl?.message}
                         variant="text"
                         value={field.value || ''}
-                        //inputProps={{ autoComplete: 'username' }}
                         onChange={(e) => {
                           field.onChange(e)
                           clearErrors('instanceUrl')
@@ -232,12 +241,17 @@ const LoginPage = () => {
                 />
               </div>
               <div className={styles.buttonContainer}>
-                <Button type="submit" border="primary">
-                  Войти
+                <Button disabled={isSubmitting} type="submit" border="primary">
+                  {isSubmitting ? (
+                    <CircularProgress color="secondary" size="24.5px" />
+                  ) : (
+                    <span>Войти</span>
+                  )}
                 </Button>
                 <Button
                   color="secondary"
                   border="primary"
+                  disabled={isSubmitting}
                   type="button"
                   onClick={() => setService(null)}
                 >

@@ -13,7 +13,7 @@ export const forgejoUserApi = createApi({
           : undefined
 
         const result = await fetchWithBQ({
-          url: `${arg.baseUrl}/user`, // URL передаем извне
+          url: `${arg.baseUrl}/user`,
           headers,
         })
 

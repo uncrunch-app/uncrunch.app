@@ -1,3 +1,3 @@
-import { githubSchema, forgejoSchema } from './model/validationScheme'
+import { singleTokenSchema, tokenAndUrlSchema } from './model/validationScheme'
 
-export { githubSchema, forgejoSchema }
+export { singleTokenSchema, tokenAndUrlSchema }
