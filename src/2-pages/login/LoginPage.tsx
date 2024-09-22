@@ -16,8 +16,36 @@ import Input from '@/src/6-shared/ui/textFields/Input'
 
 import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { singleTokenSchema, tokenAndUrlSchema } from '@/src/5-entities/login'
 import { SkeletonLoader } from './ui/SkeletonLoader'
+import { useTranslation } from 'react-i18next'
+
+import Cookies from 'js-cookie'
+import { useValidationSchemas } from '@/src/5-entities/login/model/useValidationSchemas'
+import i18n from '@/i18n'
+
+const LanguageSwitcher = () => {
+  const { i18n } = useTranslation()
+
+  const changeLanguage = (lng: string) => {
+    i18n.changeLanguage(lng)
+    Cookies.set('i18next', lng) // Сохраняем язык в cookie
+  }
+
+  // Устанавливаем язык при монтировании компонента
+  useEffect(() => {
+    const savedLanguage = Cookies.get('i18next')
+    if (savedLanguage) {
+      i18n.changeLanguage(savedLanguage)
+    }
+  }, [i18n])
+
+  return (
+    <div>
+      <button onClick={() => changeLanguage('en')}>English</button>
+      <button onClick={() => changeLanguage('ru')}>Русский</button>
+    </div>
+  )
+}
 
 type FormData = {
   token: string
@@ -28,8 +56,12 @@ const LoginPage = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [service, setService] = useState<GitServiceType | null>(null)
 
+  const { t } = useTranslation('common')
+
   const [triggerGetGithubUserData] = useLazyGetGithubUserDataQuery()
   const [triggerGetForgejoUserData] = useLazyGetForgejoUserDataQuery()
+
+  const { singleTokenSchema, tokenAndUrlSchema } = useValidationSchemas()
 
   const { data: session, status } = useSession()
 
@@ -45,7 +77,9 @@ const LoginPage = () => {
     setError,
     clearErrors,
   } = useForm<FormData>({
-    resolver: yupResolver(service === 'forgejo' ? tokenAndUrlSchema : singleTokenSchema),
+    resolver: yupResolver(
+      service === 'forgejo' ? tokenAndUrlSchema : singleTokenSchema
+    ),
   })
 
   useEffect(() => {
@@ -134,6 +168,7 @@ const LoginPage = () => {
   if (status === 'loading') {
     return (
       <div className={styles.container}>
+        <h1 className={styles.title}>{t('test', { test: 'EEE' })}</h1>
         <SkeletonLoader />
       </div>
     )
@@ -162,7 +197,10 @@ const LoginPage = () => {
       <div className={styles.skeletonContainer}>
         {service === null ? (
           <>
-            <h1 className={styles.title}>Вход</h1>
+            <h1 key={i18n.language} className={styles.title}>
+              {t('test', { test: 'HHH' })}
+            </h1>
+            <LanguageSwitcher />
             <div className={styles.buttonContainer}>
               <p className={styles.subtitle}>С помощью токена Github</p>
               <Button
@@ -192,7 +230,7 @@ const LoginPage = () => {
           </>
         ) : (
           <div>
-            <h1 className={styles.title}>Вход</h1>
+            <h1 className={styles.title}>{t('test', { test: 'GGG' })}</h1>
             <form
               autoComplete="off"
               className={styles.form}

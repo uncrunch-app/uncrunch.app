@@ -1,7 +1,7 @@
 // middleware.ts
 
 import { NextRequestWithAuth, withAuth } from 'next-auth/middleware';
-import { NextFetchEvent, NextRequest, NextResponse } from 'next/server';
+import { NextFetchEvent } from 'next/server';
 
 const authMiddleware = withAuth({
   pages: {
@@ -11,8 +11,6 @@ const authMiddleware = withAuth({
 });
 
 export default function middleware(req: NextRequestWithAuth, event: NextFetchEvent) {
-  // Применяем мидлвар интернационализации
-
   // Применяем мидлвар аутентификации
   const authResponse = authMiddleware(req, event);
 
@@ -22,6 +20,6 @@ export default function middleware(req: NextRequestWithAuth, event: NextFetchEve
 
 export const config = {
   matcher: [
-    '/((?!login).*)', // Защищаем все маршруты, кроме /login
+    '/((?!login|locales|favicons|api).*)', // Защищаем все маршруты, кроме указанных
   ],
 };

@@ -1,3 +1,3 @@
-import { singleTokenSchema, tokenAndUrlSchema } from './model/validationScheme'
+import { singleTokenSchema, tokenAndUrlSchema } from './model/useValidationSchemas'
 
 export { singleTokenSchema, tokenAndUrlSchema }
