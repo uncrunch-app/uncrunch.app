@@ -29,7 +29,10 @@ yarn-error.log*
 .env*
 
 # Явно разрешаем .env.example
+!.env.development.example
+!.env.production.example
 !.env.example
+!.env.test
 
 # vercel
 .vercel
