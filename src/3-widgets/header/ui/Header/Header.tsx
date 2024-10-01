@@ -8,7 +8,7 @@ import styles from './Header.module.scss'
 import {
   authOptions,
   CustomSessionUser,
-} from '@/app/api/auth/[...nextauth]/route'
+} from '@/app/api/auth/authOptions'
 import { getServerSession } from 'next-auth'
 
 const Header: FC = async () => {

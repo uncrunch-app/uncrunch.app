@@ -1,11 +1,11 @@
 'use client'
 
 import { signIn, useSession } from 'next-auth/react'
-import { useEffect, useState } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
 import { GitServiceType } from '@/src/6-shared/types'
 import { useLazyGetGithubUserDataQuery } from '@/src/5-entities/user'
-import { CustomSessionUser } from '../../../app/api/auth/[...nextauth]/route'
+import { CustomSessionUser } from '@/app/api/auth/authOptions'
 import { SignOutButton } from '@/src/6-shared/ui'
 import styles from './LoginPage.module.scss'
 import Button from '@/src/6-shared/ui/buttons/Button'
@@ -304,4 +304,10 @@ const LoginPage = () => {
   )
 }
 
-export default LoginPage
+const LoginPageWithSuspense = () => (
+  <Suspense fallback={<div>Заменить на скелетон</div>}>
+    <LoginPage />
+  </Suspense>
+)
+
+export default LoginPageWithSuspense

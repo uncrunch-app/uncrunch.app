@@ -7,7 +7,7 @@
 //import Image from 'next/image';
 //import { useEffect, useState } from 'react';
 //import { getServerSession } from 'next-auth/next';
-//import { authOptions, CustomSessionUser } from '../api/auth/[...nextauth]/route';
+//import { authOptions, CustomSessionUser } from '@/app/api/auth/authOptions';
 
 //export default async function HomePage() {
 //  //const { data: session } = useSession();
@@ -69,7 +69,7 @@ import { getServerSession } from 'next-auth'
 import {
   authOptions,
   CustomSessionUser,
-} from '../../../app/api/auth/[...nextauth]/route'
+} from '@/app/api/auth/authOptions'
 import { notFound, redirect } from 'next/navigation'
 
 interface HomePageProps {

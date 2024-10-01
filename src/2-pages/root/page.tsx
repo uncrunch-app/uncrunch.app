@@ -4,7 +4,7 @@ import { redirect } from 'next/navigation'
 import {
   authOptions,
   CustomSessionUser,
-} from '../../../app/api/auth/[...nextauth]/route'
+} from '@/app/api/auth/authOptions'
 
 export default async function RootPage() {
   const session = await getServerSession(authOptions)
