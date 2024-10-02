@@ -22,30 +22,8 @@ import { useTranslation } from 'react-i18next'
 import Cookies from 'js-cookie'
 import { useValidationSchemas } from '@/src/5-entities/login/model/useValidationSchemas'
 import i18n from '@/i18n'
-
-const LanguageSwitcher = () => {
-  const { i18n } = useTranslation()
-
-  const changeLanguage = (lng: string) => {
-    i18n.changeLanguage(lng)
-    Cookies.set('i18next', lng) // Сохраняем язык в cookie
-  }
-
-  // Устанавливаем язык при монтировании компонента
-  useEffect(() => {
-    const savedLanguage = Cookies.get('i18next')
-    if (savedLanguage) {
-      i18n.changeLanguage(savedLanguage)
-    }
-  }, [i18n])
-
-  return (
-    <div>
-      <button onClick={() => changeLanguage('en')}>English</button>
-      <button onClick={() => changeLanguage('ru')}>Русский</button>
-    </div>
-  )
-}
+import BasicSelect from '@/src/6-shared/ui/Select'
+import LanguageSwitcher from '@/src/6-shared/ui/LanguageSwitcher'
 
 type FormData = {
   token: string

@@ -1,3 +1,4 @@
+import LanguageSwitcher from '@/src/6-shared/ui/LanguageSwitcher'
 import { Logo } from '@/src/6-shared/ui/logo'
 import { ReactNode } from 'react'
 
@@ -12,8 +13,11 @@ const LoginPageLayout = ({ children }: { children: ReactNode }) => {
         padding: 0,
       }}
     >
-      <header>
+      <header
+        style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+      >
         <Logo width="64" height="64" />
+        {/*<LanguageSwitcher />*/}
       </header>
       <div style={{ flex: 1 }}>
         {' '}
@@ -27,12 +31,11 @@ const LoginPageLayout = ({ children }: { children: ReactNode }) => {
           display: 'flex',
           fontWeight: '300',
           fontSize: '14px',
-          color: '#44564a'
+          color: '#44564a',
         }}
       >
-        All rights <br/>
-        source code on github <br/>
-        
+        All rights <br />
+        source code on github <br />
         Copyright (c) 2024 by Igor Teplostanski
       </footer>
     </div>

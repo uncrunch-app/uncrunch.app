@@ -93,8 +93,8 @@ const Button = styled(MuiButton, {
     backgroundColor: styles?.backgroundColor,
     color: styles?.color,
     border: borderStyle,
-    borderRadius: '16px',
-    padding: '8px 16px',
+    borderRadius: '20px',
+    padding: '12px 16px',
     textTransform: 'none',
     '&:hover': {
       backgroundColor: styles?.hoverBackgroundColor,

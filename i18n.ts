@@ -18,7 +18,7 @@ interface InitResourcesParams extends LocalesPath {
 
 const LOCALES_PATH = 'locales'
 const languages: Language[] = ['en', 'ru']
-const defaultLanguage: Language = languages[1]
+const defaultLanguage: Language = languages[0]
 
 const ERROR_LOAD_TRANSLATIONS = 'Failed to load translations'
 const ERROR_FETCH_NAMESPACES = 'Failed to fetch namespaces'
