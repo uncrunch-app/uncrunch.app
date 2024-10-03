@@ -1,4 +1,4 @@
-import LanguageSwitcher from '@/src/6-shared/ui/LanguageSwitcher'
+import LocaleSwitcher from '@/src/6-shared/LocaleSwitcher'
 import { Logo } from '@/src/6-shared/ui/logo'
 import { ReactNode } from 'react'
 
@@ -17,7 +17,7 @@ const LoginPageLayout = ({ children }: { children: ReactNode }) => {
         style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
       >
         <Logo width="64" height="64" />
-        {/*<LanguageSwitcher />*/}
+        <LocaleSwitcher />
       </header>
       <div style={{ flex: 1 }}>
         {' '}

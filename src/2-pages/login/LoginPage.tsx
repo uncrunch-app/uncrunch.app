@@ -17,13 +17,11 @@ import Input from '@/src/6-shared/ui/textFields/Input'
 import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { SkeletonLoader } from './ui/SkeletonLoader'
-import { useTranslation } from 'react-i18next'
+import {useTranslations} from 'next-intl';
 
-import Cookies from 'js-cookie'
 import { useValidationSchemas } from '@/src/5-entities/login/model/useValidationSchemas'
-import i18n from '@/i18n'
-import BasicSelect from '@/src/6-shared/ui/Select'
-import LanguageSwitcher from '@/src/6-shared/ui/LanguageSwitcher'
+import LocaleSwitcher from '@/src/6-shared/LocaleSwitcher'
+//import LanguageSwitcher from '@/src/6-shared/ui/LanguageSwitcher'
 
 type FormData = {
   token: string
@@ -33,8 +31,8 @@ type FormData = {
 const LoginPage = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [service, setService] = useState<GitServiceType | null>(null)
-
-  const { t } = useTranslation('common')
+  
+  const t = useTranslations('Common');
 
   const [triggerGetGithubUserData] = useLazyGetGithubUserDataQuery()
   const [triggerGetForgejoUserData] = useLazyGetForgejoUserDataQuery()
@@ -146,7 +144,7 @@ const LoginPage = () => {
   if (status === 'loading') {
     return (
       <div className={styles.container}>
-        <h1 className={styles.title}>{t('test', { test: 'EEE' })}</h1>
+        <h1 className={styles.title}> {t('test', {test: 'ЗАГРУЗКА'})} </h1>
         <SkeletonLoader />
       </div>
     )
@@ -175,10 +173,10 @@ const LoginPage = () => {
       <div className={styles.skeletonContainer}>
         {service === null ? (
           <>
-            <h1 key={i18n.language} className={styles.title}>
-              {t('test', { test: 'HHH' })}
+            <h1 key={Date.now()} className={styles.title}>
+              {t('test', {test: 'ПОЛУЧИЛОСЬ!'})}
             </h1>
-            <LanguageSwitcher />
+            <LocaleSwitcher />
             <div className={styles.buttonContainer}>
               <p className={styles.subtitle}>С помощью токена Github</p>
               <Button
@@ -208,7 +206,7 @@ const LoginPage = () => {
           </>
         ) : (
           <div>
-            <h1 className={styles.title}>{t('test', { test: 'GGG' })}</h1>
+            <h1 className={styles.title}>{t('test', {test: 'ПОЛУЧИЛОСЬ!'})}</h1>
             <form
               autoComplete="off"
               className={styles.form}
