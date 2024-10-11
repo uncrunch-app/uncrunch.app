@@ -20,5 +20,16 @@
     "ru": "Rusian",
     "en": "English",
     "label": "Language"
+  },
+  "UserMenu": {
+    "homePage": "Home",
+    "settingsPage": "Settings",
+    "secretPage": "Secret",
+    "langOptions": "Language",
+    "themeOptions": "Theme",
+    "logOut": "Log Out",
+    "notes": "Notes",
+    "todo": "To Do",
+    "boards": "Boards"
   }
 }

@@ -14,7 +14,14 @@ module.exports = {
     './node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
-    extend: {},
+    extend: {
+      minHeight: {
+        fit: 'fit-content',
+      },
+      maxHeight: {
+        'svh-80px': 'calc(100svh - 80px)',
+      },
+    },
   },
   darkMode: 'class',
   plugins: [

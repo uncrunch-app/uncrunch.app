@@ -1,11 +1,8 @@
 import { ReactNode } from 'react'
-import Providers from '../entryProviders'
+import Providers from '../providers'
 import { NextIntlClientProvider } from 'next-intl'
 import { getMessages } from 'next-intl/server'
-//import { cookies } from "next/headers";
 import '@/src/6-shared/styles/global.css'
-//import '@nextui-org/react/styles.css';
-
 
 import 'normalize.css/normalize.css'
 import '@fontsource/inter/200.css'
@@ -64,8 +61,6 @@ export const metadata = {
 }
 
 const RootLayout = async ({ children }: { children: ReactNode }) => {
-  //const locale = await getLocale()
-
   // Providing all messages to the client
   // side is the easiest way to get started
   const messages = await getMessages()

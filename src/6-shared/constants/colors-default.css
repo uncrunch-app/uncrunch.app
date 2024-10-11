@@ -1,69 +1,33 @@
-:root {
-  --cream: #ead2c6;
-  --yellow: #ffb07b;
-  --red: #bf5235;
-  --white: #f3e5e4;
-  --white-90: #f3e5e4e6;
-  --white-80: #f3e5e4cc;
-  --white-70: #f3e5e4b3;
-  --white-60: #f3e5e499;
-  --white-50: #f3e5e480;
-  --white-40: #f3e5e466;
-  --white-30: #f3e5e44d;
-  --white-20: #f3e5e433;
-  --white-10: #f3e5e41a;
-  --teal: #86b7a4;
-  --green-900: #263029;
-  --green-800: #2d3931;
-  --green-700: #35433a;
-  --green-600: #3c4c42;
-  --green-500: #44564a;
-  --green-400: #59695e;
-  --green-300: #6e7c72;
-  --green-200: #828e86;
-  --green-100: #97a19a;
-  --green-50: #a5aea8;
-  --black-900: #1f1f2d;
-  --black-800: #2c2c39;
-  --black-700: #393945;
-  --black-600: #454551;
-  --black-500: #52525d;
-  --black-400: #5f5f69;
-  --black-300: #6c6c75;
-  --black-200: #797981;
-  --black-100: #85858d;
-  --black-50: #99999f;
-
+::root {
   /* light */
+  --light-foreground-50: #cbcbdb;
+  --light-foreground-100: #bfbfd3;
+  --light-foreground-200: #a7a7c2;
+  --light-foreground-300: #8f8fb2;
+  --light-foreground-400: #7777a1;
+  --light-foreground-500: #62628e;
+  --light-foreground-600: #515175;
+  --light-foreground-700: #40405d;
+  --light-foreground-800: #303045;
+  --light-foreground-900: #1f1f2d;
+  --light-foreground-default: #1f1f2d;
 
-  --light-foreground-50: #e3e9e5;
-  --light-foreground-100: #d8e0da;
-  --light-foreground-200: #c1cec5;
-  --light-foreground-300: #aabcb0;
-  --light-foreground-400: #93aa9b;
-  --light-foreground-500: #7d9886;
-  --light-foreground-600: #688471;
-  --light-foreground-700: #566d5e;
-  --light-foreground-800: #44564a;
-  --light-foreground-900: #2b372f;
-  --light-foreground-default: #44564a;
-
-  --light-divider: rgba(86, 109, 94, 0.6);
+  --light-divider: #11111126;
   --light-focus: #006fee;
   --light-overlay: #000000;
 
-  --light-default-50: #e3e9e5;
-  --light-default-100: #d8e0da;
-  --light-default-200: #c1cec5;
-  --light-default-300: #aabcb0;
-  --light-default-400: #93aa9b;
-  --light-default-500: #7d9886;
-  --light-default-600: #688471;
-  --light-default-700: #566d5e;
-  --light-default-800: #44564a;
-  --light-default-900: #2b372f;
-  --light-default-foreground: #fff;
-  --light-default-default: #44564a;
+  --light-default-50: #cbcbdb;
+  --light-default-100: #bfbfd3;
+  --light-default-200: #a7a7c2;
+  --light-default-300: #8f8fb2;
+  --light-default-400: #7777a1;
+  --light-default-500: #62628e;
+  --light-default-600: #515175;
+  --light-default-700: #40405d;
+  --light-default-800: #303045;
+  --light-default-900: #1f1f2d;
+  --light-default-foreground: #1f1f2d;
+  --light-default-default: #cbcbdb;
 
   --light-primary-50: #faf5f3;
   --light-primary-100: #f5eae4;

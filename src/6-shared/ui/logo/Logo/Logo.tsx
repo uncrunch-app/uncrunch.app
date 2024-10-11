@@ -42,7 +42,7 @@ const Logo: React.FC<LogoProps> = ({
   const adjustedHeight = INIT_SVG_SIZE - numericBorderWidth
   const halfBorderWidth = numericBorderWidth / 2
   
-  console.log(colors);
+  //console.log(semanticColors);
   
 
   return (
@@ -55,8 +55,8 @@ const Logo: React.FC<LogoProps> = ({
         {
           '--logo-width': width,
           '--logo-height': height,
-          '--logo-color': color,
-          '--logo-bg-color': bgColor,
+          '--logo-color': 'hsl(var(--nextui-secondary))',
+          '--logo-bg-color': 'hsl(var(--nextui-primary))',
           '--logo-border-color': borderColor,
           '--logo-border-width': borderWidth,
           '--logo-border-radius': borderRadius,
