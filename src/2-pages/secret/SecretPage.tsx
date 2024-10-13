@@ -7,13 +7,10 @@ import { useTranslations } from 'next-intl'
 
 const SecretPage = () => {
   const t = useTranslations('SecretPage')
-  
+
   return (
     <div className={styles.container}>
-      
-      <p>
-        {t('message')}
-      </p>
+      <p>{t('message')}</p>
       <Image
         src={img}
         alt="Secret GIF"

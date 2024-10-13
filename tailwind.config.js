@@ -2,7 +2,7 @@ import { nextui } from '@nextui-org/react'
 import {
   themes,
   defaultLayout as layout,
-} from './src/6-shared/utils/themeSettings'
+} from './src/6-shared/themes/themeSettings'
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {

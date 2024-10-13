@@ -13,7 +13,7 @@ import '@fontsource/inter/600.css'
 import '@fontsource/inter/700.css'
 import '@fontsource/inter/800.css'
 import '@fontsource/inter/900.css'
-import { getServerTheme } from '@/src/6-shared/utils/getServerTheme';
+import { fetchThemeMode } from '@/src/6-shared/utils/themeCookies';
 
 export const metadata = {
   title: 'Uncrunch',
@@ -65,7 +65,7 @@ const RootLayout = async ({ children }: { children: ReactNode }) => {
   // side is the easiest way to get started
   const messages = await getMessages()
   
-  const initialTheme = getServerTheme();
+  const initialTheme = await fetchThemeMode();
 
   return (
     <html lang="ru" className={initialTheme}>
