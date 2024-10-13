@@ -32,6 +32,7 @@ import { useUsername } from '@/src/6-shared/services/useUsername'
 import { signOut } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 import { FC } from 'react'
+import LocaleSwitcher from '@/src/6-shared/LocaleSwitcher'
 
 const UserInfoDescription = ({ customUser }: UserMenuProps) => {
   return (
@@ -55,7 +56,7 @@ const UserMenu: FC<UserMenuProps> = ({ customUser }) => {
 
   const iconSize = 18
 
-  const disabledKeys = ['repo', 'language']
+  const disabledKeys = ['repo']
   if (isLoading) {
     disabledKeys.push('settings')
   }
@@ -187,39 +188,29 @@ const UserMenu: FC<UserMenuProps> = ({ customUser }) => {
             className="cursor-default"
             textValue="Language selection"
             startContent={<IoLanguageOutline size={iconSize} />}
-            endContent={
-              <select
-                className="z-10 w-16 rounded-md border-small border-default-300 bg-transparent py-0.5 text-tiny text-default-500 outline-none group-data-[hover=true]:border-default-500 dark:border-default-200"
-                id="Language"
-                name="Language"
-              >
-                <option>EN</option>
-                <option>RU</option>
-              </select>
-            }
           >
-            {t('langOptions')}
+            <LocaleSwitcher /> 
           </DropdownItem>
-          <DropdownItem
-            isReadOnly
-            key="theme"
-            className="cursor-default"
-            textValue="Theme selection"
-            startContent={<IoColorPaletteOutline size={iconSize} />}
-            endContent={
-              <select
-                className="z-10 w-16 rounded-md border-small border-default-300 bg-transparent py-0.5 text-tiny text-default-500 outline-none group-data-[hover=true]:border-default-500 dark:border-default-200"
-                id="theme"
-                name="theme"
-              >
-                <option>System</option>
-                <option>Dark</option>
-                <option>Light</option>
-              </select>
-            }
-          >
-            {t('themeOptions')}
-          </DropdownItem>
+            {/*<DropdownItem
+              isReadOnly
+              key="theme"
+              className="cursor-default"
+              textValue="Theme selection"
+              startContent={<IoColorPaletteOutline size={iconSize} />}
+              endContent={
+                <select
+                  className="z-10 w-16 rounded-md border-small border-default-300 bg-transparent py-0.5 text-tiny text-default-500 outline-none group-data-[hover=true]:border-default-500 dark:border-default-200"
+                  id="theme"
+                  name="theme"
+                >
+                  <option>System</option>
+                  <option>Dark</option>
+                  <option>Light</option>
+                </select>
+              }
+            >
+              {t('themeOptions')}
+            </DropdownItem>*/}
         </DropdownSection>
 
         <DropdownSection aria-label="Log Out">
