@@ -1,5 +1,7 @@
 import { ReactNode } from 'react'
 import Providers from '../entryProviders'
+import { NextIntlClientProvider } from 'next-intl'
+import { getLocale, getMessages } from 'next-intl/server'
 import '@/src/6-shared/styles/global.scss'
 
 import 'normalize.css/normalize.css'
@@ -57,11 +59,19 @@ export const metadata = {
   manifest: '/manifest.webmanifest',
 }
 
-const RootLayout = ({ children }: { children: ReactNode }) => {
+const RootLayout = async ({ children }: { children: ReactNode }) => {
+  const locale = await getLocale()
+
+  // Providing all messages to the client
+  // side is the easiest way to get started
+  const messages = await getMessages()
+
   return (
     <html lang="ru">
       <body>
-        <Providers>{children}</Providers>
+        <NextIntlClientProvider messages={messages}>
+          <Providers>{children}</Providers>
+        </NextIntlClientProvider>
       </body>
     </html>
   )
