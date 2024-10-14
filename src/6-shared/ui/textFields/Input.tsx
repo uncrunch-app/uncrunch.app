@@ -59,14 +59,14 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
         '& .MuiOutlinedInput-root': {
           '& fieldset': {
             borderColor: COLOR.GREEN,
-            borderRadius: '18px',
+            borderRadius: '20px',
           },
           '&:hover fieldset': {
             borderColor: COLOR.GREEN_50,
           },
           '&.Mui-focused fieldset': {
             borderColor: COLOR.GREEN,
-            borderRadius: '18px',
+            borderRadius: '20px',
           },
         },
       }}

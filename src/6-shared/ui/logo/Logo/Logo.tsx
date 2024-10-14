@@ -1,6 +1,7 @@
 import React from 'react'
 import styles from './Logo.module.scss'
 import * as COLOR from '@/src/6-shared/constants/colors'
+import {commonColors, semanticColors, colors} from "@nextui-org/theme";
 
 interface LogoProps {
   width?: string
@@ -31,7 +32,7 @@ const Logo: React.FC<LogoProps> = ({
   width = `${INIT_SVG_SIZE}px`,
   height = `${INIT_SVG_SIZE}px`,
   color = COLOR.CREAM,
-  bgColor = COLOR.GREEN,
+  bgColor = COLOR.GREEN_500,
   borderColor = 'none',
   borderWidth = '0',
   borderRadius = '0',
@@ -40,6 +41,9 @@ const Logo: React.FC<LogoProps> = ({
   const adjustedWidth = INIT_SVG_SIZE - numericBorderWidth
   const adjustedHeight = INIT_SVG_SIZE - numericBorderWidth
   const halfBorderWidth = numericBorderWidth / 2
+  
+  //console.log(semanticColors);
+  
 
   return (
     <svg
@@ -51,8 +55,8 @@ const Logo: React.FC<LogoProps> = ({
         {
           '--logo-width': width,
           '--logo-height': height,
-          '--logo-color': color,
-          '--logo-bg-color': bgColor,
+          '--logo-color': 'hsl(var(--nextui-secondary))',
+          '--logo-bg-color': 'hsl(var(--nextui-primary))',
           '--logo-border-color': borderColor,
           '--logo-border-width': borderWidth,
           '--logo-border-radius': borderRadius,

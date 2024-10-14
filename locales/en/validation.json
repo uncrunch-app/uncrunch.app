@@ -1,7 +1,0 @@
-{
-  "token_required": "Token is required",
-  "token_min_length": "Token must be at least 10 characters long",
-  "token_invalid": "Token cannot contain spaces or Cyrillic characters",
-  "url_required": "URL is required",
-  "url_invalid": "Invalid URL"
-}

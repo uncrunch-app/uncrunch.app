@@ -1,9 +1,10 @@
 .headerContainer {
-  background-color: var(--green);
+  background-color: var(--cre);
   padding: 10px 20px;
   color: var(--cream);
   display: flex;
   justify-content: space-between;
+  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
 }
 
 .userInfo {

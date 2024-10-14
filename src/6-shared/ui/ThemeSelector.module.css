@@ -1,0 +1,16 @@
+/*components/ThemeSelector.module.scss
+
+.container {
+  padding: 1rem;
+  background-color: hsl(var(--nextui-background));
+  border-radius: var(--nextui-radius-large);
+  border: var(--nextui-border-width-small) solid hsl(var(--nextui-primary-300));
+}
+
+.radioLabel {
+  color: hsl(var(--nextui-primary-300));
+}
+
+.radioButtonWrapper {
+  border-color: hsl(var(--nextui-foreground));
+}*/

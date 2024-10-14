@@ -1,7 +1,12 @@
+//import LocaleSwitcher from '@/src/6-shared/LocaleSwitcher'
 import { Logo } from '@/src/6-shared/ui/logo'
+//import ThemeSwitcher from '@/src/6-shared/ui/ThemeSwitcher'
 import { ReactNode } from 'react'
+import { cookies } from "next/headers";
+import { fetchThemeMode } from '@/src/6-shared/utils/themeCookies';
 
 const LoginPageLayout = ({ children }: { children: ReactNode }) => {
+  const initialTheme = fetchThemeMode();
   return (
     <div
       style={{
@@ -12,8 +17,12 @@ const LoginPageLayout = ({ children }: { children: ReactNode }) => {
         padding: 0,
       }}
     >
-      <header>
+      <header
+        style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+      >
         <Logo width="64" height="64" />
+        {/*<LocaleSwitcher />*/}
+        {/*<ThemeSwitcher initialTheme={initialTheme} />*/}
       </header>
       <div style={{ flex: 1 }}>
         {' '}
@@ -27,12 +36,11 @@ const LoginPageLayout = ({ children }: { children: ReactNode }) => {
           display: 'flex',
           fontWeight: '300',
           fontSize: '14px',
-          color: '#44564a'
+          color: '#44564a',
         }}
       >
-        All rights <br/>
-        source code on github <br/>
-        
+        All rights <br />
+        source code on github <br />
         Copyright (c) 2024 by Igor Teplostanski
       </footer>
     </div>
