@@ -10,6 +10,7 @@ const SecretPage = () => {
   
   return (
     <div className={styles.container}>
+      
       <p>
         {t('message')}
       </p>

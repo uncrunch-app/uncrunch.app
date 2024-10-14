@@ -90,10 +90,10 @@ export default async function HomePage({ params }: HomePageProps) {
 
   return (
     <div style={{ margin: '20px' }}>
-      <h1 style={{ fontSize: '2rem', fontWeight: '900' }}>
+      <h1 className='text-foreground-800' style={{ fontSize: '2rem', fontWeight: '900' }}>
         {t('welcome', {username})}
       </h1>
-      <p>{t('message')}</p>
+      <p className='text-foreground-900'>{t('message')}</p>
     </div>
   )
 }
