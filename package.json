@@ -11,7 +11,8 @@
     "convert-scss-to-ts": "npm run convert-colors-scss && npm run convert-breakpoints-scss",
     "convert-colors-scss": "node scripts/convert-sass-to-ts.mjs src/6-shared/constants/colors.css src/6-shared/constants/colors.ts",
     "convert-breakpoints-scss": "node scripts/convert-sass-to-ts.mjs src/6-shared/constants/breakpoints.scss src/6-shared/constants/breakpoints.ts",
-    "test": "jest"
+    "test": "jest",
+    "prepare": "husky"
   },
   "dependencies": {
     "@fontsource/inter": "^5.0.21",
@@ -29,7 +30,6 @@
     "next": "^14.2.5",
     "next-auth": "^4.24.7",
     "next-intl": "^3.20.0",
-    "next-intl": "^3.20.0",
     "normalize.css": "^8.0.1",
     "postcss": "^8.4.47",
     "react": "^18",
@@ -41,6 +41,8 @@
     "yup": "^1.4.0"
   },
   "devDependencies": {
+    "@commitlint/cli": "^19.5.0",
+    "@commitlint/config-conventional": "^19.5.0",
     "@types/jest": "^29.5.13",
     "@types/node": "^20.16.10",
     "@types/react": "^18",
@@ -48,6 +50,7 @@
     "dotenv": "^16.4.5",
     "eslint": "^8",
     "eslint-config-next": "14.2.5",
+    "husky": "^9.1.6",
     "jest": "^29.7.0",
     "prettier": "^3.3.3",
     "prettier-plugin-tailwindcss": "^0.6.8",
