@@ -21,8 +21,10 @@ jobs:
       fail-fast: false
       matrix:
         include:
-        - language: javascript-typescript
-          build-mode: none
+        - language: javascript
+          build-mode: manual
+        - language: typescript
+          build-mode: manual
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
@@ -32,6 +34,11 @@ jobs:
       with:
         languages: ${{ matrix.language }}
         build-mode: ${{ matrix.build-mode }}
+
+    - name: Build the project
+      run: |
+        npm install
+        npm run build
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v3
