@@ -28,5 +28,3 @@ If you discover a security issue within our applications, please report it to us
 ## Additional Information
 
 If you have any questions or comments regarding our security policy, please contact us at <support@uncrunch.app>.
-
-*Last Updated:* [Date of Last Update]
