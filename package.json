@@ -28,7 +28,7 @@
     "classnames": "^2.5.1",
     "framer-motion": "^11.11.1",
     "next": "^14.2.5",
-    "next-auth": "^4.24.7",
+    "next-auth": "^4.24.8",
     "next-intl": "^3.20.0",
     "normalize.css": "^8.0.1",
     "postcss": "^8.4.47",
