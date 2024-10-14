@@ -1,6 +1,7 @@
 // themeSettings.ts
 import { ConfigThemes, LayoutTheme } from '@nextui-org/react'
 import * as COLOR from '../constants/colors'
+import { uncrunchLight } from './uncrunchLight'
 
 export const defaultLayout: LayoutTheme = {
   disabledOpacity: '0.3',
@@ -24,124 +25,16 @@ export const defaultLayout: LayoutTheme = {
   dividerWeight: '1px',
   boxShadow: {
     small:
-      '0px 0px 5px 0px rgb(0 0 0 / 0.01), 0px 2px 10px 0px rgb(0 0 0 / 0.06)',
+      '0px 0px 6px 0px rgba(0,0,0,0.1)',
     medium:
-      '0px 0px 15px 0px rgb(0 0 0 / 0.02), 0px 2px 30px 0px rgb(0 0 0 / 0.08)',
+      '0px 0px 14px 0px rgba(0,0,0,0.1)',
     large:
-      '0px 0px 30px 0px rgb(0 0 0 / 0.03), 0px 30px 60px 0px rgb(0 0 0 / 0.12)',
+      '0px 0px 24px 6px rgba(0,0,0,0.1)',
   },
 }
 
 export const themes: ConfigThemes = {
-  light: {
-    colors: {
-      background: { DEFAULT: '#faf5f3' },
-      foreground: {
-        '50': COLOR.LIGHT_FOREGROUND_50,
-        '100': COLOR.LIGHT_FOREGROUND_100,
-        '200': COLOR.LIGHT_FOREGROUND_200,
-        '300': COLOR.LIGHT_FOREGROUND_300,
-        '400': COLOR.LIGHT_FOREGROUND_400,
-        '500': COLOR.LIGHT_FOREGROUND_500,
-        '600': COLOR.LIGHT_FOREGROUND_600,
-        '700': COLOR.LIGHT_FOREGROUND_700,
-        '800': COLOR.LIGHT_FOREGROUND_800,
-        '900': COLOR.LIGHT_FOREGROUND_900,
-        DEFAULT: COLOR.LIGHT_FOREGROUND_DEFAULT
-      },
-      divider: { DEFAULT: COLOR.LIGHT_DIVIDER },
-      focus: { DEFAULT: '#006FEE' },
-      overlay: { DEFAULT: '#000000' },
-      content1: { DEFAULT: '#FFFFFF', foreground: '#11181C' },
-      content2: { DEFAULT: '#f4f4f5', foreground: '#27272a' },
-      content3: { DEFAULT: '#e4e4e7', foreground: '#3f3f46' },
-      content4: { DEFAULT: '#d4d4d8', foreground: '#52525b' },
-      default: {
-        '50': COLOR.LIGHT_DEFAULT_50,
-        '100': COLOR.LIGHT_DEFAULT_100,
-        '200': COLOR.LIGHT_DEFAULT_200,
-        '300': COLOR.LIGHT_DEFAULT_300,
-        '400': COLOR.LIGHT_DEFAULT_400,
-        '500': COLOR.LIGHT_DEFAULT_500,
-        '600': COLOR.LIGHT_DEFAULT_600,
-        '700': COLOR.LIGHT_DEFAULT_700,
-        '800': COLOR.LIGHT_DEFAULT_800,
-        '900': COLOR.LIGHT_DEFAULT_900,
-        foreground: COLOR.LIGHT_DEFAULT_FOREGROUND,
-        DEFAULT: COLOR.LIGHT_DEFAULT_DEFAULT
-      },
-      primary: {
-        '50': COLOR.LIGHT_PRIMARY_50,
-        '100': COLOR.LIGHT_PRIMARY_100,
-        '200': COLOR.LIGHT_PRIMARY_200,
-        '300': COLOR.LIGHT_PRIMARY_300,
-        '400': COLOR.LIGHT_PRIMARY_400,
-        '500': COLOR.LIGHT_PRIMARY_500,
-        '600': COLOR.LIGHT_PRIMARY_600,
-        '700': COLOR.LIGHT_PRIMARY_700,
-        '800': COLOR.LIGHT_PRIMARY_800,
-        '900': COLOR.LIGHT_PRIMARY_900,
-        foreground: COLOR.LIGHT_PRIMARY_FOREGROUND,
-        DEFAULT: COLOR.LIGHT_PRIMARY_DEFAULT
-      },
-      secondary: {
-        '50': COLOR.LIGHT_SECONDARY_50,
-        '100': COLOR.LIGHT_SECONDARY_100,
-        '200': COLOR.LIGHT_SECONDARY_200,
-        '300': COLOR.LIGHT_SECONDARY_300,
-        '400': COLOR.LIGHT_SECONDARY_400,
-        '500': COLOR.LIGHT_SECONDARY_500,
-        '600': COLOR.LIGHT_SECONDARY_600,
-        '700': COLOR.LIGHT_SECONDARY_700,
-        '800': COLOR.LIGHT_SECONDARY_800,
-        '900': COLOR.LIGHT_SECONDARY_900,
-        foreground: COLOR.LIGHT_SECONDARY_FOREGROUND,
-        DEFAULT: COLOR.LIGHT_SECONDARY_DEFAULT
-      },
-      success: {
-        '50': '#e8faf0',
-        '100': '#d1f4e0',
-        '200': '#a2e9c1',
-        '300': '#74dfa2',
-        '400': '#45d483',
-        '500': '#17c964',
-        '600': '#12a150',
-        '700': '#0e793c',
-        '800': '#095028',
-        '900': '#052814',
-        foreground: '#000',
-        DEFAULT: '#17c964'
-      },
-      warning: {
-        '50': '#fefce8',
-        '100': '#fdedd3',
-        '200': '#fbdba7',
-        '300': '#f9c97c',
-        '400': '#f7b750',
-        '500': '#f5a524',
-        '600': '#c4841d',
-        '700': '#936316',
-        '800': '#62420e',
-        '900': '#312107',
-        foreground: '#000',
-        DEFAULT: '#f5a524'
-      },
-      danger: {
-        '50': '#fee7ef',
-        '100': '#fdd0df',
-        '200': '#faa0bf',
-        '300': '#f871a0',
-        '400': '#f54180',
-        '500': '#f31260',
-        '600': '#c20e4d',
-        '700': '#920b3a',
-        '800': '#610726',
-        '900': '#310413',
-        foreground: '#ffffff',
-        DEFAULT: '#f31260'
-      }
-    }
-  },
+  light: uncrunchLight,
 
   dark: {
     colors: {
@@ -252,7 +145,7 @@ export const themes: ConfigThemes = {
       },
     },
   },
-  'default': {
+  'classic-light': {
     extend: 'light',
     colors: {
       background: { DEFAULT: COLOR.CREAM },
