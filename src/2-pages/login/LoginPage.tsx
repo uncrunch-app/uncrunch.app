@@ -8,20 +8,22 @@ import { useLazyGetGithubUserDataQuery } from '@/src/5-entities/user'
 import { CustomSessionUser } from '@/app/api/auth/authOptions'
 import { SignOutButton } from '@/src/6-shared/ui'
 import styles from './LoginPage.module.scss'
-import Button from '@/src/6-shared/ui/buttons/Button'
+//import Button from '@/src/6-shared/ui/buttons/Button'
 import { useLazyGetForgejoUserDataQuery } from '@/src/5-entities/user/api/forgejoUserApi'
 import { validateToken } from '@/src/6-shared/utils/validateToken'
-import CircularProgress from '@mui/material/CircularProgress'
+//import CircularProgress from '@mui/material/CircularProgress'
 import Input from '@/src/6-shared/ui/textFields/Input'
 
 import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { SkeletonLoader } from './ui/SkeletonLoader'
-import {useTranslations} from 'next-intl';
+//import { SkeletonLoader } from './ui/SkeletonLoader'
+import { useTranslations } from 'next-intl'
 
 import { useValidationSchemas } from '@/src/5-entities/login/model/useValidationSchemas'
-import LocaleSwitcher from '@/src/6-shared/LocaleSwitcher'
+//import LocaleSwitcher from '@/src/6-shared/LocaleSwitcher'
 //import LanguageSwitcher from '@/src/6-shared/ui/LanguageSwitcher'
+import { Button } from "@nextui-org/react";
+//import ThemeSwitcher from '@/src/6-shared/ui/ThemeSwitcher'
 
 type FormData = {
   token: string
@@ -31,8 +33,8 @@ type FormData = {
 const LoginPage = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [service, setService] = useState<GitServiceType | null>(null)
-  
-  const t = useTranslations('Common');
+
+  const t = useTranslations('Common')
 
   const [triggerGetGithubUserData] = useLazyGetGithubUserDataQuery()
   const [triggerGetForgejoUserData] = useLazyGetForgejoUserDataQuery()
@@ -144,17 +146,16 @@ const LoginPage = () => {
   if (status === 'loading') {
     return (
       <div className={styles.container}>
-        <h1 className={styles.title}> {t('test', {test: 'ЗАГРУЗКА'})} </h1>
-        <SkeletonLoader />
+        <h1 className={styles.title}> {t('test', { test: 'ЗАГРУЗКА' })} </h1>
+        {/*<SkeletonLoader />*/}
+        <span>Loading...</span>
       </div>
     )
   }
 
   if (isLoading) {
     return (
-      <div className={styles.spinnerContainer}>
-        <CircularProgress />
-      </div>
+      <div className={styles.spinnerContainer}>{/*<CircularProgress />*/}</div>
     )
   }
 
@@ -167,46 +168,51 @@ const LoginPage = () => {
       </div>
     )
   }
+  
 
   return (
     <div className={styles.container}>
       <div className={styles.skeletonContainer}>
+      <Button color="primary">Кнопка NextUI</Button>
+      {/*<ThemeSwitcher />*/}
         {service === null ? (
           <>
             <h1 key={Date.now()} className={styles.title}>
-              {t('test', {test: 'ПОЛУЧИЛОСЬ!'})}
+              {t('test', { test: 'ПОЛУЧИЛОСЬ!' })}
             </h1>
-            <LocaleSwitcher />
+            {/*<LocaleSwitcher />*/}
             <div className={styles.buttonContainer}>
               <p className={styles.subtitle}>С помощью токена Github</p>
-              <Button
+              <button
                 className={styles.button}
-                border="primary"
+                //border="primary"
                 onClick={() => {
                   setService('github')
                   console.log('Выбранный сервис: GitHub')
                 }}
               >
                 GitHub
-              </Button>
+              </button>
               <p className={styles.subtitle}>
                 С помощью токена инстансов Forgejo
               </p>
-              <Button
+              <button
                 className={styles.button}
-                border="primary"
+                //border="primary"
                 onClick={() => {
                   setService('forgejo')
                   console.log('Выбранный сервис: Forgejo')
                 }}
               >
                 Forgejo
-              </Button>
+              </button>
             </div>
           </>
         ) : (
           <div>
-            <h1 className={styles.title}>{t('test', {test: 'ПОЛУЧИЛОСЬ!'})}</h1>
+            <h1 className={styles.title}>
+              {t('test', { test: 'ПОЛУЧИЛОСЬ!' })}
+            </h1>
             <form
               autoComplete="off"
               className={styles.form}
@@ -219,12 +225,12 @@ const LoginPage = () => {
                     control={control}
                     defaultValue=""
                     render={({ field }) => (
-                      <Input
-                        label="URL"
+                      <input
+                        //label="URL"
                         {...field}
                         id="instance-url"
-                        errorMessage={errors.instanceUrl?.message}
-                        variant="text"
+                        //errorMessage={errors.instanceUrl?.message}
+                        //variant="text"
                         value={field.value || ''}
                         onChange={(e) => {
                           field.onChange(e)
@@ -239,13 +245,13 @@ const LoginPage = () => {
                   control={control}
                   defaultValue=""
                   render={({ field }) => (
-                    <Input
-                      label={`${service === 'github' ? 'Github' : 'Forgejo'} токен`}
+                    <input
+                      //label={`${service === 'github' ? 'Github' : 'Forgejo'} токен`}
                       {...field}
-                      variant={'password'}
+                      //variant={'password'}
                       id={'outlined-password'}
-                      inputProps={{ autoComplete: 'new-password' }}
-                      errorMessage={errors.token?.message}
+                      //inputProps={{ autoComplete: 'new-password' }}
+                      //errorMessage={errors.token?.message}
                       onChange={(e) => {
                         field.onChange(e)
                         clearErrors('token')
@@ -255,22 +261,27 @@ const LoginPage = () => {
                 />
               </div>
               <div className={styles.buttonContainer}>
-                <Button disabled={isSubmitting} type="submit" border="primary">
+                <button
+                  disabled={isSubmitting}
+                  type="submit"
+                  //border="primary"
+                >
                   {isSubmitting ? (
-                    <CircularProgress color="secondary" size="24.5px" />
+                    //<CircularProgress color="secondary" size="24.5px" />
+                    <span>Loading...</span>
                   ) : (
                     <span>Войти</span>
                   )}
-                </Button>
-                <Button
+                </button>
+                <button
                   color="secondary"
-                  border="primary"
+                  //border="primary"
                   disabled={isSubmitting}
                   type="button"
                   onClick={() => setService(null)}
                 >
                   Назад
-                </Button>
+                </button>
               </div>
             </form>
           </div>

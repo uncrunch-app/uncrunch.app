@@ -7,7 +7,9 @@ import { Logo } from '@/src/6-shared/ui/logo'
 import styles from './Header.module.scss'
 import { authOptions, CustomSessionUser } from '@/app/api/auth/authOptions'
 import { getServerSession } from 'next-auth'
-import UserMenu from '@/src/5-entities/user/ui/UserMenu/UserMenu'
+//import UserMenu from '@/src/5-entities/user/ui/UserMenu/UserMenu'
+import * as COLOR from '@/src/6-shared/constants/colors'
+//import UserMenu from '@/src/5-entities/user/ui/UserMenu/UserMenu'
 
 const Header: FC = async () => {
   const session = await getServerSession(authOptions)
@@ -16,9 +18,9 @@ const Header: FC = async () => {
 
   return (
     <div className={styles.headerContainer}>
-      <Logo width="48px" height="48px" />
+      <Logo width="48px" height="48px" color={COLOR.GREEN_500} bgColor={COLOR.CREAM}/>
       <div className={styles.userInfo}>
-        {customUser && <UserMenu customUser={customUser} />}
+        {/*{customUser && <UserMenu customUser={customUser} />}*/}
         {/*<SignOutButton />*/}
       </div>
     </div>

@@ -1,7 +1,10 @@
 {
   "HomePage": {
-    "welcome": "Welcome!!",
-    "hello": "Hello"
+    "welcome": "Welcome, {username}!",
+    "message": "This is your profile page."
+  },
+  "SecretPage": {
+    "message": "You're not supposed to be here, but since you are — enjoy the view!"
   },
   "Common": {
     "test": "TEST {test} !"

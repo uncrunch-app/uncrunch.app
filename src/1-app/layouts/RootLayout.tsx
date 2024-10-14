@@ -1,8 +1,11 @@
 import { ReactNode } from 'react'
 import Providers from '../entryProviders'
 import { NextIntlClientProvider } from 'next-intl'
-import { getLocale, getMessages } from 'next-intl/server'
-import '@/src/6-shared/styles/global.scss'
+import { getMessages } from 'next-intl/server'
+//import { cookies } from "next/headers";
+import '@/src/6-shared/styles/global.css'
+//import '@nextui-org/react/styles.css';
+
 
 import 'normalize.css/normalize.css'
 import '@fontsource/inter/200.css'
@@ -13,6 +16,7 @@ import '@fontsource/inter/600.css'
 import '@fontsource/inter/700.css'
 import '@fontsource/inter/800.css'
 import '@fontsource/inter/900.css'
+import { getServerTheme } from '@/src/6-shared/utils/getServerTheme';
 
 export const metadata = {
   title: 'Uncrunch',
@@ -60,15 +64,20 @@ export const metadata = {
 }
 
 const RootLayout = async ({ children }: { children: ReactNode }) => {
-  const locale = await getLocale()
+  //const locale = await getLocale()
 
   // Providing all messages to the client
   // side is the easiest way to get started
   const messages = await getMessages()
+  
+  const initialTheme = getServerTheme();
 
   return (
-    <html lang="ru">
+    <html lang="ru" className={initialTheme}>
       <body>
+        <NextIntlClientProvider messages={messages}>
+          <Providers>{children}</Providers>
+        </NextIntlClientProvider>
         <NextIntlClientProvider messages={messages}>
           <Providers>{children}</Providers>
         </NextIntlClientProvider>

@@ -1,8 +1,12 @@
-import LocaleSwitcher from '@/src/6-shared/LocaleSwitcher'
+//import LocaleSwitcher from '@/src/6-shared/LocaleSwitcher'
 import { Logo } from '@/src/6-shared/ui/logo'
+import ThemeSwitcher from '@/src/6-shared/ui/ThemeSwitcher'
 import { ReactNode } from 'react'
+import { cookies } from "next/headers";
+import { getServerTheme } from '@/src/6-shared/utils/getServerTheme';
 
 const LoginPageLayout = ({ children }: { children: ReactNode }) => {
+  const initialTheme = getServerTheme();
   return (
     <div
       style={{
@@ -17,7 +21,8 @@ const LoginPageLayout = ({ children }: { children: ReactNode }) => {
         style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
       >
         <Logo width="64" height="64" />
-        <LocaleSwitcher />
+        {/*<LocaleSwitcher />*/}
+        <ThemeSwitcher initialTheme={initialTheme} />
       </header>
       <div style={{ flex: 1 }}>
         {' '}
