@@ -1,3 +1,3 @@
-import SignOutButton from './buttons/SignOutButton'
+import LogOutButton from './buttons/LogOutButton'
 
-export { SignOutButton }
+export { LogOutButton }

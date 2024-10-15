@@ -3,6 +3,14 @@
     "welcome": "Добро пожаловать, {username}!",
     "message": "Это страница вашего профиля."
   },
+  "LoginPage": {
+    "logInButton": "Войти",
+    "backButton": "Назад",
+    "title": "Вход",
+    "withToken": "С помощью токена {gitHosting}",
+    "withInstanceToken": "С помощью токена инстансов {gitHosting}",
+    "descriptionInstanceUrlInput": "{gitHosting} instance"
+  },
   "SecretPage": {
     "message": "Тебя здесь быть не должно, но раз уж ты здесь — наслаждайся!"
   },
@@ -31,5 +39,8 @@
     "notes": "Заметки",
     "todo": "Задачи",
     "boards": "Доски"
+  },
+  "LogOutButton": {
+    "logOut": "Выйти"
   }
 }

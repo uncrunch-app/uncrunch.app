@@ -24,7 +24,7 @@ export const metadata = {
       {
         rel: 'icon',
         type: 'image/ico',
-        url: '/favicons/favicon.ico',
+        url: '/favicon.ico',
       },
       {
         rel: 'icon',

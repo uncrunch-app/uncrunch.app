@@ -38,7 +38,7 @@ const UserInfoDescription = ({ customUser }: UserMenuProps) => {
   return (
     <span className="flex flex-col">
       <span>@{customUser.login}</span>
-      <span className="capitalize">{customUser.service}</span>
+      <span className="capitalize">{customUser.gitHosting}</span>
     </span>
   )
 }

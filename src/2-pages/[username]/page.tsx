@@ -2,7 +2,7 @@
 ////'use client';
 
 //import { useGetUserDataQuery, UserCard } from '@/src/5-entities/user';
-//import { SignOutButton } from '@/src/6-shared/ui';
+//import { LogOutButton } from '@/src/6-shared/ui';
 //import { useSession } from 'next-auth/react';
 //import Image from 'next/image';
 //import { useEffect, useState } from 'react';
@@ -55,7 +55,7 @@
 //          <p>{data.name}</p>
 //          <p>{data.email}</p>
 //          <p>@{data.login}</p>
-//          <SignOutButton />
+//          <LogOutButton />
 //        </div>
 //      ) : (
 //        <div>Loading</div>

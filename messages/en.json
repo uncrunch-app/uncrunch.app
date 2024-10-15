@@ -3,6 +3,13 @@
     "welcome": "Welcome, {username}!",
     "message": "This is your profile page."
   },
+  "LoginPage": {
+    "logInButton": "Log In",
+    "backButton": "Back",
+    "title": "Log In",
+    "withToken": "With a {gitHosting} token",
+    "withInstanceToken": "With a {gitHosting} instance token"
+  },
   "SecretPage": {
     "message": "You're not supposed to be here, but since you are — enjoy the view!"
   },
@@ -31,5 +38,8 @@
     "notes": "Notes",
     "todo": "To Do",
     "boards": "Boards"
+  },
+  "LogOutButton": {
+    "logOut": "Log Out"
   }
 }

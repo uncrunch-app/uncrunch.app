@@ -1,13 +1,13 @@
 import { NextAuthOptions } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import { JWT } from 'next-auth/jwt'
-import { GitServiceType } from '@/src/6-shared/types'
+import { GitHostingType } from '@/src/6-shared/types'
 
 interface BaseUserInfo {
   name?: string | null
   login?: string | null
   image?: string | null
-  service: GitServiceType
+  gitHosting: GitHostingType
   token: string
   instanceUrl?: string | null
 }
@@ -22,7 +22,7 @@ export interface CustomSessionUser extends BaseUserInfo {}
 
 const getUser = (
   credentials: any,
-  service: GitServiceType
+  gitHosting: GitHostingType
 ): CustomUser | null => {
   const token = credentials?.token ?? ''
   const name = credentials?.name ?? null
@@ -31,14 +31,14 @@ const getUser = (
   const instanceUrl = credentials?.instanceUrl ?? null
 
   return token
-    ? { id: '1', token, service, name, login, image, instanceUrl }
+    ? { id: '1', token, gitHosting, name, login, image, instanceUrl }
     : null
 }
 
 const createCredentialsProvider = (
   id: string,
   name: string,
-  service: GitServiceType
+  gitHosting: GitHostingType
 ) =>
   CredentialsProvider({
     id: `${id}-token`,
@@ -50,7 +50,7 @@ const createCredentialsProvider = (
       image: { label: 'Image', type: 'text' },
       instanceUrl: { label: 'Instance URL', type: 'text', optional: true },
     },
-    authorize: (credentials) => getUser(credentials, service),
+    authorize: (credentials) => getUser(credentials, gitHosting),
   })
 
 export const authOptions: NextAuthOptions = {
@@ -63,7 +63,7 @@ export const authOptions: NextAuthOptions = {
       if (user) {
         const {
           token: userToken,
-          service,
+          gitHosting,
           name,
           login,
           image,
@@ -72,7 +72,7 @@ export const authOptions: NextAuthOptions = {
         token = {
           ...token,
           token: userToken,
-          service,
+          gitHosting,
           name,
           login,
           image,
@@ -84,7 +84,7 @@ export const authOptions: NextAuthOptions = {
     async session({ session, token }) {
       const {
         token: userToken,
-        service,
+        gitHosting,
         name,
         login,
         image,
@@ -93,7 +93,7 @@ export const authOptions: NextAuthOptions = {
 
       session.user = {
         token: userToken,
-        service,
+        gitHosting,
         name,
         login,
         image,
