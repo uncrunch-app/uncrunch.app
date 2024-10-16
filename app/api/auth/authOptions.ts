@@ -20,19 +20,22 @@ interface CustomJWT extends JWT, BaseUserInfo {}
 
 export interface CustomSessionUser extends BaseUserInfo {}
 
+const mapUserData = (data: any, gitHosting: GitHostingType): BaseUserInfo => ({
+  token: data.token,
+  name: data?.name ?? null,
+  login: data?.login ?? null,
+  image: data?.image ?? null,
+  instanceUrl: data?.instanceUrl ?? null,
+  gitHosting,
+})
+
 const getUser = (
   credentials: any,
   gitHosting: GitHostingType
 ): CustomUser | null => {
-  const token = credentials?.token ?? ''
-  const name = credentials?.name ?? null
-  const login = credentials?.login ?? null
-  const image = credentials?.image ?? null
-  const instanceUrl = credentials?.instanceUrl ?? null
+  const userInfo = mapUserData(credentials, gitHosting)
 
-  return token
-    ? { id: '1', token, gitHosting, name, login, image, instanceUrl }
-    : null
+  return userInfo.token ? { id: '1', ...userInfo } : null
 }
 
 const createCredentialsProvider = (
@@ -61,45 +64,18 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        const {
-          token: userToken,
-          gitHosting,
-          name,
-          login,
-          image,
-          instanceUrl,
-        } = user as CustomUser
         token = {
           ...token,
-          token: userToken,
-          gitHosting,
-          name,
-          login,
-          image,
-          instanceUrl,
+          ...mapUserData(user, (user as CustomUser).gitHosting),
         } as CustomJWT
       }
       return token
     },
     async session({ session, token }) {
-      const {
-        token: userToken,
-        gitHosting,
-        name,
-        login,
-        image,
-        instanceUrl,
-      } = token as CustomJWT
-
-      session.user = {
-        token: userToken,
-        gitHosting,
-        name,
-        login,
-        image,
-        instanceUrl,
-      } as CustomSessionUser
-
+      session.user = mapUserData(
+        token,
+        (token as CustomJWT).gitHosting
+      ) as CustomSessionUser
       return session
     },
   },

@@ -173,8 +173,6 @@ const LoginPage = () => {
     )
   }
 
-  console.log(errors.token?.message)
-
   return (
     <div className={styles.container}>
       <div className={styles.skeletonContainer}>
