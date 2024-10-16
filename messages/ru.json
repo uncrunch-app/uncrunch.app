@@ -42,5 +42,12 @@
   },
   "LogOutButton": {
     "logOut": "Выйти"
+  },
+  "Footer": {
+    "rights": "Все права защищены.",
+    "sourceCode": "Исходный код на {gitHosting}.",
+    "copyright": "Copyright © {years} Uncrunch.",
+    "license": "Лицензия {license}.",
+    "developer": "Разработано Игорем Теплостанским."
   }
 }

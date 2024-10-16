@@ -41,5 +41,12 @@
   },
   "LogOutButton": {
     "logOut": "Log Out"
+  },
+  "Footer": {
+    "rights": "All rights reserved.",
+    "sourceCode": "Source code on {gitHosting}.",
+    "copyright": "Copyright © {years} Uncrunch.",
+    "license": "Licensed under {license}.",
+    "developer": "Developed by Igor Teplostanski."
   }
 }

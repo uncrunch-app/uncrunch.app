@@ -55,7 +55,7 @@ const Logo: React.FC<LogoProps> = ({
         {
           '--logo-width': width,
           '--logo-height': height,
-          '--logo-color': 'hsl(var(--nextui-secondary))',
+          '--logo-color': 'hsl(var(--nextui-default))',
           '--logo-bg-color': 'hsl(var(--nextui-primary))',
           '--logo-border-color': borderColor,
           '--logo-border-width': borderWidth,

@@ -64,6 +64,10 @@ const LoginPage = () => {
   useEffect(() => {
     clearErrors()
   }, [gitHosting, clearErrors])
+  
+  useEffect(() => {
+    setValue('token', '')
+  }, [gitHosting, setValue])
 
   const onSubmit = async (data: FormData) => {
     const { token, instanceUrl } = data
@@ -147,7 +151,7 @@ const LoginPage = () => {
   if (status === 'loading') {
     return (
       <div className={styles.container}>
-        <h1 className={styles.title}> {t('title')} </h1>
+        <h1 className='font-light text-3xl'> {t('title')} </h1>
         {/*<SkeletonLoader />*/}
         <span>Loading...</span>
       </div>
@@ -178,7 +182,7 @@ const LoginPage = () => {
       <div className={styles.skeletonContainer}>
         {gitHosting === null ? (
           <>
-            <h1 key={Date.now()} className={styles.title}>
+            <h1 key={Date.now()} className='font-light text-3xl'>
               {t('title')}
             </h1>
             <div className={styles.buttonContainer}>
@@ -199,7 +203,6 @@ const LoginPage = () => {
               </p>
               <Button
                  className='h-12 rounded-large uppercase'
-                //border="primary"
                 onClick={() => {
                   setGitHosting('forgejo')
                   console.log('Выбранный сервис: Forgejo')
@@ -211,9 +214,9 @@ const LoginPage = () => {
           </>
         ) : (
           <div>
-            <h1 className={styles.title}>{t('title')}</h1>
+            <h1 className='font-light text-3xl'>{t('title')}</h1>
             <form
-              autoComplete="new-password"
+              autoComplete="off"
               className={styles.form}
               onSubmit={handleSubmit(onSubmit)}
             >
@@ -231,7 +234,7 @@ const LoginPage = () => {
                         field.onChange(e)
                         clearErrors('instanceUrl')
                       }}
-                      autoComplete='new-password'
+                      autoComplete='off'
                       size="lg"
                       description={gitHosting === 'forgejo' ? 'Forgejo instance' : null}
                       isInvalid={!!errors.instanceUrl?.message}
