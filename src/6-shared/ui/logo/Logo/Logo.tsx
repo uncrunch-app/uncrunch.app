@@ -31,8 +31,8 @@ const parseSize = (size: string): number => {
 const Logo: React.FC<LogoProps> = ({
   width = `${INIT_SVG_SIZE}px`,
   height = `${INIT_SVG_SIZE}px`,
-  color = COLOR.CREAM,
-  bgColor = COLOR.GREEN_500,
+  color = 'hsl(var(--nextui-primary))',
+  bgColor = 'hsl(var(--nextui-secondary))',
   borderColor = 'none',
   borderWidth = '0',
   borderRadius = '0',
@@ -55,8 +55,8 @@ const Logo: React.FC<LogoProps> = ({
         {
           '--logo-width': width,
           '--logo-height': height,
-          '--logo-color': 'hsl(var(--nextui-default))',
-          '--logo-bg-color': 'hsl(var(--nextui-primary))',
+          '--logo-color': color,
+          '--logo-bg-color': bgColor,
           '--logo-border-color': borderColor,
           '--logo-border-width': borderWidth,
           '--logo-border-radius': borderRadius,

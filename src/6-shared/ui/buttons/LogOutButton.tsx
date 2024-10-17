@@ -11,7 +11,7 @@ const LogOutButton = () => {
   return (
     <Button
       startContent={<HiArrowLeftStartOnRectangle size={22} />}
-      color="secondary"
+      color="primary"
       onClick={() => signOut()}
     >
       {t('logOut')}

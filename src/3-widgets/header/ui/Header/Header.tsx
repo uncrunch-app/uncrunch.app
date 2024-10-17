@@ -11,15 +11,12 @@ const Header: FC = async () => {
   const session = await getServerSession(authOptions)
 
   const customUser = session?.user as CustomSessionUser
-  const usernameRoute = routePaths.root(customUser.login!)
+  const usernameRoute = routePaths.root(customUser.login)
 
   return (
-    <div className="flex justify-between bg-primary-200 px-5 py-[10px] shadow-medium">
+    <div className="flex justify-between bg-secondary-200 px-5 py-[10px] shadow-medium">
       <Link href={usernameRoute}>
-        <Logo
-          width="48px"
-          height="48px"
-        />
+        <Logo width="48px" height="48px" />
       </Link>
       <div className={styles.userInfo}>
         {customUser && <UserMenu customUser={customUser} />}

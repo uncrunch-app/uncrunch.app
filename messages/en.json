@@ -4,11 +4,20 @@
     "message": "This is your profile page."
   },
   "LoginPage": {
-    "logInButton": "Log In",
-    "backButton": "Back",
-    "title": "Log In",
-    "withToken": "With a {gitHosting} token",
-    "withInstanceToken": "With a {gitHosting} instance token"
+    "form": {
+      "title": "Log In",
+      "buttons": {
+        "logIn": "Log In",
+        "back": "Back"
+      },
+      "options": {
+        "withToken": "With a {gitHosting} token",
+        "withInstanceToken": "With a {gitHosting} instance token"
+      },
+      "descriptions": {
+        "instanceUrlInput": "{gitHosting} instance"
+      }
+    }
   },
   "SecretPage": {
     "message": "You're not supposed to be here, but since you are — enjoy the view!"
@@ -17,11 +26,11 @@
     "test": "TEST {test} !"
   },
   "Validation": {
-    "token_required": "Token is required",
-    "token_min_length": "Token must be at least 10 characters long",
-    "token_invalid": "Token cannot contain spaces or Cyrillic characters",
-    "url_required": "URL is required",
-    "url_invalid": "Invalid URL"
+    "tokenRequired": "Token is required",
+    "tokenMinLength": "Token must be at least 10 characters long",
+    "tokenInvalid": "Token cannot contain spaces or Cyrillic characters",
+    "urlRequired": "URL is required",
+    "urlInvalid": "Invalid URL"
   },
   "LocaleSwitcher": {
     "ru": "Rusian",
@@ -29,24 +38,30 @@
     "label": "Language"
   },
   "UserMenu": {
-    "homePage": "Home",
-    "settingsPage": "Settings",
-    "secretPage": "Secret",
-    "langOptions": "Language",
-    "themeOptions": "Theme",
-    "logOut": "Log Out",
-    "notes": "Notes",
-    "todo": "To Do",
-    "boards": "Boards"
+    "pages": {
+      "home": "Home",
+      "settings": "Settings",
+      "secret": "Secret",
+      "notes": "Notes",
+      "todo": "To Do",
+      "boards": "Boards"
+    },
+    "actions": {
+      "languageOptions": "Language",
+      "themeOptions": "Theme",
+      "logOut": "Log Out"
+    }
   },
   "LogOutButton": {
     "logOut": "Log Out"
   },
-  "Footer": {
-    "rights": "All rights reserved.",
-    "sourceCode": "Source code on {gitHosting}.",
-    "copyright": "Copyright © {years} Uncrunch.",
-    "license": "Licensed under {license}.",
-    "developer": "Developed by Igor Teplostanski."
+  "LoginPageLayout": {
+    "footer": {
+      "rights": "All rights reserved.",
+      "sourceCode": "Source code on {gitHosting}.",
+      "copyright": "Copyright © {years} Uncrunch.",
+      "license": "Licensed under {license}.",
+      "developer": "Developed by Igor Teplostanski."
+    }
   }
 }

@@ -94,18 +94,18 @@ export const uncrunchLight = {
       DEFAULT: '#f5a524'
     },
     danger: {
-      '50': '#fee7ef',
-      '100': '#fdd0df',
-      '200': '#faa0bf',
-      '300': '#f871a0',
-      '400': '#f54180',
-      '500': '#f31260',
-      '600': '#c20e4d',
-      '700': '#920b3a',
-      '800': '#610726',
-      '900': '#310413',
-      foreground: '#ffffff',
-      DEFAULT: '#f31260'
+      '50': COLOR.UNCRUNCH_LIGHT_DANGER_50,
+      '100': COLOR.UNCRUNCH_LIGHT_DANGER_100,
+      '200': COLOR.UNCRUNCH_LIGHT_DANGER_200,
+      '300': COLOR.UNCRUNCH_LIGHT_DANGER_300,
+      '400': COLOR.UNCRUNCH_LIGHT_DANGER_400,
+      '500': COLOR.UNCRUNCH_LIGHT_DANGER_500,
+      '600': COLOR.UNCRUNCH_LIGHT_DANGER_600,
+      '700': COLOR.UNCRUNCH_LIGHT_DANGER_700,
+      '800': COLOR.UNCRUNCH_LIGHT_DANGER_800,
+      '900': COLOR.UNCRUNCH_LIGHT_DANGER_900,
+      foreground: COLOR.UNCRUNCH_LIGHT_DANGER_FOREGROUND,
+      DEFAULT: COLOR.UNCRUNCH_LIGHT_DANGER_DEFAULT
     }
   }
 }

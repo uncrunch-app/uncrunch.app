@@ -40,7 +40,7 @@ export const validateToken = async <T>({
 
   return {
     name: data?.name || null,
-    login: data?.login || null,
+    login: data.login,
     image: data?.avatar_url || null,
   }
 }

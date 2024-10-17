@@ -65,18 +65,18 @@
   --uncrunch-light-default-foreground: #ead2c6;
   --uncrunch-light-default-default: #44564a;
 
-  --uncrunch-light-primary-50: #faf5f3;
-  --uncrunch-light-primary-100: #f5eae4;
-  --uncrunch-light-primary-200: #ead2c6;
-  --uncrunch-light-primary-300: #dbb29d;
-  --uncrunch-light-primary-400: #cc9174;
-  --uncrunch-light-primary-500: #bd714b;
-  --uncrunch-light-primary-600: #985838;
-  --uncrunch-light-primary-700: #6f4029;
-  --uncrunch-light-primary-800: #46281a;
-  --uncrunch-light-primary-900: #1d110b;
-  --uncrunch-light-primary-foreground: #44564a;
-  --uncrunch-light-primary-default: #ead2c6;
+  --uncrunch-light-primary-50: #e3e9e5;
+  --uncrunch-light-primary-100: #d8e0da;
+  --uncrunch-light-primary-200: #c1cec5;
+  --uncrunch-light-primary-300: #aabcb0;
+  --uncrunch-light-primary-400: #93aa9b;
+  --uncrunch-light-primary-500: #7d9886;
+  --uncrunch-light-primary-600: #688471;
+  --uncrunch-light-primary-700: #566d5e;
+  --uncrunch-light-primary-800: #44564a;
+  --uncrunch-light-primary-900: #2b372f;
+  --uncrunch-light-primary-foreground: #ead2c6;
+  --uncrunch-light-primary-default: #44564a;
 
   --uncrunch-light-secondary-50: #faf5f3;
   --uncrunch-light-secondary-100: #f5eae4;
@@ -117,18 +117,18 @@
   --uncrunch-light-warning-foreground: #000;
   --uncrunch-light-warning-default: #f5a524;
 
-  --uncrunch-light-danger-50: #fee7ef;
-  --uncrunch-light-danger-100: #fdd0df;
-  --uncrunch-light-danger-200: #faa0bf;
-  --uncrunch-light-danger-300: #f871a0;
-  --uncrunch-light-danger-400: #f54180;
-  --uncrunch-light-danger-500: #f31260;
-  --uncrunch-light-danger-600: #c20e4d;
-  --uncrunch-light-danger-700: #920b3a;
-  --uncrunch-light-danger-800: #610726;
-  --uncrunch-light-danger-900: #310413;
+  --uncrunch-light-danger-50: #F6E3DE;
+  --uncrunch-light-danger-100: #F2D6CE;
+  --uncrunch-light-danger-200: #E9BBAF;
+  --uncrunch-light-danger-300: #E0A08F;
+  --uncrunch-light-danger-400: #D7856F;
+  --uncrunch-light-danger-500: #CE694F;
+  --uncrunch-light-danger-600: #BF5235;
+  --uncrunch-light-danger-700: #933F29;
+  --uncrunch-light-danger-800: #672C1D;
+  --uncrunch-light-danger-900: #3B1910;
   --uncrunch-light-danger-foreground: #ffffff;
-  --uncrunch-light-danger-default: #f31260;
+  --uncrunch-light-danger-default: #BF5235;
 
   /* classic light */
   --classic-light-foreground-50: #cbcbdb;

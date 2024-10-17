@@ -1,12 +1,6 @@
 /* LoginPage.module.scss */
 @import '/src/6-shared/constants/breakpoints.scss';
 
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
 .skeletonContainer {
   display: flex;
   flex-direction: column;

@@ -5,26 +5,46 @@ import { Suspense, useEffect, useState } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
 import { GitHostingType } from '@/src/6-shared/types'
 import { useLazyGetGithubUserDataQuery } from '@/src/5-entities/user'
-import { CustomSessionUser } from '@/app/api/auth/authOptions'
-import { LogOutButton } from '@/src/6-shared/ui'
-import styles from './LoginPage.module.scss'
 import { useLazyGetForgejoUserDataQuery } from '@/src/5-entities/user/api/forgejoUserApi'
 import { validateToken } from '@/src/6-shared/utils/validateToken'
-import { useForm, Controller } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useTranslations } from 'next-intl'
 
 import { useValidationSchemas } from '@/src/5-entities/login/model/useValidationSchemas'
-import { Button } from '@nextui-org/react'
 
-import { Input } from '@nextui-org/react'
+import {
+  HiMiniXMark as XMark,
+  HiMiniEyeSlash as EyeSlash,
+  HiMiniEye as Eye,
+} from 'react-icons/hi2'
+import { Button } from '@/src/6-shared/ui/buttons/Button'
+import { FORGEJO_EXAMPLE_API_URL } from '@/src/6-shared/constants/constants'
+import { InputActionButton } from '@/src/6-shared/ui/buttons/InputActionButton'
+import { LoginFormControlledInput } from './LoginFormControlledInput'
+import { LoginSubmitLoader } from './LoginSubmitLoader'
+import { LoginSkeletonLoader } from './LoginSkeletonLoader'
+import { GitHostingOption } from './GitHostingOption'
+import { LogOutButton } from '@/src/6-shared/ui'
+import { CustomSessionUser } from '@/app/api/auth/authOptions'
 
-import { HiMiniXMark, HiMiniEyeSlash, HiMiniEye } from 'react-icons/hi2'
-
-type FormData = {
+interface FormData {
   token: string
   instanceUrl?: string
 }
+
+interface LoggedInUserProps {
+  username: string;
+}
+
+const LoggedInUser: React.FC<LoggedInUserProps> = ({ username }) => {
+  return (
+    <div>
+      <h1>Вы уже авторизованы как @{username}</h1>
+      <LogOutButton />
+    </div>
+  );
+};
 
 const LoginPage = () => {
   const [isLoading, setIsLoading] = useState(false)
@@ -44,8 +64,6 @@ const LoginPage = () => {
 
   const [isVisible, setIsVisible] = useState(false)
 
-  const toggleVisibility = () => setIsVisible(!isVisible)
-
   const callbackUrl = searchParams.get('callbackUrl') || '/'
 
   const {
@@ -57,24 +75,26 @@ const LoginPage = () => {
     clearErrors,
   } = useForm<FormData>({
     resolver: yupResolver(
-      gitHosting === 'forgejo' ? tokenAndUrlSchema : singleTokenSchema
+      gitHosting !== 'github' ? tokenAndUrlSchema : singleTokenSchema
     ),
   })
 
-  useEffect(() => {
-    clearErrors()
-  }, [gitHosting, clearErrors])
-  
-  useEffect(() => {
-    setValue('token', '')
-  }, [gitHosting, setValue])
+  const hasErrors = Boolean(Object.keys(errors).length)
+
+  const handleGitHostingChange = (gitHosting: GitHostingType | null) => {
+    setGitHosting(gitHosting)
+  }
+
+  const handleClearValue = (name: keyof FormData) => {
+    setValue(name, '')
+  }
+
+  const toggleVisibility = () => setIsVisible(!isVisible)
 
   const onSubmit = async (data: FormData) => {
     const { token, instanceUrl } = data
-    console.log('Form submitted:', data)
-    console.log('Service:', gitHosting)
-    console.log('Token:', data.token)
-    console.log('Instance URL:', data.instanceUrl)
+
+    console.info('Form submitted:', data)
 
     try {
       let name = null
@@ -120,7 +140,8 @@ const LoginPage = () => {
         return
       }
 
-      const provider = gitHosting === 'github' ? 'github-token' : 'forgejo-token'
+      const provider =
+        gitHosting === 'github' ? 'github-token' : 'forgejo-token'
       const result = await signIn(provider, {
         token,
         redirect: false,
@@ -148,188 +169,128 @@ const LoginPage = () => {
     }
   }
 
-  if (status === 'loading') {
-    return (
-      <div className={styles.container}>
-        <h1 className='font-light text-3xl'> {t('title')} </h1>
-        {/*<SkeletonLoader />*/}
-        <span>Loading...</span>
-      </div>
-    )
-  }
+  useEffect(() => {
+    clearErrors()
+  }, [gitHosting, clearErrors])
+
+  useEffect(() => {
+    handleClearValue('token')
+  }, [gitHosting, setValue])
+
+  //if (status !== 'loading') {
+  //  return <LoginSkeletonLoader />
+  //}
 
   if (isLoading) {
-    return (
-      <div className={styles.spinnerContainer}>{/*<CircularProgress />*/}</div>
-    )
+    return <LoginSubmitLoader />
   }
 
   if (status === 'authenticated' && session?.user) {
     const user = session.user as CustomSessionUser
 
-    console.log(typeof user.name)
-
-    return (
-      <div>
-        <h1>Вы уже авторизованы как @{user.login}</h1>
-        <LogOutButton />
-      </div>
-    )
+    return <LoggedInUser username={user.login}/>
   }
 
   return (
-    <div className={styles.container}>
-      <div className={styles.skeletonContainer}>
+    <div className="mt-12 flex flex-col items-center">
+      <div className="w-96">
         {gitHosting === null ? (
           <>
-            <h1 key={Date.now()} className='font-light text-3xl'>
-              {t('title')}
+            <h1 key={Date.now()} className="text-3xl font-light">
+              {t('form.title')}
             </h1>
-            <div className={styles.buttonContainer}>
-              <p className={styles.subtitle}>
-                {t('withToken', { gitHosting: 'Github' })}
-              </p>
-              <Button
-                 className='h-12 rounded-large uppercase'
-                onClick={() => {
-                  setGitHosting('github')
-                  console.log('Выбранный сервис: GitHub')
-                }}
-              >
-                GitHub
-              </Button>
-              <p className={styles.subtitle}>
-                {t('withInstanceToken', { gitHosting: 'Forgejo' })}
-              </p>
-              <Button
-                 className='h-12 rounded-large uppercase'
-                onClick={() => {
-                  setGitHosting('forgejo')
-                  console.log('Выбранный сервис: Forgejo')
-                }}
-              >
-                Forgejo
-              </Button>
+            <div className="mt-6 flex flex-col gap-6">
+              <GitHostingOption
+                buttonText="Github"
+                description={t('form.options.withToken', {
+                  gitHosting: 'Github',
+                })}
+                onClick={() => handleGitHostingChange('github')}
+              />
+              <GitHostingOption
+                buttonText="Forgejo"
+                description={t('form.options.withInstanceToken', {
+                  gitHosting: 'Forgejo',
+                })}
+                onClick={() => handleGitHostingChange('forgejo')}
+              />
             </div>
           </>
         ) : (
           <div>
-            <h1 className='font-light text-3xl'>{t('title')}</h1>
+            <h1 className="text-3xl font-light">{t('form.title')}</h1>
             <form
               autoComplete="off"
-              className={styles.form}
+              className=""
               onSubmit={handleSubmit(onSubmit)}
             >
-              <div className={styles.inputContainer}>
+              <div className="">
                 {gitHosting === 'forgejo' && (
-                  <Controller
+                  <LoginFormControlledInput
                     name="instanceUrl"
                     control={control}
-                    defaultValue=""
-                    render={({ field }) => (
-                      
-                      <Input
-                      {...field}
-                      onChange={(e) => {
-                        field.onChange(e)
-                        clearErrors('instanceUrl')
-                      }}
-                      autoComplete='off'
-                      size="lg"
-                      description={gitHosting === 'forgejo' ? 'Forgejo instance' : null}
-                      isInvalid={!!errors.instanceUrl?.message}
-                      errorMessage={errors.instanceUrl?.message}
-                      variant="bordered"
-                      placeholder={`${gitHosting === 'forgejo' ? 'https://codeberg.org/api/v1/' : 'null'}`}
-                      endContent={
-                        field.value && (
-                          <div className="flex items-center">
-                            <Button
-                              className="text-default-background min-w-0 rounded-full px-2"
-                              variant="light"
-                              onClick={() => setValue('instanceUrl', '')}
-                              onPress={() => setValue('instanceUrl', '')}
-                              type="button"
-                            >
-                              <HiMiniXMark size={24} />
-                            </Button>
-                          </div>
-                        )
-                      }
-                      type={'text'}
-                      className="max-w-full"
-                      classNames={{inputWrapper: 'h-16'}}
-                    />
-                    )}
+                    placeholder={FORGEJO_EXAMPLE_API_URL}
+                    isInvalid={Boolean(errors.instanceUrl?.message)}
+                    errorMessage={errors.instanceUrl?.message}
+                    onClear={() => handleClearValue('instanceUrl')}
+                    description={t('form.descriptions.instanceUrlInput', {
+                      gitHosting: 'Forgejo',
+                    })}
+                    endContent={
+                      <div className="flex items-center">
+                        <InputActionButton
+                          onClick={() => handleClearValue('instanceUrl')}
+                          hasError={hasErrors}
+                          aria-label="clear input instance url"
+                        >
+                          <XMark size={24} />
+                        </InputActionButton>
+                      </div>
+                    }
                   />
                 )}
-                <Controller
+                <LoginFormControlledInput
                   name="token"
                   control={control}
-                  defaultValue=""
-                  render={({ field }) => (
-                    <Input
-                      {...field}
-                      onChange={(e) => {
-                        field.onChange(e)
-                        clearErrors('token')
-                      }}
-                      autoComplete='new-password'
-                      size="lg"
-                      description="cccc"
-                      isInvalid={!!errors.token?.message}
-                      errorMessage={errors.token?.message}
-                      variant="bordered"
-                      placeholder={`${gitHosting === 'github' ? 'Github' : 'Forgejo'} токен`}
-                      endContent={
-                        field.value && (
-                          <div className="flex items-center">
-                            <Button
-                              className="text-default-background min-w-0 rounded-full px-2"
-                              variant="light"
-                              onClick={() => setValue('token', '')}
-                              onPress={() => setValue('token', '')}
-                              type="button"
-                            >
-                              <HiMiniXMark size={24} />
-                            </Button>
-                            <Button
-                              className="text-default-background min-w-0 rounded-full px-2"
-                              variant="light"
-                              type="button"
-                              onClick={toggleVisibility}
-                              aria-label="toggle password visibility"
-                              tabIndex={0}
-                              onPress={toggleVisibility}
-                            >
-                              {isVisible ? (
-                                <HiMiniEyeSlash  size={24} />
-                              ) : (
-                                <HiMiniEye  size={24} />
-                              )}
-                            </Button>
-                          </div>
-                        )
-                      }
-                      type={isVisible ? 'text' : 'password'}
-                      className="max-w-full"
-                      classNames={{inputWrapper: 'h-16'}}
-                    />
-                  )}
+                  placeholder={`${gitHosting === 'github' ? 'Github' : 'Forgejo'} токен`}
+                  isInvalid={Boolean(errors.token?.message)}
+                  errorMessage={errors.token?.message}
+                  onClear={() => handleClearValue('token')}
+                  type={isVisible ? 'text' : 'password'}
+                  endContent={
+                    <div className="flex items-center">
+                      <InputActionButton
+                        onClick={() => handleClearValue('token')}
+                        hasError={hasErrors}
+                        aria-label="clear input token"
+                      >
+                        <XMark size={24} />
+                      </InputActionButton>
+                      <InputActionButton
+                        onClick={toggleVisibility}
+                        hasError={hasErrors}
+                        aria-label="toggle password visibility"
+                      >
+                        {isVisible ? <EyeSlash size={24} /> : <Eye size={24} />}
+                      </InputActionButton>
+                    </div>
+                  }
                 />
               </div>
-              <div className={styles.buttonContainer}>
-                <Button type="submit" color="default" isLoading={isSubmitting} className='h-12 rounded-large'>
-                  {t('logInButton')}
+              <div className="flex flex-col gap-4">
+                <Button
+                  type="submit"
+                  isLoading={isSubmitting}
+                  isDisabled={Boolean(hasErrors)}
+                >
+                  {t('form.buttons.logIn')}
                 </Button>
                 <Button
                   color="secondary"
                   isDisabled={isSubmitting}
-                   className='h-12 rounded-large'
-                  type="button"
-                  onClick={() => setGitHosting(null)}
+                  onClick={() => handleGitHostingChange(null)}
                 >
-                  {t('backButton')}
+                  {t('form.buttons.back')}
                 </Button>
               </div>
             </form>

@@ -4,25 +4,30 @@
     "message": "Это страница вашего профиля."
   },
   "LoginPage": {
-    "logInButton": "Войти",
-    "backButton": "Назад",
-    "title": "Вход",
-    "withToken": "С помощью токена {gitHosting}",
-    "withInstanceToken": "С помощью токена инстансов {gitHosting}",
-    "descriptionInstanceUrlInput": "{gitHosting} instance"
+    "form": {
+      "title": "Вход",
+      "buttons": {
+        "logIn": "Войти",
+        "back": "Назад"
+      },
+      "options": {
+        "withToken": "С помощью токена {gitHosting}",
+        "withInstanceToken": "С помощью токена инстансов {gitHosting}"
+      },
+      "descriptions": {
+        "instanceUrlInput": "{gitHosting} инстанс"
+      }
+    }
   },
   "SecretPage": {
     "message": "Тебя здесь быть не должно, но раз уж ты здесь — наслаждайся!"
   },
-  "Common": {
-    "test": "ТЕСТ {test} !"
-  },
   "Validation": {
-    "token_required": "Токен обязателен",
-    "token_min_length": "Длина токена должна составлять не менее 10 символов",
-    "token_invalid": "Токен не может содержать пробелов или символов кириллицы",
-    "url_required": "URL обязателен",
-    "url_invalid": "URL не валидный"
+    "tokenRequired": "Токен обязателен",
+    "tokenMinLength": "Длина токена должна составлять не менее 10 символов",
+    "tokenInvalid": "Токен не может содержать пробелов или символов кириллицы",
+    "urlRequired": "URL обязателен",
+    "urlInvalid": "URL не валидный"
   },
   "LocaleSwitcher": {
     "ru": "Русский",
@@ -30,24 +35,30 @@
     "label": "Язык"
   },
   "UserMenu": {
-    "homePage": "Главная",
-    "settingsPage": "Настройки",
-    "secretPage": "Секрет",
-    "langOptions": "Язык",
-    "themeOptions": "Тема",
-    "logOut": "Выйти",
-    "notes": "Заметки",
-    "todo": "Задачи",
-    "boards": "Доски"
+    "pages": {
+      "home": "Главная",
+      "settings": "Настройки",
+      "secret": "Секрет",
+      "notes": "Заметки",
+      "todo": "Задачи",
+      "boards": "Доски"
+    },
+    "actions": {
+      "languageOptions": "Язык",
+      "themeOptions": "Тема",
+      "logOut": "Выйти"
+    }
   },
   "LogOutButton": {
     "logOut": "Выйти"
   },
-  "Footer": {
-    "rights": "Все права защищены.",
-    "sourceCode": "Исходный код на {gitHosting}.",
-    "copyright": "Copyright © {years} Uncrunch.",
-    "license": "Лицензия {license}.",
-    "developer": "Разработано Игорем Теплостанским."
+  "LoginPageLayout": {
+    "footer": {
+      "rights": "Все права защищены.",
+      "sourceCode": "Исходный код на {gitHosting}.",
+      "copyright": "Copyright © {years} Uncrunch.",
+      "license": "Лицензия {license}.",
+      "developer": "Разработано Игорем Теплостанским."
+    }
   }
 }

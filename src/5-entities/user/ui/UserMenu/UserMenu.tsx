@@ -132,7 +132,7 @@ const UserMenu: FC<UserMenuProps> = ({ customUser }) => {
             href={usernameRoute}
             startContent={<RxDashboard size={iconSize} />}
           >
-            {t('homePage')}
+            {t('pages.home')}
           </DropdownItem>
           {/*<DropdownItem
             key="notes"
@@ -141,7 +141,7 @@ const UserMenu: FC<UserMenuProps> = ({ customUser }) => {
             href={notesRoute}
             startContent={<PiNotePencil size={iconSize} />}
           >
-            {t('notes')}
+            {t('pages.notes')}
           </DropdownItem>*/}
           {/*<DropdownItem
             key="todo"
@@ -150,7 +150,7 @@ const UserMenu: FC<UserMenuProps> = ({ customUser }) => {
             href={todoRoute}
             startContent={<GoTasklist size={iconSize} />}
           >
-            {t('todo')}
+            {t('pages.todo')}
           </DropdownItem>*/}
           {/*<DropdownItem
             key="boards"
@@ -159,7 +159,7 @@ const UserMenu: FC<UserMenuProps> = ({ customUser }) => {
             href={boardsRoute}
             startContent={<PiKanban size={iconSize} />}
           >
-            {t('boards')}
+            {t('pages.boards')}
           </DropdownItem>*/}
           {/*<DropdownItem
             key="settings"
@@ -168,7 +168,7 @@ const UserMenu: FC<UserMenuProps> = ({ customUser }) => {
             href={settingsRoute}
             startContent={<IoSettingsOutline size={iconSize} />}
           >
-            {t('settingsPage')}
+            {t('pages.settings')}
           </DropdownItem>*/}
           <DropdownItem
             key="secret"
@@ -177,7 +177,7 @@ const UserMenu: FC<UserMenuProps> = ({ customUser }) => {
             href={secretRoute}
             startContent={<GoBlocked size={iconSize} />}
           >
-            {t('secretPage')}
+            {t('pages.secret')}
           </DropdownItem>
         </DropdownSection>
 
@@ -209,7 +209,7 @@ const UserMenu: FC<UserMenuProps> = ({ customUser }) => {
                 </select>
               }
             >
-              {t('themeOptions')}
+              {t('actions.themeOptions')}
             </DropdownItem>*/}
         </DropdownSection>
 
@@ -221,7 +221,7 @@ const UserMenu: FC<UserMenuProps> = ({ customUser }) => {
             className=""
             onClick={() => signOut()}
           >
-            {t('logOut')}
+            {t('actions.logOut')}
           </DropdownItem>
         </DropdownSection>
       </DropdownMenu>

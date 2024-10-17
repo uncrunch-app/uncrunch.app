@@ -4,35 +4,19 @@ import { fetchThemeMode } from '@/src/6-shared/utils/themeCookies'
 import LocaleSwitcher from '@/src/6-shared/LocaleSwitcher'
 import { getTranslations } from 'next-intl/server'
 import { Link } from '@nextui-org/react'
+import {
+  LICENSE,
+  LINK_GITHUB_DEV,
+  LINK_GITHUB_ORG_REPO,
+} from '@/src/6-shared/constants/constants'
+import { getCopyrightYears } from '@/src/6-shared/services/getCopyrightYears'
 
 const LoginPageLayout = async ({ children }: { children: ReactNode }) => {
   const initialTheme = fetchThemeMode()
-  const t = await getTranslations('Footer')
-
-  function getCopyrightYears(startYear: number): string {
-    const currentYear = new Date().getFullYear()
-
-    if (startYear > currentYear) {
-      throw new Error('Start year cannot be greater than the current year.')
-    }
-
-    if (startYear === currentYear) {
-      return `${currentYear}`
-    }
-
-    return `${startYear} - ${currentYear}`
-  }
+  const t = await getTranslations('LoginPageLayout')
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        minHeight: '100vh', // Используем 100vh для полной высоты вьюпорта
-        margin: 0, // Убираем отступы
-        padding: 0,
-      }}
-    >
+    <div className="flex min-h-[100dvh] flex-col">
       <header
         style={{
           display: 'flex',
@@ -40,41 +24,42 @@ const LoginPageLayout = async ({ children }: { children: ReactNode }) => {
           alignItems: 'center',
         }}
       >
-        <Logo width="64" height="64" />
+        <Logo
+          width="64"
+          height="64"
+          bgColor="hsl(var(--nextui-primary))"
+          color="hsl(var(--nextui-secondary))"
+        />
         <div className="w-[180px]">
           <LocaleSwitcher />
         </div>
       </header>
-      <div style={{ flex: 1 }}>
-        {' '}
-        {/* Этот div растягивается, чтобы заполнять пространство */}
-        {children}
-      </div>
+      <div className="flex-1">{children}</div>
       <footer>
         <div className="mb-2 mt-24 flex flex-col px-2 text-small font-extralight">
-          <span>{t('rights')}</span>
+          <span>{t('footer.rights')}</span>
 
           <span>
             <Link
-              href="https://github.com/uncrunch-app/uncrunch.app"
+              href={LINK_GITHUB_ORG_REPO}
               underline="hover"
               size="sm"
               color="foreground"
             >
-              {t('sourceCode', { gitHosting: 'Github' })}
+              {t('footer.sourceCode', { gitHosting: 'Github' })}
             </Link>
           </span>
 
           <span>
-            {t('copyright', { years: `${getCopyrightYears(2024)}` })}{' '}
-            {t('license', { license: 'AGPL-3.0' })}{' '}
+            {t('footer.copyright', { years: `${getCopyrightYears(2024)}` })}{' '}
+            {t('footer.license', { license: LICENSE })}{' '}
             <Link
-              href="https://github.com/teplostanski"
+              href={LINK_GITHUB_DEV}
               underline="hover"
               color="foreground"
               size="sm"
             >
-              {t('developer')}
+              {t('footer.developer')}
             </Link>
           </span>
         </div>
