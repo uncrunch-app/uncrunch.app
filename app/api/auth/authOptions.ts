@@ -4,13 +4,15 @@ import { JWT } from 'next-auth/jwt'
 import { GitHostingType } from '@/src/6-shared/types'
 
 interface BaseUserInfo {
+  token: string
+  login: string
   name?: string | null
-  login?: string | null
   image?: string | null
   gitHosting: GitHostingType
-  token: string
   instanceUrl?: string | null
 }
+
+type CredentialsInput = Partial<Omit<BaseUserInfo, 'gitHosting'>>
 
 interface CustomUser extends BaseUserInfo {
   id: string
@@ -20,17 +22,20 @@ interface CustomJWT extends JWT, BaseUserInfo {}
 
 export interface CustomSessionUser extends BaseUserInfo {}
 
-const mapUserData = (data: any, gitHosting: GitHostingType): BaseUserInfo => ({
-  token: data.token,
-  name: data?.name ?? null,
-  login: data?.login ?? null,
-  image: data?.image ?? null,
-  instanceUrl: data?.instanceUrl ?? null,
+const mapUserData = (
+  data: Partial<BaseUserInfo>,
+  gitHosting: GitHostingType
+): BaseUserInfo => ({
+  token: data.token || '',
+  login: data.login || '',
+  name: data.name ?? null,
+  image: data.image ?? null,
+  instanceUrl: data.instanceUrl ?? null,
   gitHosting,
 })
 
 const getUser = (
-  credentials: any,
+  credentials: CredentialsInput,
   gitHosting: GitHostingType
 ): CustomUser | null => {
   const userInfo = mapUserData(credentials, gitHosting)
@@ -53,7 +58,8 @@ const createCredentialsProvider = (
       image: { label: 'Image', type: 'text' },
       instanceUrl: { label: 'Instance URL', type: 'text', optional: true },
     },
-    authorize: (credentials) => getUser(credentials, gitHosting),
+    authorize: (credentials) =>
+      getUser(credentials as CredentialsInput, gitHosting),
   })
 
 export const authOptions: NextAuthOptions = {
