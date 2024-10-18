@@ -7,7 +7,9 @@ export const LINK_GITHUB_DEV = 'https://github.com/teplostanski'
 export const LINK_GITHUB_ORG = 'https://github.com/uncrunch-app'
 export const LINK_GITHUB_ORG_REPO =
   'https://github.com/uncrunch-app/uncrunch.app'
-  
-  export const LICENSE = 'AGPL-3.0'
-  
-  export const FORGEJO_EXAMPLE_API_URL = 'https://codeberg.org/api/v1/'
+
+export const LICENSE = 'AGPL-3.0'
+
+export const FORGEJO_EXAMPLE_API_URL = 'https://codeberg.org/api/v1/'
+
+export const GITHUB_BASE_URL_API = 'https://api.github.com'

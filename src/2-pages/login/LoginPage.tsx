@@ -1,11 +1,10 @@
 'use client'
 
-import { signIn, useSession } from 'next-auth/react'
+import { signIn } from 'next-auth/react'
 import { Suspense, useEffect, useState } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
 import { GitHostingType } from '@/src/6-shared/types'
-import { useLazyGetGithubUserDataQuery } from '@/src/5-entities/user'
-import { useLazyGetForgejoUserDataQuery } from '@/src/5-entities/user/api/forgejoUserApi'
+import { useLazyGetUserWithoutSessionQuery } from '@/src/5-entities/user/api/userWithoutSessionApi'
 import { validateToken } from '@/src/6-shared/utils/validateToken'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -19,7 +18,10 @@ import {
   HiMiniEye as Eye,
 } from 'react-icons/hi2'
 import { Button } from '@/src/6-shared/ui/buttons/Button'
-import { FORGEJO_EXAMPLE_API_URL } from '@/src/6-shared/constants/constants'
+import {
+  FORGEJO_EXAMPLE_API_URL,
+  GITHUB_BASE_URL_API,
+} from '@/src/6-shared/constants/constants'
 import { InputActionButton } from '@/src/6-shared/ui/buttons/InputActionButton'
 import { LoginFormControlledInput } from './LoginFormControlledInput'
 import { LoginSubmitLoader } from './LoginSubmitLoader'
@@ -36,8 +38,7 @@ const LoginPage = () => {
 
   const t = useTranslations('LoginPage')
 
-  const [triggerGetGithubUserData] = useLazyGetGithubUserDataQuery()
-  const [triggerGetForgejoUserData] = useLazyGetForgejoUserDataQuery()
+  const [triggerGetUserWithoutSession] = useLazyGetUserWithoutSessionQuery()
 
   const { singleTokenSchema, tokenAndUrlSchema } = useValidationSchemas()
 
@@ -73,58 +74,53 @@ const LoginPage = () => {
 
   const toggleVisibility = () => setIsVisible(!isVisible)
 
-  const onSubmit = async (data: FormData) => {
-    const { token, instanceUrl } = data
+  const providerMap: { [key in GitHostingType]: string } = {
+    github: 'github-token',
+    forgejo: 'forgejo-token',
+    // bitbucket: 'bitbucket-token',
+    // gitlab: 'gitlab-token',
+  }
 
-    console.info('Form submitted:', data)
+  const handleError = (field: keyof FormData, message: string) => {
+    setError(field, { message })
+  }
+
+  const onSubmit = async (data: FormData) => {
+    const { token, instanceUrl: inputInstanceUrl } = data
+
+    const instanceUrl =
+      gitHosting === 'github' ? GITHUB_BASE_URL_API : inputInstanceUrl
+
+    if (!gitHosting) {
+      console.error('Git хостинг не выбран.')
+      return
+    }
+
+    const provider = providerMap[gitHosting]
 
     try {
-      let name = null
-      let login = null
-      let image = null
+      const result = await validateToken({
+        token,
+        baseUrl: instanceUrl!,
+        trigger: triggerGetUserWithoutSession,
+      })
 
-      if (gitHosting === 'github') {
-        const result = await validateToken({
-          token,
-          trigger: triggerGetGithubUserData,
-        })
-        if (result.error) {
-          setError('token', { message: result.error })
-          return
-        }
-        name = result.name
-        login = result.login
-        image = result.image
-      }
-
-      if (gitHosting === 'forgejo') {
-        const result = await validateToken({
-          token,
-          baseUrl: instanceUrl,
-          trigger: triggerGetForgejoUserData,
-        })
-        console.log(result)
-
-        if (result.error) {
-          setError('token', { message: result.error })
-          return
-        }
-        name = result.name
-        login = result.login
-        image = result.image
-      }
-
-      // Проверка на undefined для name, login и image
-      if (name === undefined && login === undefined && image === undefined) {
-        setError('instanceUrl', {
-          message: 'Возможно, URL некорректный или данные недоступны.',
-        })
+      if (result.error) {
+        handleError('token', result.error)
         return
       }
 
-      const provider =
-        gitHosting === 'github' ? 'github-token' : 'forgejo-token'
-      const result = await signIn(provider, {
+      const { name, login, image } = result
+
+      if ([name, login, image].every((value) => value === undefined)) {
+        handleError(
+          'instanceUrl',
+          'Возможно, URL некорректный или данные недоступны.'
+        )
+        return
+      }
+
+      const signInResult = await signIn(provider, {
         token,
         redirect: false,
         callbackUrl,
@@ -136,18 +132,18 @@ const LoginPage = () => {
 
       setIsSubmitLoading(true)
 
-      if (result?.error) {
-        setError('token', {
-          message: result.error || 'Invalid token or login failed',
-        })
-      } else {
-        router.push(callbackUrl)
+      if (signInResult?.error) {
+        handleError(
+          'token',
+          signInResult.error || 'Invalid token or login failed'
+        )
+        return
       }
+
+      router.push(callbackUrl)
     } catch (error) {
       console.error('Ошибка при входе в систему:', error)
-      setError('token', {
-        message: 'Ошибка при проверке токена или входе в систему',
-      })
+      handleError('token', 'Ошибка при проверке токена или входе в систему')
     }
   }
 
@@ -156,7 +152,7 @@ const LoginPage = () => {
   }, [gitHosting, clearErrors])
 
   useEffect(() => {
-    handleClearValue('token')
+    setValue('token', '')
   }, [gitHosting, setValue])
 
   if (isSubmitLoading) {

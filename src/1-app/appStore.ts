@@ -1,17 +1,20 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { setupListeners } from '@reduxjs/toolkit/query'
-import { githubUserApi } from '@/src/5-entities/user'
-import { forgejoUserApi } from '../5-entities/user/api/forgejoUserApi'
+import { userWithoutSessionApi } from '../5-entities/user/api/userWithoutSessionApi'
+import { repoApi } from '../5-entities/user/api/repoApi'
+import { userApi } from '../5-entities/user/api/userApi'
 
 export const store = configureStore({
   reducer: {
-    [githubUserApi.reducerPath]: githubUserApi.reducer,
-    [forgejoUserApi.reducerPath]: forgejoUserApi.reducer,
+    [userWithoutSessionApi.reducerPath]: userWithoutSessionApi.reducer,
+    [repoApi.reducerPath]: repoApi.reducer,
+    [userApi.reducerPath]: userApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
-      githubUserApi.middleware,
-      forgejoUserApi.middleware
+      userWithoutSessionApi.middleware,
+      repoApi.middleware,
+      userApi.middleware
     ),
 })
 

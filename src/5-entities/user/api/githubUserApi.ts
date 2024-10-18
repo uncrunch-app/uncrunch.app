@@ -1,30 +1,30 @@
-// githubUserApi.ts
-import { githubApiBaseQuery } from '@/src/6-shared/api/githubApiConfig'
-import { createApi } from '@reduxjs/toolkit/query/react'
+//// githubUserApi.ts
+//import { githubApiBaseQuery } from '@/src/6-shared/api/githubApiConfig'
+//import { createApi } from '@reduxjs/toolkit/query/react'
 
-export const githubUserApi = createApi({
-  reducerPath: 'githubUserApi',
-  baseQuery: githubApiBaseQuery,
-  endpoints: (builder) => ({
-    getGithubUserData: builder.query<any, { token?: string }>({
-      queryFn: async (arg, _queryApi, _extraOptions, fetchWithBQ) => {
-        const headers = arg?.token
-          ? { Authorization: `Bearer ${arg.token}` }
-          : undefined
+//export const githubUserApi = createApi({
+//  reducerPath: 'githubUserApi',
+//  baseQuery: githubApiBaseQuery,
+//  endpoints: (builder) => ({
+//    getGithubUserData: builder.query<any, { token?: string }>({
+//      queryFn: async (arg, _queryApi, _extraOptions, fetchWithBQ) => {
+//        const headers = arg?.token
+//          ? { Authorization: `Bearer ${arg.token}` }
+//          : undefined
 
-        const result = await fetchWithBQ({
-          url: 'user',
-          headers,
-        })
+//        const result = await fetchWithBQ({
+//          url: 'user',
+//          headers,
+//        })
 
-        if (result.error) {
-          return { error: result.error }
-        }
+//        if (result.error) {
+//          return { error: result.error }
+//        }
 
-        return { data: result.data }
-      },
-    }),
-  }),
-})
+//        return { data: result.data }
+//      },
+//    }),
+//  }),
+//})
 
-export const { useGetGithubUserDataQuery, useLazyGetGithubUserDataQuery } = githubUserApi
+//export const { useGetGithubUserDataQuery, useLazyGetGithubUserDataQuery } = githubUserApi
