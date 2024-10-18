@@ -1,29 +1,23 @@
 import { fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { getSession } from 'next-auth/react'
 import { CustomSessionUser } from '@/app/api/auth/authOptions'
+import { buildApiUrl, buildHeaders } from '@/src/6-shared/utils/apiUtils'
 
-export const baseQueryApi = async (args: string, api: any, extraOptions: any) => {
+export const baseQueryApi = async (path: string, api: any, extraOptions: any) => {
   const session = await getSession()
   const user = session?.user as CustomSessionUser | undefined
 
-  const baseUrl = user?.instanceUrl
-  const token = user?.token
-
-  if (!baseUrl || !token) {
+  if (!user?.instanceUrl || !user?.token) {
     return {
       error: { status: 401, data: 'Base URL or token not found in session' },
     }
   }
 
-  const result = await fetchBaseQuery({
-    baseUrl,
-    prepareHeaders: (headers) => {
-      if (token) {
-        headers.set('Authorization', `Bearer ${token}`)
-      }
-      return headers
-    },
-  })(args, api, extraOptions) // Передаем args, api и extraOptions в fetchBaseQuery
+  const url = buildApiUrl(user.instanceUrl, path, user.token)
+  const headers = buildHeaders(user.token)
 
-  return result
+  return fetchBaseQuery({
+    baseUrl: '',
+    prepareHeaders: () => headers,
+  })(url, api, extraOptions)
 }
