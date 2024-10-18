@@ -15,6 +15,7 @@ export const GitHostingOption: FC<GitHostingOptionProps> = ({
   return (
     <div className="flex flex-col gap-2">
       <p className="font-light">{description}</p>
+
       <Button fullWidth className="uppercase" onClick={onClick}>
         {buttonText}
       </Button>

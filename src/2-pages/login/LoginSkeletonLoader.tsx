@@ -1,8 +1,9 @@
 export const LoginSkeletonLoader = () => {
   return (
     <div className="">
-      {/*<SkeletonLoader />*/}
-      <span>Loading...</span>
+      {/*<Skeleton isLoaded={isLoaded} className="rounded-lg">
+        <div className="h-24 rounded-lg bg-secondary"></div>
+      </Skeleton>*/}
     </div>
   )
 }

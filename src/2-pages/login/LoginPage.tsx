@@ -23,31 +23,15 @@ import { FORGEJO_EXAMPLE_API_URL } from '@/src/6-shared/constants/constants'
 import { InputActionButton } from '@/src/6-shared/ui/buttons/InputActionButton'
 import { LoginFormControlledInput } from './LoginFormControlledInput'
 import { LoginSubmitLoader } from './LoginSubmitLoader'
-import { LoginSkeletonLoader } from './LoginSkeletonLoader'
 import { GitHostingOption } from './GitHostingOption'
-import { LogOutButton } from '@/src/6-shared/ui'
-import { CustomSessionUser } from '@/app/api/auth/authOptions'
 
 interface FormData {
   token: string
   instanceUrl?: string
 }
 
-interface LoggedInUserProps {
-  username: string;
-}
-
-const LoggedInUser: React.FC<LoggedInUserProps> = ({ username }) => {
-  return (
-    <div>
-      <h1>Вы уже авторизованы как @{username}</h1>
-      <LogOutButton />
-    </div>
-  );
-};
-
 const LoginPage = () => {
-  const [isLoading, setIsLoading] = useState(false)
+  const [isSubmitLoading, setIsSubmitLoading] = useState(false)
   const [gitHosting, setGitHosting] = useState<GitHostingType | null>(null)
 
   const t = useTranslations('LoginPage')
@@ -56,8 +40,6 @@ const LoginPage = () => {
   const [triggerGetForgejoUserData] = useLazyGetForgejoUserDataQuery()
 
   const { singleTokenSchema, tokenAndUrlSchema } = useValidationSchemas()
-
-  const { data: session, status } = useSession()
 
   const searchParams = useSearchParams()
   const router = useRouter()
@@ -152,7 +134,7 @@ const LoginPage = () => {
         instanceUrl,
       })
 
-      setIsLoading(true)
+      setIsSubmitLoading(true)
 
       if (result?.error) {
         setError('token', {
@@ -177,18 +159,8 @@ const LoginPage = () => {
     handleClearValue('token')
   }, [gitHosting, setValue])
 
-  //if (status !== 'loading') {
-  //  return <LoginSkeletonLoader />
-  //}
-
-  if (isLoading) {
+  if (isSubmitLoading) {
     return <LoginSubmitLoader />
-  }
-
-  if (status === 'authenticated' && session?.user) {
-    const user = session.user as CustomSessionUser
-
-    return <LoggedInUser username={user.login}/>
   }
 
   return (
@@ -199,6 +171,7 @@ const LoginPage = () => {
             <h1 key={Date.now()} className="text-3xl font-light">
               {t('form.title')}
             </h1>
+
             <div className="mt-6 flex flex-col gap-6">
               <GitHostingOption
                 buttonText="Github"
@@ -307,4 +280,4 @@ const LoginPageWithSuspense = () => (
   </Suspense>
 )
 
-export default LoginPageWithSuspense
+export default LoginPage
