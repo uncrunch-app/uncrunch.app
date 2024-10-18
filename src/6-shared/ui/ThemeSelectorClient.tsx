@@ -57,7 +57,7 @@ export default function ThemeSelectorClient({ initialTheme }: ThemeSelectorClien
   const themeNames = Object.keys(themes);
 
   return (
-    <div className='bg-primary border-divider border-small rounded-large p-4'>
+    <div className='bg-secondary-200 border-divider border-small rounded-large p-4'>
       <RadioGroup
         label="Выберите тему:"
         value={theme}

@@ -82,16 +82,8 @@ export default async function HomePage({ params }: HomePageProps) {
   const session = await getServerSession(authOptions)
   const t = await getTranslations('HomePage')
   const customUser = session?.user as CustomSessionUser
-  
-  console.log(customUser);
-  
 
   const { username } = params
-  const sessionUsername = `~${customUser.login}`
-
-  if (sessionUsername !== username) {
-    return redirect('/')
-  }
 
   return (
     <div style={{ margin: '20px' }}>
