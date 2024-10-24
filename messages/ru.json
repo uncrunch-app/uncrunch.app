@@ -56,7 +56,7 @@
     "footer": {
       "rights": "Все права защищены.",
       "sourceCode": "Исходный код на {gitHosting}.",
-      "copyright": "Copyright © {years} Uncrunch.",
+      "copyright": "🄯 {years} Uncrunch.",
       "license": "Лицензия {license}.",
       "developer": "Разработано Игорем Теплостанским."
     }
