@@ -58,15 +58,15 @@ export default async function middleware(
     return NextResponse.next()
   }
 
-  if (authResponse instanceof NextResponse) {
-    return authResponse
+  if (!token && pathname === '/') {
+    return NextResponse.next()
   }
 
   if (!token) {
     return redirectToLoginRoute(req)
   }
 
-  return redirectToUsernameRoute(req, token) 
+  return redirectToUsernameRoute(req, token)
 }
 
 export const config = {
