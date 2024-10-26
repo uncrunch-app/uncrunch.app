@@ -26,6 +26,7 @@ import { InputActionButton } from '@/src/6-shared/ui/buttons/InputActionButton'
 import { LoginFormControlledInput } from './LoginFormControlledInput'
 import { LoginSubmitLoader } from './LoginSubmitLoader'
 import { GitHostingOption } from './GitHostingOption'
+import { routes } from '@/src/6-shared/services/routes'
 
 interface FormData {
   token: string
@@ -47,7 +48,7 @@ const LoginPage = () => {
 
   const [isVisible, setIsVisible] = useState(false)
 
-  const callbackUrl = searchParams.get('callbackUrl') || '/'
+  const callbackUrl = searchParams.get('callbackUrl') || routes.root
 
   const {
     control,

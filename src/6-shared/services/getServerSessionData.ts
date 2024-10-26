@@ -4,14 +4,13 @@ import { authOptions } from '@/app/api/auth/authOptions'
 import type { CustomSessionUser } from '@/app/api/auth/authOptions'
 import { getServerSession } from 'next-auth/next'
 
-export async function getUsername() {
+export async function getServerSessionData() {
   const session = await getServerSession(authOptions)
-
-  if (!session?.user) {
-    return null
+  const user = session?.user as CustomSessionUser
+  
+  if (!user) {
+    throw new Error('User not found in session')
   }
 
-  const customUser = session.user as CustomSessionUser
-
-  return customUser.login
+  return user
 }

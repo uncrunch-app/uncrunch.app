@@ -27,7 +27,7 @@ import { IoLanguageOutline } from 'react-icons/io5'
 
 import { IoColorPaletteOutline } from 'react-icons/io5'
 
-import { routePaths } from '@/src/6-shared/services/routePaths'
+import { routes } from '@/src/6-shared/services/routes'
 import { useUsername } from '@/src/6-shared/services/useUsername'
 import { signOut } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
@@ -47,12 +47,12 @@ const UserMenu: FC<UserMenuProps> = ({ customUser }) => {
   const { username, isLoading } = useUsername()
   const t = useTranslations('UserMenu')
 
-  const usernameRoute = routePaths.root(username!)
-  const secretRoute = routePaths.secret(username!)
-  //const settingsRoute = routePaths.settings(username!)
-  //const notesRoute = routePaths.notes(username!)
-  //const todoRoute = routePaths.todo(username!)
-  //const boardsRoute = routePaths.boards(username!)
+  const usernameRoute = routes.home(username!)
+  const secretRoute = routes.secret(username!)
+  //const settingsRoute = routes.settings(username!)
+  //const notesRoute = routes.notes(username!)
+  //const todoRoute = routes.todo(username!)
+  //const boardsRoute = routes.boards(username!)
 
   const iconSize = 18
 

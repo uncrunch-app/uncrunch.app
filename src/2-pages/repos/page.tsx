@@ -1,19 +1,28 @@
 'use client'
 
-import { useGetUserRepositoriesQuery } from '@/src/5-entities/user/api/repoApi'
+import { useGetRepoQuery, useGetListReposQuery } from '@/src/5-entities/user/api/repoApi'
 import { useGetUserQuery } from '@/src/5-entities/user/api/userApi'
 import React from 'react'
 
 const UserRepositories = () => {
-  const { data, error, isLoading } = useGetUserRepositoriesQuery()
+  const { data, error, isLoading } = useGetListReposQuery()
   const { data: userData, error: useError, isLoading: userIsLoading } = useGetUserQuery()
   
-  console.log(userData);
+  const { data: repo, error: repoError } = useGetRepoQuery({ repo: '11' })
   
+  console.log(repo, repoError);  
+
   // Проверка загрузки данных о репозиториях
   if (isLoading) return <div>Loading repositories...</div>
   if (error) return <div>Error loading repositories. Please try again later.</div>
-  if (!data || data.length === 0) return <div>No repositories found for this user.</div>
+  
+  // Дополнительная проверка на массив
+  if (!Array.isArray(data)) {
+    console.error('Expected data to be an array but got:', data);
+    return <div>Unexpected data format. Please try again later.</div>;
+  }
+  
+  if (data.length === 0) return <div>No repositories found for this user.</div>
 
   // Проверка загрузки данных о пользователе
   if (userIsLoading) return <div>Loading user data...</div>
@@ -52,4 +61,4 @@ const UserRepositories = () => {
   )
 }
 
-export default UserRepositories
+export default UserRepositories;

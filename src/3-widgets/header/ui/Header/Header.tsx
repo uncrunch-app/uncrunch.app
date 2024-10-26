@@ -5,13 +5,13 @@ import { authOptions, CustomSessionUser } from '@/app/api/auth/authOptions'
 import { getServerSession } from 'next-auth'
 import UserMenu from '@/src/5-entities/user/ui/UserMenu/UserMenu'
 import Link from 'next/link'
-import { routePaths } from '@/src/6-shared/services/routePaths'
+import { routes } from '@/src/6-shared/services/routes'
 
 const Header: FC = async () => {
   const session = await getServerSession(authOptions)
 
   const customUser = session?.user as CustomSessionUser
-  const usernameRoute = routePaths.root(customUser.login)
+  const usernameRoute = routes.home(customUser.login)
 
   return (
     <div className="flex justify-between bg-secondary-200 px-5 py-[10px] shadow-medium">

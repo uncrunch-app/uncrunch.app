@@ -1,10 +1,12 @@
+import { routes } from "../services/routes"
+
 const isDevelopment = process.env.NODE_ENV === 'development'
 
-export const buildApiUrl = (baseUrl: string, path: string, token?: string) => {
+export const buildApiUrl = (baseUrl: string, path: string, token: string) => {
   const fullUrl = `${baseUrl}${path}`
 
   if (isDevelopment) {
-    return `/api/proxy?url=${encodeURIComponent(fullUrl)}&token=${token}`
+    return routes.proxy(fullUrl, token)
   }
 
   return fullUrl
