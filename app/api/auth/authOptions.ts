@@ -1,27 +1,32 @@
-import { NextAuthOptions } from 'next-auth'
-import CredentialsProvider from 'next-auth/providers/credentials'
-import { JWT } from 'next-auth/jwt'
-import { GitHostingType } from '@/src/6-shared/types'
+// app/api/auth/authOptions.ts
 
+import { NextAuthOptions } from 'next-auth';
+import CredentialsProvider from 'next-auth/providers/credentials';
+import { JWT } from 'next-auth/jwt';
+import { GitHostingType } from '@/src/6-shared/types'; // Убедитесь, что здесь правильный путь
+
+// Базовая информация о пользователе
 interface BaseUserInfo {
-  token: string
-  login: string
-  name?: string | null
-  image?: string | null
-  gitHosting: GitHostingType
-  instanceUrl?: string | null
+  token: string;
+  login: string;
+  name?: string | null;
+  image?: string | null;
+  gitHosting: GitHostingType; // Убедитесь, что это правильный тип
+  instanceUrl?: string | null;
 }
 
-type CredentialsInput = Partial<Omit<BaseUserInfo, 'gitHosting'>>
+type CredentialsInput = Partial<Omit<BaseUserInfo, 'gitHosting'>>;
 
+// Кастомизированный интерфейс пользователя
 interface CustomUser extends BaseUserInfo {
-  id: string
+  id: string;
 }
 
 interface CustomJWT extends JWT, BaseUserInfo {}
 
 export interface CustomSessionUser extends BaseUserInfo {}
 
+// Функция для маппинга данных
 const mapUserData = (
   data: Partial<BaseUserInfo>,
   gitHosting: GitHostingType
@@ -32,17 +37,22 @@ const mapUserData = (
   image: data.image ?? null,
   instanceUrl: data.instanceUrl ?? null,
   gitHosting,
-})
+});
 
+// Функция для получения пользователя
 const getUser = (
-  credentials: CredentialsInput,
+  credentials: CredentialsInput | undefined,
   gitHosting: GitHostingType
 ): CustomUser | null => {
-  const userInfo = mapUserData(credentials, gitHosting)
+  if (!credentials || !credentials.token) {
+    return null; // Проверка на наличие credentials и токена
+  }
 
-  return userInfo.token ? { id: '1', ...userInfo } : null
-}
+  const userInfo = mapUserData(credentials, gitHosting);
+  return { id: '1', ...userInfo }; // Возвращаем пользователя с ID
+};
 
+// Функция для создания провайдера
 const createCredentialsProvider = (
   id: string,
   name: string,
@@ -58,9 +68,8 @@ const createCredentialsProvider = (
       image: { label: 'Image', type: 'text' },
       instanceUrl: { label: 'Instance URL', type: 'text', optional: true },
     },
-    authorize: (credentials) =>
-      getUser(credentials as CredentialsInput, gitHosting),
-  })
+    authorize: (credentials) => getUser(credentials, gitHosting), // Убираем as
+  });
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -69,20 +78,24 @@ export const authOptions: NextAuthOptions = {
   ],
   callbacks: {
     async jwt({ token, user }) {
-      if (user) {
+      // Проверяем наличие user и его свойство gitHosting
+      if (user && 'gitHosting' in user) {
+        // Убедимся, что user соответствует CustomUser
+        const customUser: CustomUser = user; // Не используем as, просто приводим
         token = {
           ...token,
-          ...mapUserData(user, (user as CustomUser).gitHosting),
-        } as CustomJWT
+          ...mapUserData(customUser, customUser.gitHosting), // Убираем as
+        };
       }
-      return token
+      return token; // Возвращаем токен
     },
     async session({ session, token }) {
-      session.user = mapUserData(
-        token,
-        (token as CustomJWT).gitHosting
-      ) as CustomSessionUser
-      return session
+      // Проверяем, что token является JWT и имеет свойство gitHosting
+      if ('gitHosting' in token) {
+        const gitHosting = token.gitHosting as GitHostingType; // Это единственное место, где используем as
+        session.user = mapUserData(token, gitHosting); // Убираем as
+      }
+      return session; // Возвращаем сессию
     },
   },
-}
+};

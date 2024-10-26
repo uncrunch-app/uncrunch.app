@@ -1,4 +1,3 @@
-import { CustomSessionUser } from '@/app/api/auth/authOptions'
 import { useSession } from 'next-auth/react'
 
 export function useUsername() {
@@ -9,7 +8,7 @@ export function useUsername() {
   }
 
   if (status === 'authenticated' && session?.user) {
-    const customUser = session.user as CustomSessionUser
+    const customUser = session.user
     return { username: customUser.login, isLoading: false }
   }
 

@@ -6,12 +6,12 @@ import { getServerSession } from 'next-auth'
 import UserMenu from '@/src/5-entities/user/ui/UserMenu/UserMenu'
 import Link from 'next/link'
 import { routes } from '@/src/6-shared/services/routes'
+import { getServerSessionUser } from '@/src/6-shared/services/getServerSessionUser'
 
 const Header: FC = async () => {
-  const session = await getServerSession(authOptions)
+  const user = await getServerSessionUser()
 
-  const customUser = session?.user as CustomSessionUser
-  const usernameRoute = routes.home(customUser.login)
+  const usernameRoute = routes.home(user ? user.login : '/')
 
   return (
     <div className="flex justify-between bg-secondary-200 px-5 py-[10px] shadow-medium">
@@ -19,7 +19,7 @@ const Header: FC = async () => {
         <Logo width="48px" height="48px" />
       </Link>
       <div className={styles.userInfo}>
-        {customUser && <UserMenu customUser={customUser} />}
+        {user && <UserMenu user={user} />}
       </div>
     </div>
   )

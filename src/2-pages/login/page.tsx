@@ -1,13 +1,10 @@
 // app/login/page.tsx (серверный компонент)
-import { getServerSession } from 'next-auth/next'
-import { authOptions } from '@/app/api/auth/authOptions'
 import LoginPage from './LoginPage'
-import { CustomSessionUser } from '@/app/api/auth/authOptions'
 import { LoggedInUser } from './LoggedInUser'
+import { getServerSessionUser } from '@/src/6-shared/services/getServerSessionUser'
 
 export default async function Login() {
-  const session = await getServerSession(authOptions)
-  const user = session?.user as CustomSessionUser | null
+  const user = await getServerSessionUser()
 
   if (user) {
     // Если пользователь авторизован

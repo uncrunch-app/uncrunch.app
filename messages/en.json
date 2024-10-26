@@ -63,5 +63,8 @@
       "license": "Licensed under {license}.",
       "developer": "Developed by Igor Teplostanski."
     }
+  },
+  "TestError": {
+    "msg": "User not found in session"
   }
 }

@@ -1,11 +1,11 @@
 import { createApi } from '@reduxjs/toolkit/query/react'
 import { baseQueryApi } from './baseQueryApi'
 import { endpoints } from '@/src/6-shared/services/endpoints'
-import { getSessionData } from '@/src/6-shared/services/getSessionData'
+import { getSessionUser } from '@/src/6-shared/services/getSessionUser'
 
 
 const getNessesaryData = async () => {
-  const user = await getSessionData()
+  const user = await getSessionUser()
   const endpoint = endpoints[user.gitHosting]
   return { owner: user.login, endpoint }
 }

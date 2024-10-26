@@ -1,19 +1,9 @@
 import { fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { getSession } from 'next-auth/react'
-import { CustomSessionUser } from '@/app/api/auth/authOptions'
 import { buildApiUrl, buildHeaders } from '@/src/6-shared/utils/apiUtils'
-
-const getSessionData = async () => {
-  const session = await getSession()
-  const user = session?.user as CustomSessionUser | undefined
-  if (!user) {
-    throw new Error('User not found in session')
-  }
-  return user
-}
+import { getSessionUser } from '@/src/6-shared/services/getSessionUser'
 
 export const baseQueryApi = async (path: string, api: any, extraOptions: any) => {
-  const user = await getSessionData()
+  const user = await getSessionUser()
 
   if (!user?.instanceUrl || !user?.token) {
     return {

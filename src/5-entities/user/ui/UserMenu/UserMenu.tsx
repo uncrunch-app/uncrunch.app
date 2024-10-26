@@ -3,7 +3,7 @@
 import type { CustomSessionUser } from '@/app/api/auth/authOptions'
 
 interface UserMenuProps {
-  customUser: CustomSessionUser
+  user: CustomSessionUser
 }
 
 import {
@@ -34,16 +34,16 @@ import { useTranslations } from 'next-intl'
 import { FC } from 'react'
 import LocaleSwitcher from '@/src/6-shared/LocaleSwitcher'
 
-const UserInfoDescription = ({ customUser }: UserMenuProps) => {
+const UserInfoDescription = ({ user }: UserMenuProps) => {
   return (
     <span className="flex flex-col">
-      <span>@{customUser.login}</span>
-      <span className="capitalize">{customUser.gitHosting}</span>
+      <span>@{user.login}</span>
+      <span className="capitalize">{user.gitHosting}</span>
     </span>
   )
 }
 
-const UserMenu: FC<UserMenuProps> = ({ customUser }) => {
+const UserMenu: FC<UserMenuProps> = ({ user }) => {
   const { username, isLoading } = useUsername()
   const t = useTranslations('UserMenu')
 
@@ -72,8 +72,8 @@ const UserMenu: FC<UserMenuProps> = ({ customUser }) => {
       <DropdownTrigger>
         <Avatar
           radius="md"
-          src={customUser.image!}
-          fallback={customUser.image!}
+          src={user.image!}
+          fallback={user.image!}
           isBordered
           isFocusable={true}
           as={'button'}
@@ -101,11 +101,11 @@ const UserMenu: FC<UserMenuProps> = ({ customUser }) => {
             isReadOnly
             key="profile"
             className="my-3 h-14 gap-3"
-            textValue={customUser.name!}
+            textValue={user.name!}
           >
             <User
-              name={customUser.name !== 'null' ? customUser.name : null}
-              description={<UserInfoDescription customUser={customUser} />}
+              name={user.name !== 'null' ? user.name : null}
+              description={<UserInfoDescription user={user} />}
               classNames={{
                 name: 'overflow-hidden text-ellipsis whitespace-nowrap max-w-[200px] font-light',
                 description:
@@ -113,7 +113,7 @@ const UserMenu: FC<UserMenuProps> = ({ customUser }) => {
               }}
               avatarProps={{
                 size: 'md',
-                src: customUser.image!,
+                src: user.image!,
               }}
             />
           </DropdownItem>
