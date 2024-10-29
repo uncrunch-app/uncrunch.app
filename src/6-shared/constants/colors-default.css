@@ -1,0 +1,191 @@
+::root {
+  /* classic light */
+  --classic-light-foreground-50: #cbcbdb;
+  --classic-light-foreground-100: #bfbfd3;
+  --classic-light-foreground-200: #a7a7c2;
+  --classic-light-foreground-300: #8f8fb2;
+  --classic-light-foreground-400: #7777a1;
+  --classic-light-foreground-500: #62628e;
+  --classic-light-foreground-600: #515175;
+  --classic-light-foreground-700: #40405d;
+  --classic-light-foreground-800: #303045;
+  --classic-light-foreground-900: #1f1f2d;
+  --classic-light-foreground-default: #1f1f2d;
+
+  --classic-light-divider: #11111126;
+  --classic-light-focus: #006fee;
+  --classic-light-overlay: #000000;
+
+  --classic-light-default-50: #cbcbdb;
+  --classic-light-default-100: #bfbfd3;
+  --classic-light-default-200: #a7a7c2;
+  --classic-light-default-300: #8f8fb2;
+  --classic-light-default-400: #7777a1;
+  --classic-light-default-500: #62628e;
+  --classic-light-default-600: #515175;
+  --classic-light-default-700: #40405d;
+  --classic-light-default-800: #303045;
+  --classic-light-default-900: #1f1f2d;
+  --classic-light-default-foreground: #1f1f2d;
+  --classic-light-default-default: #cbcbdb;
+
+  --classic-light-primary-50: #faf5f3;
+  --classic-light-primary-100: #f5eae4;
+  --classic-light-primary-200: #ead2c6;
+  --classic-light-primary-300: #dbb29d;
+  --classic-light-primary-400: #cc9174;
+  --classic-light-primary-500: #bd714b;
+  --classic-light-primary-600: #985838;
+  --classic-light-primary-700: #6f4029;
+  --classic-light-primary-800: #46281a;
+  --classic-light-primary-900: #1d110b;
+  --classic-light-primary-foreground: #fff;
+  --classic-light-primary-default: #ead2c6;
+
+  --classic-light-secondary-50: #e3e9e5;
+  --classic-light-secondary-100: #d8e0da;
+  --classic-light-secondary-200: #c1cec5;
+  --classic-light-secondary-300: #aabcb0;
+  --classic-light-secondary-400: #93aa9b;
+  --classic-light-secondary-500: #7d9886;
+  --classic-light-secondary-600: #688471;
+  --classic-light-secondary-700: #566d5e;
+  --classic-light-secondary-800: #44564a;
+  --classic-light-secondary-900: #2b372f;
+  --classic-light-secondary-foreground: #fff;
+  --classic-light-secondary-default: #44564a;
+
+  --classic-light-success-50: #e8faf0;
+  --classic-light-success-100: #d1f4e0;
+  --classic-light-success-200: #a2e9c1;
+  --classic-light-success-300: #74dfa2;
+  --classic-light-success-400: #45d483;
+  --classic-light-success-500: #17c964;
+  --classic-light-success-600: #12a150;
+  --classic-light-success-700: #0e793c;
+  --classic-light-success-800: #095028;
+  --classic-light-success-900: #052814;
+  --classic-light-success-foreground: #000;
+  --classic-light-success-default: #17c964;
+
+  --classic-light-warning-50: #fefce8;
+  --classic-light-warning-100: #fdedd3;
+  --classic-light-warning-200: #fbdba7;
+  --classic-light-warning-300: #f9c97c;
+  --classic-light-warning-400: #f7b750;
+  --classic-light-warning-500: #f5a524;
+  --classic-light-warning-600: #c4841d;
+  --classic-light-warning-700: #936316;
+  --classic-light-warning-800: #62420e;
+  --classic-light-warning-900: #312107;
+  --classic-light-warning-foreground: #000;
+  --classic-light-warning-default: #f5a524;
+
+  --classic-light-danger-50: #fee7ef;
+  --classic-light-danger-100: #fdd0df;
+  --classic-light-danger-200: #faa0bf;
+  --classic-light-danger-300: #f871a0;
+  --classic-light-danger-400: #f54180;
+  --classic-light-danger-500: #f31260;
+  --classic-light-danger-600: #c20e4d;
+  --classic-light-danger-700: #920b3a;
+  --classic-light-danger-800: #610726;
+  --classic-light-danger-900: #310413;
+  --classic-light-danger-foreground: #ffffff;
+  --classic-light-danger-default: #f31260;
+
+  /* dark */
+  --dark-foreground-50: #18181b;
+  --dark-foreground-100: #27272a;
+  --dark-foreground-200: #3f3f46;
+  --dark-foreground-300: #52525b;
+  --dark-foreground-400: #71717a;
+  --dark-foreground-500: #a1a1aa;
+  --dark-foreground-600: #d4d4d8;
+  --dark-foreground-700: #e4e4e7;
+  --dark-foreground-800: #f4f4f5;
+  --dark-foreground-900: #fafafa;
+  --dark-foreground-default: #ecedee;
+
+  --dark-divider: #ffffff26;
+  --dark-focus: #006fee;
+  --dark-overlay: #000000;
+
+  --dark-default-50: #18181b;
+  --dark-default-100: #27272a;
+  --dark-default-200: #3f3f46;
+  --dark-default-300: #52525b;
+  --dark-default-400: #71717a;
+  --dark-default-500: #a1a1aa;
+  --dark-default-600: #d4d4d8;
+  --dark-default-700: #e4e4e7;
+  --dark-default-800: #f4f4f5;
+  --dark-default-900: #fafafa;
+  --dark-default-foreground: #fff;
+  --dark-default-default: #3f3f46;
+
+  --dark-primary-50: #001731;
+  --dark-primary-100: #cce3fd;
+  --dark-primary-200: #99c7fb;
+  --dark-primary-300: #66aaf9;
+  --dark-primary-400: #338ef7;
+  --dark-primary-500: #006fee;
+  --dark-primary-600: #005bc4;
+  --dark-primary-700: #004493;
+  --dark-primary-800: #002e62;
+  --dark-primary-900: #001731;
+  --dark-primary-foreground: #fff;
+  --dark-primary-default: #006fee;
+
+  --dark-secondary-50: #f2eafa;
+  --dark-secondary-100: #e4d4f4;
+  --dark-secondary-200: #c9a9e9;
+  --dark-secondary-300: #ae7ede;
+  --dark-secondary-400: #9353d3;
+  --dark-secondary-500: #7828c8;
+  --dark-secondary-600: #6020a0;
+  --dark-secondary-700: #481878;
+  --dark-secondary-800: #301050;
+  --dark-secondary-900: #180828;
+  --dark-secondary-foreground: #fff;
+  --dark-secondary-default: #7828c8;
+
+  --dark-success-50: #e8faf0;
+  --dark-success-100: #d1f4e0;
+  --dark-success-200: #a2e9c1;
+  --dark-success-300: #74dfa2;
+  --dark-success-400: #45d483;
+  --dark-success-500: #17c964;
+  --dark-success-600: #12a150;
+  --dark-success-700: #0e793c;
+  --dark-success-800: #095028;
+  --dark-success-900: #052814;
+  --dark-success-foreground: #000;
+  --dark-success-default: #17c964;
+
+  --dark-warning-50: #fefce8;
+  --dark-warning-100: #fdedd3;
+  --dark-warning-200: #fbdba7;
+  --dark-warning-300: #f9c97c;
+  --dark-warning-400: #f7b750;
+  --dark-warning-500: #f5a524;
+  --dark-warning-600: #c4841d;
+  --dark-warning-700: #936316;
+  --dark-warning-800: #62420e;
+  --dark-warning-900: #312107;
+  --dark-warning-foreground: #000;
+  --dark-warning-default: #f5a524;
+
+  --dark-danger-50: #fee7ef;
+  --dark-danger-100: #fdd0df;
+  --dark-danger-200: #faa0bf;
+  --dark-danger-300: #f871a0;
+  --dark-danger-400: #f54180;
+  --dark-danger-500: #f31260;
+  --dark-danger-600: #c20e4d;
+  --dark-danger-700: #920b3a;
+  --dark-danger-800: #610726;
+  --dark-danger-900: #310413;
+  --dark-danger-foreground: #ffffff;
+  --dark-danger-default: #f31260;
+}

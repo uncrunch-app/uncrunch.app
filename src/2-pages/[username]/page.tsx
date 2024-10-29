@@ -66,11 +66,11 @@
 
 // app/[username]/page.tsx
 import { getServerSession } from 'next-auth'
-import {
-  authOptions,
-  CustomSessionUser,
-} from '@/app/api/auth/authOptions'
+import { authOptions, CustomSessionUser } from '@/app/api/auth/authOptions'
 import { notFound, redirect } from 'next/navigation'
+import { getTranslations } from 'next-intl/server'
+import LocaleSwitcher from '@/src/6-shared/LocaleSwitcher'
+import ThemeSelector from '@/src/6-shared/ui/ThemeSelector'
 
 interface HomePageProps {
   params: {
@@ -80,30 +80,27 @@ interface HomePageProps {
 
 export default async function HomePage({ params }: HomePageProps) {
   const session = await getServerSession(authOptions)
+  const t = await getTranslations('HomePage')
   const customUser = session?.user as CustomSessionUser
 
-  // Проверяем наличие сессии
-  if (!session) {
-    // Если пользователь не авторизован, перенаправляем на страницу логина или показываем 404
-    return notFound()
-  }
-  
-  console.log(session.user);
-  
-
   const { username } = params
-  const sessionUsername = `~${customUser.login}` // Формируем sessionUsername
+  const sessionUsername = `~${customUser.login}`
 
-  // Если логин не совпадает с текущим пользователем, делаем редирект на рутовый роут
   if (sessionUsername !== username) {
-    return redirect('/') // Редирект на рутовый роут
+    return redirect('/')
   }
 
-  // Рендерим страницу пользователя
   return (
-    <div>
-      <h1>Welcome, {username}!</h1>
-      <p>This is your profile page.</p>
+    <div style={{ margin: '20px' }}>
+      <h1
+        className="text-foreground-800"
+        style={{ fontSize: '2rem', fontWeight: '900' }}
+      >
+        {t('welcome', { username })}
+      </h1>
+      <p className="text-foreground-900">{t('message')}</p>
+      <LocaleSwitcher />
+      <ThemeSelector/>
     </div>
   )
 }
