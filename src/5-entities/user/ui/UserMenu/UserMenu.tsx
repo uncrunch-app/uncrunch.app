@@ -28,11 +28,12 @@ import { IoLanguageOutline } from 'react-icons/io5'
 import { IoColorPaletteOutline } from 'react-icons/io5'
 
 import { routes } from '@/src/6-shared/services/routes'
-import { useUsername } from '@/src/6-shared/services/useUsername'
+import { useSessionUser } from '@/src/6-shared/services/useSessionUser'
 import { signOut } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 import { FC } from 'react'
 import LocaleSwitcher from '@/src/6-shared/LocaleSwitcher'
+import useNavigateWithTopLoader from '@/src/6-shared/ui/useNavigateWithTopLoader'
 
 const UserInfoDescription = ({ user }: UserMenuProps) => {
   return (
@@ -44,11 +45,14 @@ const UserInfoDescription = ({ user }: UserMenuProps) => {
 }
 
 const UserMenu: FC<UserMenuProps> = ({ user }) => {
-  const { username, isLoading } = useUsername()
+  const { sessionUser, isLoading } = useSessionUser()
   const t = useTranslations('UserMenu')
+  const navigate = useNavigateWithTopLoader()
 
-  const usernameRoute = routes.home(username!)
-  const secretRoute = routes.secret(username!)
+  if (!sessionUser) return
+
+  const homeRoute = routes.home(sessionUser.login)
+  const secretRoute = routes.secret(sessionUser.login)
   //const settingsRoute = routes.settings(username!)
   //const notesRoute = routes.notes(username!)
   //const todoRoute = routes.todo(username!)
@@ -125,20 +129,25 @@ const UserMenu: FC<UserMenuProps> = ({ user }) => {
           >
             Repo
           </DropdownItem>*/}
+
           <DropdownItem
             key="dashboard"
             textValue="Dashboard"
             className=""
-            href={usernameRoute}
+            onClick={() => navigate(homeRoute)}
             startContent={<RxDashboard size={iconSize} />}
           >
             {t('pages.home')}
           </DropdownItem>
+
           {/*<DropdownItem
             key="notes"
             textValue="Notes"
             className=""
             href={notesRoute}
+            onClick={() =>
+              NavigateWithTopLoader(notesRoute)
+            }
             startContent={<PiNotePencil size={iconSize} />}
           >
             {t('pages.notes')}
@@ -148,6 +157,9 @@ const UserMenu: FC<UserMenuProps> = ({ user }) => {
             textValue="ToDo"
             className=""
             href={todoRoute}
+            onClick={() =>
+              NavigateWithTopLoader(todoRoute)
+            }
             startContent={<GoTasklist size={iconSize} />}
           >
             {t('pages.todo')}
@@ -157,6 +169,9 @@ const UserMenu: FC<UserMenuProps> = ({ user }) => {
             textValue="Boards"
             className=""
             href={boardsRoute}
+            onClick={() =>
+              NavigateWithTopLoader(boardsRoute)
+            }
             startContent={<PiKanban size={iconSize} />}
           >
             {t('pages.boards')}
@@ -166,6 +181,9 @@ const UserMenu: FC<UserMenuProps> = ({ user }) => {
             textValue="Settings"
             className=""
             href={settingsRoute}
+            onClick={() =>
+              NavigateWithTopLoader(settingsRoute)
+            }
             startContent={<IoSettingsOutline size={iconSize} />}
           >
             {t('pages.settings')}
@@ -174,7 +192,7 @@ const UserMenu: FC<UserMenuProps> = ({ user }) => {
             key="secret"
             textValue="Secret"
             className=""
-            href={secretRoute}
+            onClick={() => navigate(secretRoute)}
             startContent={<GoBlocked size={iconSize} />}
           >
             {t('pages.secret')}
@@ -189,9 +207,9 @@ const UserMenu: FC<UserMenuProps> = ({ user }) => {
             textValue="Language selection"
             startContent={<IoLanguageOutline size={iconSize} />}
           >
-            <LocaleSwitcher /> 
+            <LocaleSwitcher />
           </DropdownItem>
-            {/*<DropdownItem
+          {/*<DropdownItem
               isReadOnly
               key="theme"
               className="cursor-default"

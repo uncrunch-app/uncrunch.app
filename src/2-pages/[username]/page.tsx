@@ -71,6 +71,9 @@ import { notFound, redirect } from 'next/navigation'
 import { getTranslations } from 'next-intl/server'
 import LocaleSwitcher from '@/src/6-shared/LocaleSwitcher'
 import ThemeSelector from '@/src/6-shared/ui/ThemeSelector'
+import Link from 'next/link'
+import { routes } from '@/src/6-shared/services/routes'
+import { getServerSessionUser } from '@/src/6-shared/services/getServerSessionUser'
 
 interface HomePageProps {
   params: {
@@ -80,11 +83,15 @@ interface HomePageProps {
 
 export default async function HomePage({ params }: HomePageProps) {
   const t = await getTranslations('HomePage')
+  const sessionUser = await getServerSessionUser()
+  
+  if (!sessionUser) return
 
   const { username } = params
 
   return (
     <div style={{ margin: '20px' }}>
+      <Link href={routes.teapot}>418</Link>
       <h1
         className="text-foreground-800"
         style={{ fontSize: '2rem', fontWeight: '900' }}
@@ -93,7 +100,7 @@ export default async function HomePage({ params }: HomePageProps) {
       </h1>
       <p className="text-foreground-900">{t('message')}</p>
       <LocaleSwitcher />
-      <ThemeSelector/>
+      <ThemeSelector />
     </div>
   )
 }

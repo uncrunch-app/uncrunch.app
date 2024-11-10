@@ -71,5 +71,5 @@ export default async function middleware(
 }
 
 export const config = {
-  matcher: ['/((?!login|favicons|api|_next|static|bad_credentials).*)'],
+  matcher: ['/((?!login|favicons|api|_next|static|bad_credentials|418).*)'],
 }

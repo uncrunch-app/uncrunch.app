@@ -9,11 +9,12 @@ import { useRouter } from 'next/navigation'
 
 const Providers = ({ children }: { children: ReactNode }) => {
   const router = useRouter()
+  const useHref = (href: string) => href;
 
   return (
     <Provider store={store}>
       <SessionProvider>
-        <NextUIProvider navigate={router.push}>{children}</NextUIProvider>
+        <NextUIProvider navigate={router.push} useHref={useHref}>{children}</NextUIProvider>
       </SessionProvider>
     </Provider>
   )
