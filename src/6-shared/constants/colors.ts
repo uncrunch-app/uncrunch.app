@@ -1,292 +1,313 @@
-export const CREAM: string = '#ead2c6';
-export const YELLOW: string = '#ffb07b';
-export const RED: string = '#bf5235';
-export const WHITE: string = '#f3e5e4';
-export const WHITE_90: string = '#f3e5e4e6';
-export const WHITE_80: string = '#f3e5e4cc';
-export const WHITE_70: string = '#f3e5e4b3';
-export const WHITE_60: string = '#f3e5e499';
-export const WHITE_50: string = '#f3e5e480';
-export const WHITE_40: string = '#f3e5e466';
-export const WHITE_30: string = '#f3e5e44d';
-export const WHITE_20: string = '#f3e5e433';
-export const WHITE_10: string = '#f3e5e41a';
-export const TEAL: string = '#86b7a4';
-export const GREEN_900: string = '#263029';
-export const GREEN_800: string = '#2d3931';
-export const GREEN_700: string = '#35433a';
-export const GREEN_600: string = '#3c4c42';
-export const GREEN_500: string = '#44564a';
-export const GREEN_400: string = '#59695e';
-export const GREEN_300: string = '#6e7c72';
-export const GREEN_200: string = '#828e86';
-export const GREEN_100: string = '#97a19a';
-export const GREEN_50: string = '#a5aea8';
-export const BLACK_900: string = '#1f1f2d';
-export const BLACK_800: string = '#2c2c39';
-export const BLACK_700: string = '#393945';
-export const BLACK_600: string = '#454551';
-export const BLACK_500: string = '#52525d';
-export const BLACK_400: string = '#5f5f69';
-export const BLACK_300: string = '#6c6c75';
-export const BLACK_200: string = '#797981';
-export const BLACK_100: string = '#85858d';
-export const BLACK_50: string = '#99999f';
-export const UNCRUNCH_LIGHT_FOREGROUND_50: string = '#e3e9e5';
-export const UNCRUNCH_LIGHT_FOREGROUND_100: string = '#d8e0da';
-export const UNCRUNCH_LIGHT_FOREGROUND_200: string = '#c1cec5';
-export const UNCRUNCH_LIGHT_FOREGROUND_300: string = '#aabcb0';
-export const UNCRUNCH_LIGHT_FOREGROUND_400: string = '#93aa9b';
-export const UNCRUNCH_LIGHT_FOREGROUND_500: string = '#7d9886';
-export const UNCRUNCH_LIGHT_FOREGROUND_600: string = '#688471';
-export const UNCRUNCH_LIGHT_FOREGROUND_700: string = '#566d5e';
-export const UNCRUNCH_LIGHT_FOREGROUND_800: string = '#44564a';
-export const UNCRUNCH_LIGHT_FOREGROUND_900: string = '#2b372f';
-export const UNCRUNCH_LIGHT_FOREGROUND_DEFAULT: string = '#44564a';
-export const UNCRUNCH_LIGHT_DIVIDER: string = 'rgba(86, 109, 94, 0.6)';
-export const UNCRUNCH_LIGHT_FOCUS: string = '#006fee';
-export const UNCRUNCH_LIGHT_OVERLAY: string = '#000000';
-export const UNCRUNCH_LIGHT_DEFAULT_50: string = '#e3e9e5';
-export const UNCRUNCH_LIGHT_DEFAULT_100: string = '#d8e0da';
-export const UNCRUNCH_LIGHT_DEFAULT_200: string = '#c1cec5';
-export const UNCRUNCH_LIGHT_DEFAULT_300: string = '#aabcb0';
-export const UNCRUNCH_LIGHT_DEFAULT_400: string = '#93aa9b';
-export const UNCRUNCH_LIGHT_DEFAULT_500: string = '#7d9886';
-export const UNCRUNCH_LIGHT_DEFAULT_600: string = '#688471';
-export const UNCRUNCH_LIGHT_DEFAULT_700: string = '#566d5e';
-export const UNCRUNCH_LIGHT_DEFAULT_800: string = '#44564a';
-export const UNCRUNCH_LIGHT_DEFAULT_900: string = '#2b372f';
-export const UNCRUNCH_LIGHT_DEFAULT_FOREGROUND: string = '#ead2c6';
-export const UNCRUNCH_LIGHT_DEFAULT_DEFAULT: string = '#44564a';
-export const UNCRUNCH_LIGHT_PRIMARY_50: string = '#e3e9e5';
-export const UNCRUNCH_LIGHT_PRIMARY_100: string = '#d8e0da';
-export const UNCRUNCH_LIGHT_PRIMARY_200: string = '#c1cec5';
-export const UNCRUNCH_LIGHT_PRIMARY_300: string = '#aabcb0';
-export const UNCRUNCH_LIGHT_PRIMARY_400: string = '#93aa9b';
-export const UNCRUNCH_LIGHT_PRIMARY_500: string = '#7d9886';
-export const UNCRUNCH_LIGHT_PRIMARY_600: string = '#688471';
-export const UNCRUNCH_LIGHT_PRIMARY_700: string = '#566d5e';
-export const UNCRUNCH_LIGHT_PRIMARY_800: string = '#44564a';
-export const UNCRUNCH_LIGHT_PRIMARY_900: string = '#2b372f';
-export const UNCRUNCH_LIGHT_PRIMARY_FOREGROUND: string = '#ead2c6';
-export const UNCRUNCH_LIGHT_PRIMARY_DEFAULT: string = '#44564a';
-export const UNCRUNCH_LIGHT_SECONDARY_50: string = '#faf5f3';
-export const UNCRUNCH_LIGHT_SECONDARY_100: string = '#f5eae4';
-export const UNCRUNCH_LIGHT_SECONDARY_200: string = '#ead2c6';
-export const UNCRUNCH_LIGHT_SECONDARY_300: string = '#dbb29d';
-export const UNCRUNCH_LIGHT_SECONDARY_400: string = '#cc9174';
-export const UNCRUNCH_LIGHT_SECONDARY_500: string = '#bd714b';
-export const UNCRUNCH_LIGHT_SECONDARY_600: string = '#985838';
-export const UNCRUNCH_LIGHT_SECONDARY_700: string = '#6f4029';
-export const UNCRUNCH_LIGHT_SECONDARY_800: string = '#46281a';
-export const UNCRUNCH_LIGHT_SECONDARY_900: string = '#1d110b';
-export const UNCRUNCH_LIGHT_SECONDARY_FOREGROUND: string = '#44564a';
-export const UNCRUNCH_LIGHT_SECONDARY_DEFAULT: string = '#ead2c6';
-export const UNCRUNCH_LIGHT_SUCCESS_50: string = '#e8faf0';
-export const UNCRUNCH_LIGHT_SUCCESS_100: string = '#d1f4e0';
-export const UNCRUNCH_LIGHT_SUCCESS_200: string = '#a2e9c1';
-export const UNCRUNCH_LIGHT_SUCCESS_300: string = '#74dfa2';
-export const UNCRUNCH_LIGHT_SUCCESS_400: string = '#45d483';
-export const UNCRUNCH_LIGHT_SUCCESS_500: string = '#17c964';
-export const UNCRUNCH_LIGHT_SUCCESS_600: string = '#12a150';
-export const UNCRUNCH_LIGHT_SUCCESS_700: string = '#0e793c';
-export const UNCRUNCH_LIGHT_SUCCESS_800: string = '#095028';
-export const UNCRUNCH_LIGHT_SUCCESS_900: string = '#052814';
-export const UNCRUNCH_LIGHT_SUCCESS_FOREGROUND: string = '#000';
-export const UNCRUNCH_LIGHT_SUCCESS_DEFAULT: string = '#17c964';
-export const UNCRUNCH_LIGHT_WARNING_50: string = '#fefce8';
-export const UNCRUNCH_LIGHT_WARNING_100: string = '#fdedd3';
-export const UNCRUNCH_LIGHT_WARNING_200: string = '#fbdba7';
-export const UNCRUNCH_LIGHT_WARNING_300: string = '#f9c97c';
-export const UNCRUNCH_LIGHT_WARNING_400: string = '#f7b750';
-export const UNCRUNCH_LIGHT_WARNING_500: string = '#f5a524';
-export const UNCRUNCH_LIGHT_WARNING_600: string = '#c4841d';
-export const UNCRUNCH_LIGHT_WARNING_700: string = '#936316';
-export const UNCRUNCH_LIGHT_WARNING_800: string = '#62420e';
-export const UNCRUNCH_LIGHT_WARNING_900: string = '#312107';
-export const UNCRUNCH_LIGHT_WARNING_FOREGROUND: string = '#000';
-export const UNCRUNCH_LIGHT_WARNING_DEFAULT: string = '#f5a524';
-export const UNCRUNCH_LIGHT_DANGER_50: string = '#F6E3DE';
-export const UNCRUNCH_LIGHT_DANGER_100: string = '#F2D6CE';
-export const UNCRUNCH_LIGHT_DANGER_200: string = '#E9BBAF';
-export const UNCRUNCH_LIGHT_DANGER_300: string = '#E0A08F';
-export const UNCRUNCH_LIGHT_DANGER_400: string = '#D7856F';
-export const UNCRUNCH_LIGHT_DANGER_500: string = '#CE694F';
-export const UNCRUNCH_LIGHT_DANGER_600: string = '#BF5235';
-export const UNCRUNCH_LIGHT_DANGER_700: string = '#933F29';
-export const UNCRUNCH_LIGHT_DANGER_800: string = '#672C1D';
-export const UNCRUNCH_LIGHT_DANGER_900: string = '#3B1910';
-export const UNCRUNCH_LIGHT_DANGER_FOREGROUND: string = '#ffffff';
-export const UNCRUNCH_LIGHT_DANGER_DEFAULT: string = '#BF5235';
-export const CLASSIC_LIGHT_FOREGROUND_50: string = '#cbcbdb';
-export const CLASSIC_LIGHT_FOREGROUND_100: string = '#bfbfd3';
-export const CLASSIC_LIGHT_FOREGROUND_200: string = '#a7a7c2';
-export const CLASSIC_LIGHT_FOREGROUND_300: string = '#8f8fb2';
-export const CLASSIC_LIGHT_FOREGROUND_400: string = '#7777a1';
-export const CLASSIC_LIGHT_FOREGROUND_500: string = '#62628e';
-export const CLASSIC_LIGHT_FOREGROUND_600: string = '#515175';
-export const CLASSIC_LIGHT_FOREGROUND_700: string = '#40405d';
-export const CLASSIC_LIGHT_FOREGROUND_800: string = '#303045';
-export const CLASSIC_LIGHT_FOREGROUND_900: string = '#1f1f2d';
-export const CLASSIC_LIGHT_FOREGROUND_DEFAULT: string = '#1f1f2d';
-export const CLASSIC_LIGHT_DIVIDER: string = '#11111126';
-export const CLASSIC_LIGHT_FOCUS: string = '#006fee';
-export const CLASSIC_LIGHT_OVERLAY: string = '#000000';
-export const CLASSIC_LIGHT_DEFAULT_50: string = '#cbcbdb';
-export const CLASSIC_LIGHT_DEFAULT_100: string = '#bfbfd3';
-export const CLASSIC_LIGHT_DEFAULT_200: string = '#a7a7c2';
-export const CLASSIC_LIGHT_DEFAULT_300: string = '#8f8fb2';
-export const CLASSIC_LIGHT_DEFAULT_400: string = '#7777a1';
-export const CLASSIC_LIGHT_DEFAULT_500: string = '#62628e';
-export const CLASSIC_LIGHT_DEFAULT_600: string = '#515175';
-export const CLASSIC_LIGHT_DEFAULT_700: string = '#40405d';
-export const CLASSIC_LIGHT_DEFAULT_800: string = '#303045';
-export const CLASSIC_LIGHT_DEFAULT_900: string = '#1f1f2d';
-export const CLASSIC_LIGHT_DEFAULT_FOREGROUND: string = '#1f1f2d';
-export const CLASSIC_LIGHT_DEFAULT_DEFAULT: string = '#cbcbdb';
-export const CLASSIC_LIGHT_PRIMARY_50: string = '#faf5f3';
-export const CLASSIC_LIGHT_PRIMARY_100: string = '#f5eae4';
-export const CLASSIC_LIGHT_PRIMARY_200: string = '#ead2c6';
-export const CLASSIC_LIGHT_PRIMARY_300: string = '#dbb29d';
-export const CLASSIC_LIGHT_PRIMARY_400: string = '#cc9174';
-export const CLASSIC_LIGHT_PRIMARY_500: string = '#bd714b';
-export const CLASSIC_LIGHT_PRIMARY_600: string = '#985838';
-export const CLASSIC_LIGHT_PRIMARY_700: string = '#6f4029';
-export const CLASSIC_LIGHT_PRIMARY_800: string = '#46281a';
-export const CLASSIC_LIGHT_PRIMARY_900: string = '#1d110b';
-export const CLASSIC_LIGHT_PRIMARY_FOREGROUND: string = '#fff';
-export const CLASSIC_LIGHT_PRIMARY_DEFAULT: string = '#ead2c6';
-export const CLASSIC_LIGHT_SECONDARY_50: string = '#e3e9e5';
-export const CLASSIC_LIGHT_SECONDARY_100: string = '#d8e0da';
-export const CLASSIC_LIGHT_SECONDARY_200: string = '#c1cec5';
-export const CLASSIC_LIGHT_SECONDARY_300: string = '#aabcb0';
-export const CLASSIC_LIGHT_SECONDARY_400: string = '#93aa9b';
-export const CLASSIC_LIGHT_SECONDARY_500: string = '#7d9886';
-export const CLASSIC_LIGHT_SECONDARY_600: string = '#688471';
-export const CLASSIC_LIGHT_SECONDARY_700: string = '#566d5e';
-export const CLASSIC_LIGHT_SECONDARY_800: string = '#44564a';
-export const CLASSIC_LIGHT_SECONDARY_900: string = '#2b372f';
-export const CLASSIC_LIGHT_SECONDARY_FOREGROUND: string = '#fff';
-export const CLASSIC_LIGHT_SECONDARY_DEFAULT: string = '#44564a';
-export const CLASSIC_LIGHT_SUCCESS_50: string = '#e8faf0';
-export const CLASSIC_LIGHT_SUCCESS_100: string = '#d1f4e0';
-export const CLASSIC_LIGHT_SUCCESS_200: string = '#a2e9c1';
-export const CLASSIC_LIGHT_SUCCESS_300: string = '#74dfa2';
-export const CLASSIC_LIGHT_SUCCESS_400: string = '#45d483';
-export const CLASSIC_LIGHT_SUCCESS_500: string = '#17c964';
-export const CLASSIC_LIGHT_SUCCESS_600: string = '#12a150';
-export const CLASSIC_LIGHT_SUCCESS_700: string = '#0e793c';
-export const CLASSIC_LIGHT_SUCCESS_800: string = '#095028';
-export const CLASSIC_LIGHT_SUCCESS_900: string = '#052814';
-export const CLASSIC_LIGHT_SUCCESS_FOREGROUND: string = '#000';
-export const CLASSIC_LIGHT_SUCCESS_DEFAULT: string = '#17c964';
-export const CLASSIC_LIGHT_WARNING_50: string = '#fefce8';
-export const CLASSIC_LIGHT_WARNING_100: string = '#fdedd3';
-export const CLASSIC_LIGHT_WARNING_200: string = '#fbdba7';
-export const CLASSIC_LIGHT_WARNING_300: string = '#f9c97c';
-export const CLASSIC_LIGHT_WARNING_400: string = '#f7b750';
-export const CLASSIC_LIGHT_WARNING_500: string = '#f5a524';
-export const CLASSIC_LIGHT_WARNING_600: string = '#c4841d';
-export const CLASSIC_LIGHT_WARNING_700: string = '#936316';
-export const CLASSIC_LIGHT_WARNING_800: string = '#62420e';
-export const CLASSIC_LIGHT_WARNING_900: string = '#312107';
-export const CLASSIC_LIGHT_WARNING_FOREGROUND: string = '#000';
-export const CLASSIC_LIGHT_WARNING_DEFAULT: string = '#f5a524';
-export const CLASSIC_LIGHT_DANGER_50: string = '#fee7ef';
-export const CLASSIC_LIGHT_DANGER_100: string = '#fdd0df';
-export const CLASSIC_LIGHT_DANGER_200: string = '#faa0bf';
-export const CLASSIC_LIGHT_DANGER_300: string = '#f871a0';
-export const CLASSIC_LIGHT_DANGER_400: string = '#f54180';
-export const CLASSIC_LIGHT_DANGER_500: string = '#f31260';
-export const CLASSIC_LIGHT_DANGER_600: string = '#c20e4d';
-export const CLASSIC_LIGHT_DANGER_700: string = '#920b3a';
-export const CLASSIC_LIGHT_DANGER_800: string = '#610726';
-export const CLASSIC_LIGHT_DANGER_900: string = '#310413';
-export const CLASSIC_LIGHT_DANGER_FOREGROUND: string = '#ffffff';
-export const CLASSIC_LIGHT_DANGER_DEFAULT: string = '#f31260';
-export const DARK_FOREGROUND_50: string = '#18181b';
-export const DARK_FOREGROUND_100: string = '#27272a';
-export const DARK_FOREGROUND_200: string = '#3f3f46';
-export const DARK_FOREGROUND_300: string = '#52525b';
-export const DARK_FOREGROUND_400: string = '#71717a';
-export const DARK_FOREGROUND_500: string = '#a1a1aa';
-export const DARK_FOREGROUND_600: string = '#d4d4d8';
-export const DARK_FOREGROUND_700: string = '#e4e4e7';
-export const DARK_FOREGROUND_800: string = '#f4f4f5';
-export const DARK_FOREGROUND_900: string = '#fafafa';
-export const DARK_FOREGROUND_DEFAULT: string = '#ecedee';
-export const DARK_DIVIDER: string = '#ffffff26';
-export const DARK_FOCUS: string = '#006fee';
-export const DARK_OVERLAY: string = '#000000';
-export const DARK_DEFAULT_50: string = '#18181b';
-export const DARK_DEFAULT_100: string = '#27272a';
-export const DARK_DEFAULT_200: string = '#3f3f46';
-export const DARK_DEFAULT_300: string = '#52525b';
-export const DARK_DEFAULT_400: string = '#71717a';
-export const DARK_DEFAULT_500: string = '#a1a1aa';
-export const DARK_DEFAULT_600: string = '#d4d4d8';
-export const DARK_DEFAULT_700: string = '#e4e4e7';
-export const DARK_DEFAULT_800: string = '#f4f4f5';
-export const DARK_DEFAULT_900: string = '#fafafa';
-export const DARK_DEFAULT_FOREGROUND: string = '#fff';
-export const DARK_DEFAULT_DEFAULT: string = '#3f3f46';
-export const DARK_PRIMARY_50: string = '#001731';
-export const DARK_PRIMARY_100: string = '#cce3fd';
-export const DARK_PRIMARY_200: string = '#99c7fb';
-export const DARK_PRIMARY_300: string = '#66aaf9';
-export const DARK_PRIMARY_400: string = '#338ef7';
-export const DARK_PRIMARY_500: string = '#006fee';
-export const DARK_PRIMARY_600: string = '#005bc4';
-export const DARK_PRIMARY_700: string = '#004493';
-export const DARK_PRIMARY_800: string = '#002e62';
-export const DARK_PRIMARY_900: string = '#001731';
-export const DARK_PRIMARY_FOREGROUND: string = '#fff';
-export const DARK_PRIMARY_DEFAULT: string = '#006fee';
-export const DARK_SECONDARY_50: string = '#f2eafa';
-export const DARK_SECONDARY_100: string = '#e4d4f4';
-export const DARK_SECONDARY_200: string = '#c9a9e9';
-export const DARK_SECONDARY_300: string = '#ae7ede';
-export const DARK_SECONDARY_400: string = '#9353d3';
-export const DARK_SECONDARY_500: string = '#7828c8';
-export const DARK_SECONDARY_600: string = '#6020a0';
-export const DARK_SECONDARY_700: string = '#481878';
-export const DARK_SECONDARY_800: string = '#301050';
-export const DARK_SECONDARY_900: string = '#180828';
-export const DARK_SECONDARY_FOREGROUND: string = '#fff';
-export const DARK_SECONDARY_DEFAULT: string = '#7828c8';
-export const DARK_SUCCESS_50: string = '#e8faf0';
-export const DARK_SUCCESS_100: string = '#d1f4e0';
-export const DARK_SUCCESS_200: string = '#a2e9c1';
-export const DARK_SUCCESS_300: string = '#74dfa2';
-export const DARK_SUCCESS_400: string = '#45d483';
-export const DARK_SUCCESS_500: string = '#17c964';
-export const DARK_SUCCESS_600: string = '#12a150';
-export const DARK_SUCCESS_700: string = '#0e793c';
-export const DARK_SUCCESS_800: string = '#095028';
-export const DARK_SUCCESS_900: string = '#052814';
-export const DARK_SUCCESS_FOREGROUND: string = '#000';
-export const DARK_SUCCESS_DEFAULT: string = '#17c964';
-export const DARK_WARNING_50: string = '#fefce8';
-export const DARK_WARNING_100: string = '#fdedd3';
-export const DARK_WARNING_200: string = '#fbdba7';
-export const DARK_WARNING_300: string = '#f9c97c';
-export const DARK_WARNING_400: string = '#f7b750';
-export const DARK_WARNING_500: string = '#f5a524';
-export const DARK_WARNING_600: string = '#c4841d';
-export const DARK_WARNING_700: string = '#936316';
-export const DARK_WARNING_800: string = '#62420e';
-export const DARK_WARNING_900: string = '#312107';
-export const DARK_WARNING_FOREGROUND: string = '#000';
-export const DARK_WARNING_DEFAULT: string = '#f5a524';
-export const DARK_DANGER_50: string = '#fee7ef';
-export const DARK_DANGER_100: string = '#fdd0df';
-export const DARK_DANGER_200: string = '#faa0bf';
-export const DARK_DANGER_300: string = '#f871a0';
-export const DARK_DANGER_400: string = '#f54180';
-export const DARK_DANGER_500: string = '#f31260';
-export const DARK_DANGER_600: string = '#c20e4d';
-export const DARK_DANGER_700: string = '#920b3a';
-export const DARK_DANGER_800: string = '#610726';
-export const DARK_DANGER_900: string = '#310413';
-export const DARK_DANGER_FOREGROUND: string = '#ffffff';
-export const DARK_DANGER_DEFAULT: string = '#f31260';
+export const colors = {
+  uncrunch: {
+    light: {
+      foreground: {
+        50: '#e3e9e5',
+        100: '#d8e0da',
+        200: '#c1cec5',
+        300: '#aabcb0',
+        400: '#93aa9b',
+        500: '#7d9886',
+        600: '#688471',
+        700: '#566d5e',
+        800: '#44564a',
+        900: '#2b372f',
+        default: '#44564a',
+      },
+      divider: 'rgba(86, 109, 94, 0.6)',
+      focus: '#006fee',
+      overlay: '#000000',
+      default: {
+        50: '#e3e9e5',
+        100: '#d8e0da',
+        200: '#c1cec5',
+        300: '#aabcb0',
+        400: '#93aa9b',
+        500: '#7d9886',
+        600: '#688471',
+        700: '#566d5e',
+        800: '#44564a',
+        900: '#2b372f',
+        foreground: '#ead2c6',
+        default: '#44564a',
+      },
+      primary: {
+        50: '#e3e9e5',
+        100: '#d8e0da',
+        200: '#c1cec5',
+        300: '#aabcb0',
+        400: '#93aa9b',
+        500: '#7d9886',
+        600: '#688471',
+        700: '#566d5e',
+        800: '#44564a',
+        900: '#2b372f',
+        foreground: '#ead2c6',
+        default: '#44564a',
+      },
+      secondary: {
+        50: '#faf5f3',
+        100: '#f5eae4',
+        200: '#ead2c6',
+        300: '#dbb29d',
+        400: '#cc9174',
+        500: '#bd714b',
+        600: '#985838',
+        700: '#6f4029',
+        800: '#46281a',
+        900: '#1d110b',
+        foreground: '#44564a',
+        default: '#ead2c6',
+      },
+      success: {
+        50: '#e8faf0',
+        100: '#d1f4e0',
+        200: '#a2e9c1',
+        300: '#74dfa2',
+        400: '#45d483',
+        500: '#17c964',
+        600: '#12a150',
+        700: '#0e793c',
+        800: '#095028',
+        900: '#052814',
+        foreground: '#000',
+        default: '#17c964',
+      },
+      warning: {
+        50: '#fefce8',
+        100: '#fdedd3',
+        200: '#fbdba7',
+        300: '#f9c97c',
+        400: '#f7b750',
+        500: '#f5a524',
+        600: '#c4841d',
+        700: '#936316',
+        800: '#62420e',
+        900: '#312107',
+        foreground: '#000',
+        default: '#f5a524',
+      },
+      danger: {
+        50: '#F6E3DE',
+        100: '#F2D6CE',
+        200: '#E9BBAF',
+        300: '#E0A08F',
+        400: '#D7856F',
+        500: '#CE694F',
+        600: '#BF5235',
+        700: '#933F29',
+        800: '#672C1D',
+        900: '#3B1910',
+        foreground: '#ffffff',
+        default: '#BF5235',
+      },
+    },
+  },
+  classic: {
+    light: {
+      foreground: {
+        50: '#cbcbdb',
+        100: '#bfbfd3',
+        200: '#a7a7c2',
+        300: '#8f8fb2',
+        400: '#7777a1',
+        500: '#62628e',
+        600: '#515175',
+        700: '#40405d',
+        800: '#303045',
+        900: '#1f1f2d',
+        default: '#1f1f2d',
+      },
+      divider: '#11111126',
+      focus: '#006fee',
+      overlay: '#000000',
+      default: {
+        50: '#cbcbdb',
+        100: '#bfbfd3',
+        200: '#a7a7c2',
+        300: '#8f8fb2',
+        400: '#7777a1',
+        500: '#62628e',
+        600: '#515175',
+        700: '#40405d',
+        800: '#303045',
+        900: '#1f1f2d',
+        foreground: '#1f1f2d',
+        default: '#cbcbdb',
+      },
+      primary: {
+        50: '#faf5f3',
+        100: '#f5eae4',
+        200: '#ead2c6',
+        300: '#dbb29d',
+        400: '#cc9174',
+        500: '#bd714b',
+        600: '#985838',
+        700: '#6f4029',
+        800: '#46281a',
+        900: '#1d110b',
+        foreground: '#fff',
+        default: '#ead2c6',
+      },
+      secondary: {
+        50: '#e3e9e5',
+        100: '#d8e0da',
+        200: '#c1cec5',
+        300: '#aabcb0',
+        400: '#93aa9b',
+        500: '#7d9886',
+        600: '#688471',
+        700: '#566d5e',
+        800: '#44564a',
+        900: '#2b372f',
+        foreground: '#fff',
+        default: '#44564a',
+      },
+      success: {
+        50: '#e8faf0',
+        100: '#d1f4e0',
+        200: '#a2e9c1',
+        300: '#74dfa2',
+        400: '#45d483',
+        500: '#17c964',
+        600: '#12a150',
+        700: '#0e793c',
+        800: '#095028',
+        900: '#052814',
+        foreground: '#000',
+        default: '#17c964',
+      },
+      warning: {
+        50: '#fefce8',
+        100: '#fdedd3',
+        200: '#fbdba7',
+        300: '#f9c97c',
+        400: '#f7b750',
+        500: '#f5a524',
+        600: '#c4841d',
+        700: '#936316',
+        800: '#62420e',
+        900: '#312107',
+        foreground: '#000',
+        default: '#f5a524',
+      },
+      danger: {
+        50: '#fee7ef',
+        100: '#fdd0df',
+        200: '#faa0bf',
+        300: '#f871a0',
+        400: '#f54180',
+        500: '#f31260',
+        600: '#c20e4d',
+        700: '#920b3a',
+        800: '#610726',
+        900: '#310413',
+        foreground: '#ffffff',
+        default: '#f31260',
+      },
+    },
+    dark: {
+      foreground: {
+        '50': '#18181b',
+        '100': '#27272a',
+        '200': '#3f3f46',
+        '300': '#52525b',
+        '400': '#71717a',
+        '500': '#a1a1aa',
+        '600': '#d4d4d8',
+        '700': '#e4e4e7',
+        '800': '#f4f4f5',
+        '900': '#fafafa',
+        default: '#ecedee',
+        foreground: '#fff',
+      },
+      divider: '#ffffff26',
+      focus: '#006fee',
+      overlay: '#000000',
+      default: {
+        '50': '#18181b',
+        '100': '#27272a',
+        '200': '#3f3f46',
+        '300': '#52525b',
+        '400': '#71717a',
+        '500': '#a1a1aa',
+        '600': '#d4d4d8',
+        '700': '#e4e4e7',
+        '800': '#f4f4f5',
+        '900': '#fafafa',
+        foreground: '#fff',
+        default: '#3f3f46',
+      },
+      primary: {
+        '50': '#001731',
+        '100': '#cce3fd',
+        '200': '#99c7fb',
+        '300': '#66aaf9',
+        '400': '#338ef7',
+        '500': '#006fee',
+        '600': '#005bc4',
+        '700': '#004493',
+        '800': '#002e62',
+        '900': '#001731',
+        foreground: '#fff',
+        default: '#006fee',
+      },
+      secondary: {
+        '50': '#f2eafa',
+        '100': '#e4d4f4',
+        '200': '#c9a9e9',
+        '300': '#ae7ede',
+        '400': '#9353d3',
+        '500': '#7828c8',
+        '600': '#6020a0',
+        '700': '#481878',
+        '800': '#301050',
+        '900': '#180828',
+        foreground: '#fff',
+        default: '#7828c8',
+      },
+      success: {
+        '50': '#e8faf0',
+        '100': '#d1f4e0',
+        '200': '#a2e9c1',
+        '300': '#74dfa2',
+        '400': '#45d483',
+        '500': '#17c964',
+        '600': '#12a150',
+        '700': '#0e793c',
+        '800': '#095028',
+        '900': '#052814',
+        foreground: '#000',
+        default: '#17c964',
+      },
+      warning: {
+        '50': '#fefce8',
+        '100': '#fdedd3',
+        '200': '#fbdba7',
+        '300': '#f9c97c',
+        '400': '#f7b750',
+        '500': '#f5a524',
+        '600': '#c4841d',
+        '700': '#936316',
+        '800': '#62420e',
+        '900': '#312107',
+        foreground: '#000',
+        default: '#f5a524',
+      },
+      danger: {
+        '50': '#fee7ef',
+        '100': '#fdd0df',
+        '200': '#faa0bf',
+        '300': '#f871a0',
+        '400': '#f54180',
+        '500': '#f31260',
+        '600': '#c20e4d',
+        '700': '#920b3a',
+        '800': '#610726',
+        '900': '#310413',
+        foreground: '#ffffff',
+        default: '#f31260',
+      },
+    },
+  },
+}

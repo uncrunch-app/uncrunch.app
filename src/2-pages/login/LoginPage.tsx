@@ -18,15 +18,12 @@ import {
   HiMiniEye as Eye,
 } from 'react-icons/hi2'
 import { Button } from '@/src/6-shared/ui/buttons/Button'
-import {
-  FORGEJO_EXAMPLE_API_URL,
-  GITHUB_BASE_URL_API,
-} from '@/src/6-shared/constants/constants'
 import { InputActionButton } from '@/src/6-shared/ui/buttons/InputActionButton'
 import { LoginFormControlledInput } from './LoginFormControlledInput'
 import { LoginSubmitLoader } from './LoginSubmitLoader'
 import { GitHostingOption } from './GitHostingOption'
 import { routes } from '@/src/6-shared/services/routes'
+import { links } from '@/src/6-shared/services/links'
 
 interface FormData {
   token: string
@@ -37,7 +34,7 @@ const LoginPage = () => {
   const [isSubmitLoading, setIsSubmitLoading] = useState(false)
   const [gitHosting, setGitHosting] = useState<GitHostingType | null>(null)
 
-  const t = useTranslations('LoginPage')
+  const t = useTranslations('Pages.login')
 
   const [triggerGetUserWithoutSession] = useLazyGetUserWithoutSessionQuery()
 
@@ -90,7 +87,7 @@ const LoginPage = () => {
     const { token, instanceUrl: inputInstanceUrl } = data
 
     const instanceUrl =
-      gitHosting === 'github' ? GITHUB_BASE_URL_API : inputInstanceUrl
+      gitHosting === 'github' ? links.github.api_url : inputInstanceUrl
 
     if (!gitHosting) {
       console.error('Git хостинг не выбран.')
@@ -199,7 +196,7 @@ const LoginPage = () => {
                   <LoginFormControlledInput
                     name="instanceUrl"
                     control={control}
-                    placeholder={FORGEJO_EXAMPLE_API_URL}
+                    placeholder={links.forgejo.example_api_url}
                     isInvalid={Boolean(errors.instanceUrl?.message)}
                     errorMessage={errors.instanceUrl?.message}
                     onClear={() => handleClearValue('instanceUrl')}

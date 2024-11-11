@@ -15,6 +15,7 @@ import '@fontsource/inter/800.css'
 import '@fontsource/inter/900.css'
 import { fetchThemeMode } from '@/src/6-shared/utils/themeCookies'
 import { PageLoader } from '@/src/6-shared/ui/PageLoader'
+import { ConsoleMessages } from '@/src/6-shared/ConsoleMessages'
 
 export const metadata = {
   title: 'Uncrunch',
@@ -73,6 +74,7 @@ const RootLayout = async ({ children }: { children: ReactNode }) => {
       <body>
         <PageLoader />
         <NextIntlClientProvider messages={messages}>
+          <ConsoleMessages />
           <Providers>{children}</Providers>
         </NextIntlClientProvider>
       </body>

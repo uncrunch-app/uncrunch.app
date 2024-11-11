@@ -7,7 +7,7 @@ import { saveUserLocale } from './services/locale'
 import { Select, SelectItem, Selection } from '@nextui-org/react'
 
 export default function LocaleSwitcher() {
-  const t = useTranslations('LocaleSwitcher')
+  const t = useTranslations('Components.localeSwitcher')
   const currentLocale = useLocale()
 
   const langs = [

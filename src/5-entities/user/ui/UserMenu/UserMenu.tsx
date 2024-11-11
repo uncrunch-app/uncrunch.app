@@ -46,7 +46,7 @@ const UserInfoDescription = ({ user }: UserMenuProps) => {
 
 const UserMenu: FC<UserMenuProps> = ({ user }) => {
   const { sessionUser, isLoading } = useSessionUser()
-  const t = useTranslations('UserMenu')
+  const t = useTranslations('Components.userMenu')
   const navigate = useNavigateWithTopLoader()
 
   if (!sessionUser) return

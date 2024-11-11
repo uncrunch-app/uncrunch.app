@@ -1,67 +1,80 @@
 {
-  "HomePage": {
-    "welcome": "Welcome, {username}!",
-    "message": "This is your profile page."
+  "Pages": {
+    "home": {
+      "welcome": "Welcome, {username}!",
+      "message": "This is your profile page.",
+      "layout": {}
+    },
+    "login": {
+      "form": {
+        "title": "Log In",
+        "buttons": {
+          "logIn": "Log In",
+          "back": "Back"
+        },
+        "options": {
+          "withToken": "With a {gitHosting} token",
+          "withInstanceToken": "With a {gitHosting} instance token"
+        },
+        "descriptions": {
+          "instanceUrlInput": "{gitHosting} instance"
+        }
+      },
+      "layout": {
+        "footer": {
+          "rights": "All rights reserved.",
+          "sourceCode": "Source code on {gitHosting}.",
+          "copyright": "🄯 {years} Uncrunch.",
+          "license": "Licensed under {license}.",
+          "developer": "Developed by Igor Teplostanski."
+        }
+      }
+    },
+    "secret": {
+      "message": "You're not supposed to be here, but since you are — enjoy the view!"
+    }
   },
-  "LoginPage": {
-    "form": {
-      "title": "Log In",
-      "buttons": {
-        "logIn": "Log In",
-        "back": "Back"
-      },
-      "options": {
-        "withToken": "With a {gitHosting} token",
-        "withInstanceToken": "With a {gitHosting} instance token"
-      },
-      "descriptions": {
-        "instanceUrlInput": "{gitHosting} instance"
+  "Messages": {
+    "console": {
+      "welcome": {
+        "title": "Welcome to Uncrunch!",
+        "description": "Does this page need fixes or improvements? Open an issue or contribute a pull(merge) request to help make Uncrunch more lovable. At Uncrunch, everyone can contribute!",
+        "contribute": "🤝 Contribute: {link}",
+        "issue": "📣 Create a new issue: {link}",
+        "donate": "🫶 Provide financial support for the project: {link}"
+      }
+    },
+    "validation": {
+      "loginForm": {
+        "tokenRequired": "Token is required",
+        "tokenMinLength": "Token must be at least 10 characters long",
+        "tokenInvalid": "Token cannot contain spaces or Cyrillic characters",
+        "urlRequired": "URL is required",
+        "urlInvalid": "Invalid URL"
       }
     }
   },
-  "SecretPage": {
-    "message": "You're not supposed to be here, but since you are — enjoy the view!"
-  },
-  "Common": {
-    "test": "TEST {test} !"
-  },
-  "Validation": {
-    "tokenRequired": "Token is required",
-    "tokenMinLength": "Token must be at least 10 characters long",
-    "tokenInvalid": "Token cannot contain spaces or Cyrillic characters",
-    "urlRequired": "URL is required",
-    "urlInvalid": "Invalid URL"
-  },
-  "LocaleSwitcher": {
-    "ru": "Rusian",
-    "en": "English",
-    "label": "Language"
-  },
-  "UserMenu": {
-    "pages": {
-      "home": "Home",
-      "settings": "Settings",
-      "secret": "Secret",
-      "notes": "Notes",
-      "todo": "To Do",
-      "boards": "Boards"
+  "Components": {
+    "localeSwitcher": {
+      "ru": "Rusian",
+      "en": "English",
+      "label": "Language"
     },
-    "actions": {
-      "languageOptions": "Language",
-      "themeOptions": "Theme",
-      "logOut": "Log Out"
-    }
-  },
-  "LogOutButton": {
-    "logOut": "Log Out"
-  },
-  "LoginPageLayout": {
-    "footer": {
-      "rights": "All rights reserved.",
-      "sourceCode": "Source code on {gitHosting}.",
-      "copyright": "🄯 {years} Uncrunch.",
-      "license": "Licensed under {license}.",
-      "developer": "Developed by Igor Teplostanski."
-    }
+    "userMenu": {
+      "pages": {
+        "home": "Home",
+        "settings": "Settings",
+        "secret": "Secret",
+        "notes": "Notes",
+        "todo": "To Do",
+        "boards": "Boards"
+      },
+      "actions": {
+        "languageOptions": "Language",
+        "themeOptions": "Theme",
+        "logOut": "Log Out"
+      }
+    },
+    "logOutButton": "Log Out"
   }
 }

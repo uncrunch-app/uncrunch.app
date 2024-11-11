@@ -1,7 +1,5 @@
 import React from 'react'
 import styles from './Logo.module.scss'
-import * as COLOR from '@/src/6-shared/constants/colors'
-import {commonColors, semanticColors, colors} from "@nextui-org/theme";
 
 interface LogoProps {
   width?: string

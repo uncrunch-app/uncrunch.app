@@ -82,7 +82,7 @@ interface HomePageProps {
 }
 
 export default async function HomePage({ params }: HomePageProps) {
-  const t = await getTranslations('HomePage')
+  const t = await getTranslations('Pages.home')
   const sessionUser = await getServerSessionUser()
   
   if (!sessionUser) return

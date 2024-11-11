@@ -6,7 +6,7 @@ import styles from './SecretPage.module.scss'
 import { useTranslations } from 'next-intl'
 
 const SecretPage = () => {
-  const t = useTranslations('SecretPage')
+  const t = useTranslations('Pages.secret')
 
   return (
     <div className={styles.container}>

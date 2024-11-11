@@ -6,6 +6,7 @@ import { RadioGroup, Radio } from '@nextui-org/radio'
 import { themes } from '../themes/themeSettings'
 import { DEFAULT_THEME } from '../constants/constants'
 import { saveThemeMode } from '../utils/themeCookies'
+import { toTitleCase } from '../toTitleCase'
 
 interface ThemeSelectorClientProps {
   initialTheme: string
@@ -73,7 +74,7 @@ export default function ThemeSelectorClient({ initialTheme }: ThemeSelectorClien
           >
             {renderColoredSquare(themeOption)}
             <Radio value={themeOption} classNames={{ base: 'p-3 -m-0' }}>
-              {themeOption.charAt(0).toUpperCase() + themeOption.slice(1)}
+              {toTitleCase(themeOption)}
             </Radio>
           </div>
         ))}

@@ -6,14 +6,13 @@ import { getTranslations } from 'next-intl/server'
 import { Link } from '@nextui-org/react'
 import {
   LICENSE,
-  LINK_GITHUB_DEV,
-  LINK_GITHUB_ORG_REPO,
 } from '@/src/6-shared/constants/constants'
 import { getCopyrightYears } from '@/src/6-shared/services/getCopyrightYears'
+import { links } from '@/src/6-shared/services/links'
 
 const LoginPageLayout = async ({ children }: { children: ReactNode }) => {
   const initialTheme = fetchThemeMode()
-  const t = await getTranslations('LoginPageLayout')
+  const t = await getTranslations('Pages.login.layout')
 
   return (
     <div className="flex min-h-[100dvh] flex-col">
@@ -41,7 +40,7 @@ const LoginPageLayout = async ({ children }: { children: ReactNode }) => {
 
           <span>
             <Link
-              href={LINK_GITHUB_ORG_REPO}
+              href={links.github.org_repo}
               underline="hover"
               size="sm"
               color="foreground"
@@ -54,7 +53,7 @@ const LoginPageLayout = async ({ children }: { children: ReactNode }) => {
             {t('footer.copyright', { years: `${getCopyrightYears(2024)}` })}{' '}
             {t('footer.license', { license: LICENSE })}{' '}
             <Link
-              href={LINK_GITHUB_DEV}
+              href={links.github.dev}
               underline="hover"
               color="foreground"
               size="sm"

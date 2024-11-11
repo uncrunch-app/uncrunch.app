@@ -6,7 +6,7 @@ import { useTranslations } from 'next-intl'
 import { HiArrowLeftStartOnRectangle } from 'react-icons/hi2'
 
 const LogOutButton = () => {
-  const t = useTranslations('LogOutButton')
+  const t = useTranslations('Components')
   
   return (
     <Button
@@ -14,7 +14,7 @@ const LogOutButton = () => {
       color="primary"
       onClick={() => signOut()}
     >
-      {t('logOut')}
+      {t('logOutButton')}
     </Button>
   )
 }

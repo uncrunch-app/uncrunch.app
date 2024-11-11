@@ -3,7 +3,7 @@ import * as yup from 'yup'
 //import { useTranslation } from 'react-i18next'
 
 export const useValidationSchemas = () => {
-  const t = useTranslations('Validation')
+  const t = useTranslations('Messages.validation.loginForm')
 
   const genericTokenSchema = yup
     .string()
