@@ -3,7 +3,7 @@
 import { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { JWT } from 'next-auth/jwt';
-import { GitHostingType } from '@/src/6-shared/types'; // Убедитесь, что здесь правильный путь
+import { GitHostingType } from '@/shared/types'; // Убедитесь, что здесь правильный путь
 
 // Базовая информация о пользователе
 interface BaseUserInfo {

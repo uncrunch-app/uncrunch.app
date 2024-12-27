@@ -1,6 +1,6 @@
 //import { FC } from 'react'
 //import styles from '../LoginPage.module.scss'
-//import * as COLOR from '@/src/6-shared/constants/colors'
+//import * as COLOR from '@/shared/constants/colors'
 //import Skeleton from '@mui/material/Skeleton'
 
 //export const SkeletonLoader: FC = () => {

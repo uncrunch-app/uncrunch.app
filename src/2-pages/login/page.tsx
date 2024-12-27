@@ -1,7 +1,7 @@
 // app/login/page.tsx (серверный компонент)
 import LoginPage from './LoginPage'
 import { LoggedInUser } from './LoggedInUser'
-import { getServerSessionUser } from '@/src/6-shared/services/getServerSessionUser'
+import { getServerSessionUser } from '@/shared/utils/getServerSessionUser'
 
 export default async function Login() {
   const user = await getServerSessionUser()

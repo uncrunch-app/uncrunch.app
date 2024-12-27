@@ -1,38 +1,62 @@
 'use client'
 
 import { signIn } from 'next-auth/react'
-import { Suspense, useEffect, useState } from 'react'
+import { Suspense, useCallback, useEffect, useState } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
-import { GitHostingType } from '@/src/6-shared/types'
-import { useLazyGetUserWithoutSessionQuery } from '@/src/5-entities/user/api/userWithoutSessionApi'
-import { validateToken } from '@/src/6-shared/utils/validateToken'
+import { GitHostingType } from '@/shared/types'
+import { useLazyGetUserWithoutSessionQuery } from '@/entities/user/api/userWithoutSessionApi'
+import { validateToken } from '@/shared/utils/validateToken'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useTranslations } from 'next-intl'
 
-import { useValidationSchemas } from '@/src/5-entities/login/model/useValidationSchemas'
+import { useValidationSchemas } from '@/entities/login/model/useValidationSchemas'
 
-import {
-  HiMiniXMark as XMark,
-  HiMiniEyeSlash as EyeSlash,
-  HiMiniEye as Eye,
-} from 'react-icons/hi2'
-import { Button } from '@/src/6-shared/ui/buttons/Button'
-import { InputActionButton } from '@/src/6-shared/ui/buttons/InputActionButton'
-import { LoginFormControlledInput } from './LoginFormControlledInput'
 import { LoginSubmitLoader } from './LoginSubmitLoader'
 import { GitHostingOption } from './GitHostingOption'
-import { routes } from '@/src/6-shared/services/routes'
-import { links } from '@/src/6-shared/services/links'
+import { ROUTES, LINKS, CONSTANTS } from '@/shared/config'
+import { ForgejoIcon, GithubIcon } from '@/shared/ui/icons'
+import { LoginForm } from './ui/LoginForm'
 
-interface FormData {
+export interface FormData {
   token: string
   instanceUrl?: string
+  apiEndpoint?: string
 }
+
+const protocols = [
+  { key: 'https', label: 'https://' },
+  { key: 'http', label: 'http://' },
+]
 
 const LoginPage = () => {
   const [isSubmitLoading, setIsSubmitLoading] = useState(false)
   const [gitHosting, setGitHosting] = useState<GitHostingType | null>(null)
+  const [protocol, setProtocol] = useState(protocols[0].label)
+  const [apiEndpointChange, setApiEndpointChange] = useState(false)
+  const [apiEndpoint, setApiEndpoint] = useState('')
+  const [serverError, setServerError] = useState<
+    | {
+        title: string
+        status: number
+        message: string
+      }
+    | undefined
+  >(undefined)
+
+  console.log(protocol)
+
+  useEffect(() => {
+    setApiEndpoint(defaultApiEndpoint())
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [gitHosting])
+
+  const defaultApiEndpoint = useCallback(() => {
+    if (gitHosting === 'forgejo') {
+      return CONSTANTS.default.apiEndpoints.forgejo
+    }
+    return ''
+  }, [gitHosting])
 
   const t = useTranslations('Pages.login')
 
@@ -45,7 +69,7 @@ const LoginPage = () => {
 
   const [isVisible, setIsVisible] = useState(false)
 
-  const callbackUrl = searchParams.get('callbackUrl') || routes.root
+  const callbackUrl = searchParams.get('callbackUrl') || ROUTES.root
 
   const {
     control,
@@ -54,13 +78,39 @@ const LoginPage = () => {
     setValue,
     setError,
     clearErrors,
+    reset,
+    getValues,
   } = useForm<FormData>({
     resolver: yupResolver(
       gitHosting !== 'github' ? tokenAndUrlSchema : singleTokenSchema
     ),
+    defaultValues: {
+      token: '',
+      instanceUrl: '',
+      apiEndpoint: defaultApiEndpoint(),
+    },
   })
 
+  useEffect(() => {
+    reset({
+      ...getValues(),
+      apiEndpoint: defaultApiEndpoint(),
+    })
+  }, [gitHosting, reset, getValues, defaultApiEndpoint])
+
+  console.log(errors)
+
   const hasErrors = Boolean(Object.keys(errors).length)
+
+  const handleApiEndpointChange = () => {
+    setApiEndpointChange((prev) => !prev)
+  }
+
+  const handleProtocolChange = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    setProtocol(event.target.value)
+  }
 
   const handleGitHostingChange = (gitHosting: GitHostingType | null) => {
     setGitHosting(gitHosting)
@@ -86,8 +136,14 @@ const LoginPage = () => {
   const onSubmit = async (data: FormData) => {
     const { token, instanceUrl: inputInstanceUrl } = data
 
+    const buildInputInstanceUrl = inputInstanceUrl
+      ? `${protocol}${inputInstanceUrl}${apiEndpoint}`
+      : undefined
+
+    console.log('buildInputInstanceUrl', buildInputInstanceUrl)
+
     const instanceUrl =
-      gitHosting === 'github' ? links.github.api_url : inputInstanceUrl
+      gitHosting === 'github' ? LINKS.github.apiUrl : buildInputInstanceUrl
 
     if (!gitHosting) {
       console.error('Git хостинг не выбран.')
@@ -103,20 +159,32 @@ const LoginPage = () => {
         trigger: triggerGetUserWithoutSession,
       })
 
+      console.log('result', result)
+
       if (result.error) {
-        handleError('token', result.error)
+        setServerError(result.error)
         return
       }
 
       const { name, login, image } = result
 
-      if ([name, login, image].every((value) => value === undefined)) {
-        handleError(
-          'instanceUrl',
-          'Возможно, URL некорректный или данные недоступны.'
-        )
-        return
-      }
+      //if ([name, login, image].every((value) => value === undefined)) {
+      //  handleError(
+      //    'instanceUrl',
+      //    'Возможно, URL некорректный или данные недоступны.'
+      //  )
+      //  return
+      //}
+
+      console.log({
+        token,
+        redirect: false,
+        callbackUrl,
+        name,
+        login,
+        image,
+        instanceUrl,
+      })
 
       const signInResult = await signIn(provider, {
         token,
@@ -127,6 +195,8 @@ const LoginPage = () => {
         image,
         instanceUrl,
       })
+
+      console.log(signInResult)
 
       setIsSubmitLoading(true)
 
@@ -157,9 +227,11 @@ const LoginPage = () => {
     return <LoginSubmitLoader />
   }
 
+  console.log(errors)
+
   return (
     <div className="mt-12 flex flex-col items-center">
-      <div className="w-96">
+      <div className="w-80 md:w-96">
         {gitHosting === null ? (
           <>
             <h1 key={Date.now()} className="text-3xl font-light">
@@ -169,99 +241,44 @@ const LoginPage = () => {
             <div className="mt-6 flex flex-col gap-6">
               <GitHostingOption
                 buttonText="Github"
+                startContent={<GithubIcon size={20} />}
                 description={t('form.options.withToken', {
                   gitHosting: 'Github',
                 })}
-                onClick={() => handleGitHostingChange('github')}
+                onPress={() => handleGitHostingChange('github')}
               />
               <GitHostingOption
                 buttonText="Forgejo"
+                startContent={<ForgejoIcon size={18} />}
                 description={t('form.options.withInstanceToken', {
                   gitHosting: 'Forgejo',
                 })}
-                onClick={() => handleGitHostingChange('forgejo')}
+                onPress={() => handleGitHostingChange('forgejo')}
               />
             </div>
           </>
         ) : (
-          <div>
-            <h1 className="text-3xl font-light">{t('form.title')}</h1>
-            <form
-              autoComplete="off"
-              className=""
-              onSubmit={handleSubmit(onSubmit)}
-            >
-              <div className="">
-                {gitHosting === 'forgejo' && (
-                  <LoginFormControlledInput
-                    name="instanceUrl"
-                    control={control}
-                    placeholder={links.forgejo.example_api_url}
-                    isInvalid={Boolean(errors.instanceUrl?.message)}
-                    errorMessage={errors.instanceUrl?.message}
-                    onClear={() => handleClearValue('instanceUrl')}
-                    description={t('form.descriptions.instanceUrlInput', {
-                      gitHosting: 'Forgejo',
-                    })}
-                    endContent={
-                      <div className="flex items-center">
-                        <InputActionButton
-                          onClick={() => handleClearValue('instanceUrl')}
-                          hasError={hasErrors}
-                          aria-label="clear input instance url"
-                        >
-                          <XMark size={24} />
-                        </InputActionButton>
-                      </div>
-                    }
-                  />
-                )}
-                <LoginFormControlledInput
-                  name="token"
-                  control={control}
-                  placeholder={`${gitHosting === 'github' ? 'Github' : 'Forgejo'} токен`}
-                  isInvalid={Boolean(errors.token?.message)}
-                  errorMessage={errors.token?.message}
-                  onClear={() => handleClearValue('token')}
-                  type={isVisible ? 'text' : 'password'}
-                  endContent={
-                    <div className="flex items-center">
-                      <InputActionButton
-                        onClick={() => handleClearValue('token')}
-                        hasError={hasErrors}
-                        aria-label="clear input token"
-                      >
-                        <XMark size={24} />
-                      </InputActionButton>
-                      <InputActionButton
-                        onClick={toggleVisibility}
-                        hasError={hasErrors}
-                        aria-label="toggle password visibility"
-                      >
-                        {isVisible ? <EyeSlash size={24} /> : <Eye size={24} />}
-                      </InputActionButton>
-                    </div>
-                  }
-                />
-              </div>
-              <div className="flex flex-col gap-4">
-                <Button
-                  type="submit"
-                  isLoading={isSubmitting}
-                  isDisabled={Boolean(hasErrors)}
-                >
-                  {t('form.buttons.logIn')}
-                </Button>
-                <Button
-                  color="secondary"
-                  isDisabled={isSubmitting}
-                  onClick={() => handleGitHostingChange(null)}
-                >
-                  {t('form.buttons.back')}
-                </Button>
-              </div>
-            </form>
-          </div>
+          <LoginForm
+            handleSubmit={handleSubmit(onSubmit)}
+            gitHosting={gitHosting}
+            control={control}
+            errors={errors}
+            handleApiEndpointChange={handleApiEndpointChange}
+            protocols={protocols}
+            protocol={protocol}
+            apiEndpoint={apiEndpoint}
+            apiEndpointChange={apiEndpointChange}
+            defaultApiEndpoint={defaultApiEndpoint}
+            isSubmitting={isSubmitting}
+            hasErrors={hasErrors}
+            handleGitHostingChange={handleGitHostingChange}
+            handleProtocolChange={handleProtocolChange}
+            isVisible={isVisible}
+            toggleVisibility={toggleVisibility}
+            setApiEndpoint={setApiEndpoint}
+            handleClearValue={handleClearValue}
+            serverError={serverError}
+          />
         )}
       </div>
     </div>

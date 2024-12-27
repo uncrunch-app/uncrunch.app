@@ -1,6 +1,5 @@
 import { useTranslations } from 'next-intl'
 import * as yup from 'yup'
-//import { useTranslation } from 'react-i18next'
 
 export const useValidationSchemas = () => {
   const t = useTranslations('Messages.validation.loginForm')
@@ -19,8 +18,16 @@ export const useValidationSchemas = () => {
     instanceUrl: yup
       .string()
       .required(t('urlRequired'))
-      .matches(/^(https?:\/\/[^\s]+)$/, t('urlInvalid')),
+      .matches(
+        /^(?!-)([a-zA-Z0-9-]{1,63}(?<!-)\.)+[a-zA-Z]{2,}$/,
+        t('urlInvalid')
+      ),
     token: genericTokenSchema,
+    apiEndpoint: yup
+      .string()
+      .nullable()
+      .notOneOf([''], 'не должен быть пустым')
+      .matches(/^\/[a-zA-Z0-9-._~\/?#=&%]*$/, 'недопустимый апи эндпоинт'),
   })
 
   return { singleTokenSchema, tokenAndUrlSchema }

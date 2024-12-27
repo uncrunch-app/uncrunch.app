@@ -1,14 +1,12 @@
-import { Logo } from '@/src/6-shared/ui/logo'
+import { Logo } from '@/shared/ui/logo'
 import { ReactNode } from 'react'
-import { fetchThemeMode } from '@/src/6-shared/utils/themeCookies'
-import LocaleSwitcher from '@/src/6-shared/LocaleSwitcher'
+import { fetchThemeMode } from '@/shared/services/themeCookies'
+import LocaleSwitcher from '@/shared/ui/LocaleSwitcher'
 import { getTranslations } from 'next-intl/server'
 import { Link } from '@nextui-org/react'
-import {
-  LICENSE,
-} from '@/src/6-shared/constants/constants'
-import { getCopyrightYears } from '@/src/6-shared/services/getCopyrightYears'
-import { links } from '@/src/6-shared/services/links'
+import { CONSTANTS } from '@/shared/config'
+import { getCopyrightYears } from '@/shared/utils/getCopyrightYears'
+import { LINKS } from '@/shared/config'
 
 const LoginPageLayout = async ({ children }: { children: ReactNode }) => {
   const initialTheme = fetchThemeMode()
@@ -40,7 +38,7 @@ const LoginPageLayout = async ({ children }: { children: ReactNode }) => {
 
           <span>
             <Link
-              href={links.github.org_repo}
+              href={LINKS.github.orgRepo}
               underline="hover"
               size="sm"
               color="foreground"
@@ -51,9 +49,9 @@ const LoginPageLayout = async ({ children }: { children: ReactNode }) => {
 
           <span>
             {t('footer.copyright', { years: `${getCopyrightYears(2024)}` })}{' '}
-            {t('footer.license', { license: LICENSE })}{' '}
+            {t('footer.license', { license: CONSTANTS.license })}{' '}
             <Link
-              href={links.github.dev}
+              href={LINKS.github.developer}
               underline="hover"
               color="foreground"
               size="sm"

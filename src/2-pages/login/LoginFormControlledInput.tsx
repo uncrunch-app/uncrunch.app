@@ -1,58 +1,49 @@
-import { FC, ReactNode } from "react"
-import { Controller } from "react-hook-form"
-import { Input } from '@nextui-org/react'
+import { FC } from 'react'
+import { Controller } from 'react-hook-form'
+import { Input, InputProps } from '@nextui-org/react'
 
-interface LoginFormControlledInputProps {
+interface LoginFormControlledInputProps extends InputProps {
   name: string
   control: any
-  defaultValue?: string
-  placeholder: string
-  isInvalid?: boolean
-  errorMessage?: string
-  onClear: () => void
-  endContent?: ReactNode
-  type?: string
-  description?: string
-  onChange?: (e: any) => void
+  hideEndContentWhenEmpty?: boolean
+  onValueChange?: (value: string) => void
 }
 
 export const LoginFormControlledInput: FC<LoginFormControlledInputProps> = ({
   name,
   control,
-  defaultValue = '',
-  placeholder,
-  isInvalid,
-  errorMessage,
   endContent,
-  type = 'text',
-  description,
+  hideEndContentWhenEmpty = false,
   onChange,
+  onValueChange,
+  ...props
 }) => (
   <Controller
     name={name}
     control={control}
-    defaultValue={defaultValue}
-    render={({ field }) => (
-      <Input
-        {...field}
-        onChange={(e) => {
-          field.onChange(e)
-          if (onChange) {
-            onChange(e)
+    render={({ field }) => {
+      return (
+        <Input
+          {...field}
+          onChange={(e) => {
+            const value = e.target.value
+            field.onChange(value)
+            if (onChange) onChange(e)
+            if (onValueChange) onValueChange(value)
+          }}
+          autoComplete={name === 'token' ? 'new-password' : 'off'}
+          size="lg"
+          variant="bordered"
+          endContent={
+            hideEndContentWhenEmpty ? field.value && endContent : endContent
           }
-        }}
-        autoComplete={name === 'token' ? 'new-password' : 'off'}
-        size="lg"
-        description={description}
-        isInvalid={isInvalid}
-        errorMessage={errorMessage}
-        variant="bordered"
-        placeholder={placeholder}
-        endContent={field.value && endContent}
-        type={type}
-        className="max-w-full"
-        classNames={{ inputWrapper: 'h-16' }}
-      />
-    )}
+          className="max-w-full"
+          classNames={{
+            inputWrapper: 'h-16 group-data-[focus=true]:border-focus',
+          }}
+          {...props}
+        />
+      )
+    }}
   />
 )

@@ -1,4 +1,4 @@
-import { LogOutButton } from '@/src/6-shared/ui'
+import { LogOutButton } from '@/shared/ui'
 
 interface LoggedInUserProps {
   username: string
