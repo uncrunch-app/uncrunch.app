@@ -5,7 +5,7 @@ import {
   cn,
 } from '@nextui-org/react'
 
-interface ButtonProps extends NextUIButtonProps {
+export interface ButtonProps extends NextUIButtonProps {
   onClick?: () => void
   className?: string
   children: ReactNode

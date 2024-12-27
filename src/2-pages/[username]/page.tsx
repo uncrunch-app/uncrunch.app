@@ -1,8 +1,8 @@
 //// app/home/page.tsx
 ////'use client';
 
-//import { useGetUserDataQuery, UserCard } from '@/src/5-entities/user';
-//import { LogOutButton } from '@/src/6-shared/ui';
+//import { useGetUserDataQuery, UserCard } from '@/entities/user';
+//import { LogOutButton } from '@/shared/ui';
 //import { useSession } from 'next-auth/react';
 //import Image from 'next/image';
 //import { useEffect, useState } from 'react';
@@ -66,14 +66,14 @@
 
 // app/[username]/page.tsx
 import { getServerSession } from 'next-auth'
-import { authOptions, CustomSessionUser } from '@/app/api/auth/authOptions'
+import { authOptions, CustomSessionUser } from '@/next-app/api/auth/authOptions'
 import { notFound, redirect } from 'next/navigation'
 import { getTranslations } from 'next-intl/server'
-import LocaleSwitcher from '@/src/6-shared/LocaleSwitcher'
-import ThemeSelector from '@/src/6-shared/ui/ThemeSelector'
+import LocaleSwitcher from '@/shared/ui/LocaleSwitcher'
+import ThemeSelector from '@/shared/ui/ThemeSelector'
 import Link from 'next/link'
-import { routes } from '@/src/6-shared/services/routes'
-import { getServerSessionUser } from '@/src/6-shared/services/getServerSessionUser'
+import { ROUTES } from '@/shared/config'
+import { getServerSessionUser } from '@/shared/utils/getServerSessionUser'
 
 interface HomePageProps {
   params: {
@@ -84,14 +84,14 @@ interface HomePageProps {
 export default async function HomePage({ params }: HomePageProps) {
   const t = await getTranslations('Pages.home')
   const sessionUser = await getServerSessionUser()
-  
+
   if (!sessionUser) return
 
   const { username } = params
 
   return (
     <div style={{ margin: '20px' }}>
-      <Link href={routes.teapot}>418</Link>
+      <Link href={ROUTES.teapot}>418</Link>
       <h1
         className="text-foreground-800"
         style={{ fontSize: '2rem', fontWeight: '900' }}

@@ -1,5 +1,5 @@
-import error from '@/src/6-shared/services/errorMessages'
-import { buildApiUrl, buildHeaders } from '@/src/6-shared/utils/apiUtils'
+import { ERRORS } from '@/shared/config'
+import { buildApiUrl, buildHeaders } from '@/shared/utils/apiUtils'
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 const buildQuery = ({
@@ -23,8 +23,7 @@ export const userWithoutSessionApi = createApi({
     >({
       query: buildQuery,
       transformResponse: (response: any) => {
-        
-        if (!response) throw new Error(error.apiQuery.userDataNotFound)
+        if (!response) throw new Error(ERRORS.apiQuery.userDataNotFound)
         return response
       },
     }),

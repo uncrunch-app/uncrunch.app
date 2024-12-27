@@ -39,9 +39,8 @@ const Logo: React.FC<LogoProps> = ({
   const adjustedWidth = INIT_SVG_SIZE - numericBorderWidth
   const adjustedHeight = INIT_SVG_SIZE - numericBorderWidth
   const halfBorderWidth = numericBorderWidth / 2
-  
+
   //console.log(semanticColors);
-  
 
   return (
     <svg

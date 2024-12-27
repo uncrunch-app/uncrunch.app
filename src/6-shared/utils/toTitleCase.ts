@@ -1,3 +1,5 @@
+import { toCapitalizeCase } from "./toCapitalizeCase"
+
   /**
    * Converts a string to "Title Case" (each word capitalized),
    * handling various delimiters such as spaces, hyphens, underscores,
@@ -11,6 +13,6 @@
       .replace(/[-_]+/g, ' ')
       .replace(/([a-z])([A-Z])/g, '$1 $2')
       .split(' ')
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .map((word) => toCapitalizeCase(word))
       .join(' ')
   }

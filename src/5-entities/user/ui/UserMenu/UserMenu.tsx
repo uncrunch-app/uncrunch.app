@@ -1,6 +1,6 @@
 'use client'
 
-import type { CustomSessionUser } from '@/app/api/auth/authOptions'
+import type { CustomSessionUser } from '@/next-app/api/auth/authOptions'
 
 interface UserMenuProps {
   user: CustomSessionUser
@@ -15,25 +15,15 @@ import {
   DropdownTrigger,
   User,
 } from '@nextui-org/react'
-import { HiArrowLeftStartOnRectangle } from 'react-icons/hi2'
-import { RxDashboard } from 'react-icons/rx'
-//import { IoSettingsOutline } from 'react-icons/io5'
-import { GoBlocked } from 'react-icons/go'
-//import { IoGitCommitOutline } from 'react-icons/io5'
-import { IoLanguageOutline } from 'react-icons/io5'
-//import { PiNotePencil } from 'react-icons/pi'
-//import { GoTasklist } from 'react-icons/go'
-//import { PiKanban } from 'react-icons/pi'
 
-import { IoColorPaletteOutline } from 'react-icons/io5'
-
-import { routes } from '@/src/6-shared/services/routes'
-import { useSessionUser } from '@/src/6-shared/services/useSessionUser'
+import { ROUTES } from '@/shared/config'
+import { useSessionUser } from '@/shared/hooks'
 import { signOut } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 import { FC } from 'react'
-import LocaleSwitcher from '@/src/6-shared/LocaleSwitcher'
-import useNavigateWithTopLoader from '@/src/6-shared/ui/useNavigateWithTopLoader'
+import { useNavigateWithTopLoader } from '@/shared/hooks'
+import LocaleSwitcher from '@/shared/ui/LocaleSwitcher'
+import { BlockedIcon, DashboardIcon, LanguageIcon, LogOutIcon } from '@/shared/ui/icons'
 
 const UserInfoDescription = ({ user }: UserMenuProps) => {
   return (
@@ -51,12 +41,12 @@ const UserMenu: FC<UserMenuProps> = ({ user }) => {
 
   if (!sessionUser) return
 
-  const homeRoute = routes.home(sessionUser.login)
-  const secretRoute = routes.secret(sessionUser.login)
-  //const settingsRoute = routes.settings(username!)
-  //const notesRoute = routes.notes(username!)
-  //const todoRoute = routes.todo(username!)
-  //const boardsRoute = routes.boards(username!)
+  const homeRoute = ROUTES.home(sessionUser.login)
+  const secretRoute = ROUTES.secret(sessionUser.login)
+  //const settingsRoute = ROUTES.settings(username!)
+  //const notesRoute = ROUTES.notes(username!)
+  //const todoRoute = ROUTES.todo(username!)
+  //const boardsRoute = ROUTES.boards(username!)
 
   const iconSize = 18
 
@@ -89,7 +79,7 @@ const UserMenu: FC<UserMenuProps> = ({ user }) => {
         className="p-3"
         classNames={{
           base: [
-            'text-default-800 max-h-svh-80px min-h-fit overflow-y-auto',
+            'max-h-svh-80px min-h-fit overflow-y-auto',
             'transition-opacity',
             'data-[hover=true]:text-foreground',
             'data-[hover=true]:bg-default-100',
@@ -135,7 +125,7 @@ const UserMenu: FC<UserMenuProps> = ({ user }) => {
             textValue="Dashboard"
             className=""
             onClick={() => navigate(homeRoute)}
-            startContent={<RxDashboard size={iconSize} />}
+            startContent={<DashboardIcon size={iconSize} />}
           >
             {t('pages.home')}
           </DropdownItem>
@@ -193,7 +183,7 @@ const UserMenu: FC<UserMenuProps> = ({ user }) => {
             textValue="Secret"
             className=""
             onClick={() => navigate(secretRoute)}
-            startContent={<GoBlocked size={iconSize} />}
+            startContent={<BlockedIcon size={iconSize} />}
           >
             {t('pages.secret')}
           </DropdownItem>
@@ -205,7 +195,7 @@ const UserMenu: FC<UserMenuProps> = ({ user }) => {
             key="language"
             className="cursor-default"
             textValue="Language selection"
-            startContent={<IoLanguageOutline size={iconSize} />}
+            startContent={<LanguageIcon size={iconSize} />}
           >
             <LocaleSwitcher />
           </DropdownItem>
@@ -235,7 +225,7 @@ const UserMenu: FC<UserMenuProps> = ({ user }) => {
           <DropdownItem
             key="logout"
             textValue="Log Out"
-            startContent={<HiArrowLeftStartOnRectangle size={iconSize} />}
+            startContent={<LogOutIcon size={iconSize} />}
             className=""
             onClick={() => signOut()}
           >

@@ -1,11 +1,11 @@
 import { getSession } from 'next-auth/react'
-import error from './errorMessages'
+import { ERRORS } from '@/shared/config'
 
 export const getSessionUser = async () => {
   const session = await getSession() 
 
   if (!session) {
-    throw new Error(error.session.userNotFound)
+    throw new Error(ERRORS.session.userNotFound)
   }
 
   return session.user

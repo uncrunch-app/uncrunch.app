@@ -2,7 +2,7 @@ import { ReactNode } from 'react'
 import Providers from '../providers'
 import { NextIntlClientProvider } from 'next-intl'
 import { getMessages } from 'next-intl/server'
-import '@/src/6-shared/styles/global.css'
+import '@/shared/styles/global.css'
 
 import 'normalize.css/normalize.css'
 import '@fontsource/inter/200.css'
@@ -13,9 +13,10 @@ import '@fontsource/inter/600.css'
 import '@fontsource/inter/700.css'
 import '@fontsource/inter/800.css'
 import '@fontsource/inter/900.css'
-import { fetchThemeMode } from '@/src/6-shared/utils/themeCookies'
-import { PageLoader } from '@/src/6-shared/ui/PageLoader'
-import { ConsoleMessages } from '@/src/6-shared/ConsoleMessages'
+import { fetchThemeMode } from '@/shared/services/themeCookies'
+import { PageLoader } from '@/shared/ui/PageLoader'
+import { ConsoleMessages } from '@/shared/ConsoleMessages'
+import { InitializeCookies } from '@/shared/services/InitializeCookies'
 
 export const metadata = {
   title: 'Uncrunch',
@@ -73,6 +74,7 @@ const RootLayout = async ({ children }: { children: ReactNode }) => {
     <html lang="ru" className={initialTheme}>
       <body>
         <PageLoader />
+        <InitializeCookies />
         <NextIntlClientProvider messages={messages}>
           <ConsoleMessages />
           <Providers>{children}</Providers>

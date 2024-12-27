@@ -17,7 +17,7 @@
           "withInstanceToken": "With a {gitHosting} instance token"
         },
         "descriptions": {
-          "instanceUrlInput": "{gitHosting} instance"
+          "instanceUrlInput": "Do you want to replace the api with a custom one? Click here!"
         }
       },
       "layout": {
@@ -56,8 +56,8 @@
   },
   "Components": {
     "localeSwitcher": {
-      "ru": "Rusian",
-      "en": "English",
+      "ru-RU": "Rusian",
+      "en-US": "English",
       "label": "Language"
     },
     "userMenu": {

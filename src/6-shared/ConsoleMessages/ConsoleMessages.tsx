@@ -1,11 +1,11 @@
 'use client'
 
+import { CONSTANTS } from '@/shared/config'
 import { WelcomeConsoleMessage } from './WelcomeConsoleMessage'
 
 export const ConsoleMessages = () => {
-  const isProduction = process.env.NODE_ENV === 'production'
 
-  if (isProduction) {
+  if (CONSTANTS.isProduction) {
     return <WelcomeConsoleMessage />
   }
   

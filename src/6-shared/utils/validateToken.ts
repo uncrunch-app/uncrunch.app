@@ -1,7 +1,7 @@
 interface ValidateTokenParams {
-  token: string;
-  baseUrl: string;
-  trigger: (params: { token: string; baseUrl: string }) => Promise<any>;
+  token: string
+  baseUrl: string
+  trigger: (params: { token: string; baseUrl: string }) => Promise<any>
 }
 
 export const validateToken = async ({
@@ -9,19 +9,34 @@ export const validateToken = async ({
   baseUrl,
   trigger,
 }: ValidateTokenParams) => {
-  const requestParams = { token, baseUrl };
+  const requestParams = { token, baseUrl }
 
-  const { data, error } = await trigger(requestParams);
+  const { data, error } = await trigger(requestParams)
 
   if (error) {
+    // Если это 401:
+    if (error.status === 401) {
+      return {
+        error: {
+          title: 'Токен невалиден',
+          status: error.status,
+          message: error.data?.error,
+        },
+      }
+    }
+
     return {
-      error: (error as any).data?.message,
-    };
+      error: {
+        title: 'Никогда такого не было и вот опять',
+        status: error.status,
+        message: error.data?.error,
+      },
+    }
   }
 
   return {
     name: data?.name || null,
     login: data.login,
     image: data?.avatar_url || null,
-  };
-};
+  }
+}

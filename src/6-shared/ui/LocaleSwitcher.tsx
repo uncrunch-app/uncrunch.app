@@ -1,23 +1,27 @@
 'use client'
 
-import { useState, useEffect } from 'react'
 import { useLocale, useTranslations } from 'next-intl'
-import { Locale } from '../i18n/config'
-import { saveUserLocale } from './services/locale'
 import { Select, SelectItem, Selection } from '@nextui-org/react'
+import { saveUserLocale } from '../services/localeCookies'
+import { Locale } from '@/i18n/config'
+
+interface LanguageOption {
+  key: Locale
+  label: string
+}
 
 export default function LocaleSwitcher() {
   const t = useTranslations('Components.localeSwitcher')
   const currentLocale = useLocale()
 
-  const langs = [
+  const langs: LanguageOption[] = [
     {
-      key: 'en',
-      label: t('en'),
+      key: 'en-US',
+      label: t('en-US'),
     },
     {
-      key: 'ru',
-      label: t('ru'),
+      key: 'ru-RU',
+      label: t('ru-RU'),
     },
   ]
 
@@ -32,10 +36,10 @@ export default function LocaleSwitcher() {
       label={t('label')}
       variant="bordered"
       selectedKeys={[currentLocale]}
-      className="border-divider items-center"
+      className="items-center border-divider"
       classNames={{
         trigger:
-          'text-default-600 data-[open=true]:border-default-600 data-[focus=true]:border-default-600 border-small rounded-small',
+          'text-default-600 data-[open=true]:border-default-600 border-small rounded-small',
         value: 'group-data-[has-value=true]:text-default-800',
         popoverContent: 'rounded-medium bg-content1 shadow-small',
       }}

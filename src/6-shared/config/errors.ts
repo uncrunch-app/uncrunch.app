@@ -1,4 +1,4 @@
-const errorMessages = {
+export const ERRORS = {
   session: {
     userNotFound: 'User not found in session',
     
@@ -9,6 +9,4 @@ const errorMessages = {
   misc: {
     yearExceeded: 'Start year cannot be greater than the current year.'
   }
-}
-
-export default errorMessages
+} as const

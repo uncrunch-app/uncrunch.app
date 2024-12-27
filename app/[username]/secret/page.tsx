@@ -1,3 +1,3 @@
-import SecretPage from '@/src/2-pages/secret/SecretPage'
+import SecretPage from '@/pages/secret/SecretPage'
 
 export default SecretPage

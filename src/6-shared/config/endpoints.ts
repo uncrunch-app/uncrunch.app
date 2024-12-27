@@ -16,7 +16,7 @@ const githubEndpoints: GitHostingEndpoints = {
     getListRepos: '/user/repos',
     getRepo: (owner, repo) => `/repos/${owner}/${repo}`,
   },
-}
+} as const
 
 const forgejoEndpoints: GitHostingEndpoints = {
   user: {
@@ -26,9 +26,9 @@ const forgejoEndpoints: GitHostingEndpoints = {
     getListRepos: '/user/repos',
     getRepo: (owner, repo) => `/repos/${owner}/${repo}`,
   },
-}
+} as const
 
-export const endpoints: Record<GitHostingType, GitHostingEndpoints> = {
+export const ENDPOINTS: Record<GitHostingType, GitHostingEndpoints> = {
   github: githubEndpoints,
   forgejo: forgejoEndpoints,
 };

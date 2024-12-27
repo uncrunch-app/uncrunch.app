@@ -19,9 +19,24 @@
       }
     ],
     "paths": {
-      "@/*": ["./*"]
+      "@/next-app/*": ["./app/*"],
+      "@/i18n/*": ["./src/i18n/*"],
+      "@/app/*": ["./src/1-app/*"],
+      "@/pages/*": ["./src/2-pages/*"],
+      "@/widgets/*": ["./src/3-widgets/*"],
+      "@/features/*": ["./src/4-features/*"],
+      "@/entities/*": ["./src/5-entities/*"],
+      "@/shared/*": ["./src/6-shared/*"]
     }
   },
-  "include": ["next-env.d.ts", "next-auth.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/6-shared/utils/themes/themeSettings.ts", "tailwind.config.js"],
+  "include": [
+    "next-env.d.ts",
+    "next-auth.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "src/6-shared/utils/themes/themeSettings.ts",
+    "tailwind.config.js"
+  ],
   "exclude": ["node_modules"]
 }

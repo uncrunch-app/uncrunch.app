@@ -2,67 +2,61 @@
 'use client'
 
 import { useState } from 'react'
-import { RadioGroup, Radio } from '@nextui-org/radio'
-import { themes } from '../themes/themeSettings'
-import { DEFAULT_THEME } from '../constants/constants'
-import { saveThemeMode } from '../utils/themeCookies'
-import { toTitleCase } from '../toTitleCase'
+import { RadioGroup, Radio } from '@nextui-org/react'
+import { ThemeNames, themeNames, themes } from '../themes/themeSettings'
+import { saveThemeMode } from '../services/themeCookies'
+import { toTitleCase } from '../utils/toTitleCase'
 
 interface ThemeSelectorClientProps {
-  initialTheme: string
+  initialTheme: ThemeNames
 }
 
 // LightThemeSquare.tsx
 export const LightThemeSquare = () => (
-  <div className="w-[180px] h-[120px] rounded-medium bg-white mb-2">
-  </div>
-);
+  <div className="mb-2 h-[120px] w-[180px] rounded-medium bg-white"></div>
+)
 
 // DarkThemeSquare.tsx
 export const DarkThemeSquare = () => (
-  <div className="w-[180px] h-[120px] rounded-medium bg-black mb-2">
-  </div>
-);
+  <div className="mb-2 h-[120px] w-[180px] rounded-medium bg-black"></div>
+)
 
 // ClassicLightThemeSquare.tsx
 export const ClassicLightThemeSquare = () => (
-  <div className="w-[180px] h-[120px] rounded-medium bg-green-500 mb-2">
-  </div>
-);
+  <div className="mb-2 h-[120px] w-[180px] rounded-medium bg-green-500"></div>
+)
 
 // OtherThemeSquare.tsx
 export const OtherThemeSquare = () => (
-  <div className="w-[180px] h-[120px] rounded-medium bg-blue-500 mb-2">
-  </div>
-);
-
+  <div className="mb-2 h-[120px] w-[180px] rounded-medium bg-blue-500"></div>
+)
 
 const themeComponents: { [key: string]: JSX.Element } = {
   light: <LightThemeSquare />,
   dark: <DarkThemeSquare />,
   'classic-light': <ClassicLightThemeSquare />,
-};
+}
 
 const renderColoredSquare = (themeOption: string) => {
-  return themeComponents[themeOption] || <OtherThemeSquare />;
-};
+  return themeComponents[themeOption] || <OtherThemeSquare />
+}
 
-export default function ThemeSelectorClient({ initialTheme }: ThemeSelectorClientProps) {
-  const [theme, setTheme] = useState<string>(initialTheme || DEFAULT_THEME);
+export default function ThemeSelectorClient({
+  initialTheme,
+}: ThemeSelectorClientProps) {
+  const [theme, setTheme] = useState<string>(initialTheme)
 
-  const handleThemeChange = (newTheme: string) => {
-    setTheme(newTheme);
-    saveThemeMode(newTheme);
-  };
-
-  const themeNames = Object.keys(themes);
+  const handleThemeChange = (newTheme: ThemeNames) => {
+      setTheme(newTheme)
+      saveThemeMode(newTheme)
+  }
 
   return (
-    <div className='bg-secondary-200 border-divider border-small rounded-large p-4'>
+    <div className="rounded-large border-small border-divider bg-secondary-200 p-4">
       <RadioGroup
         label="Выберите тему:"
         value={theme}
-        onValueChange={handleThemeChange}
+        onValueChange={(value) => handleThemeChange(value as ThemeNames)}
         orientation="horizontal"
         color="default"
         size="md"
@@ -70,7 +64,7 @@ export default function ThemeSelectorClient({ initialTheme }: ThemeSelectorClien
         {themeNames.map((themeOption) => (
           <div
             key={themeOption}
-            className="flex flex-col items-start justify-center border border-divider rounded-large p-3 m-2"
+            className="m-2 flex flex-col items-start justify-center rounded-large border border-divider p-3"
           >
             {renderColoredSquare(themeOption)}
             <Radio value={themeOption} classNames={{ base: 'p-3 -m-0' }}>
@@ -80,5 +74,5 @@ export default function ThemeSelectorClient({ initialTheme }: ThemeSelectorClien
         ))}
       </RadioGroup>
     </div>
-  );
+  )
 }

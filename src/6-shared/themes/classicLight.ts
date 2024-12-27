@@ -1,4 +1,4 @@
-//import { colors } from '../constants/colors'
+//import { COLORS } from '@/shared/config'
 
 //export const classicLight = {
 //  background: { DEFAULT: COLOR.CREAM },

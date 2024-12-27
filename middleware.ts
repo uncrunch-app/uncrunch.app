@@ -2,14 +2,14 @@
 import { NextRequestWithAuth, withAuth } from 'next-auth/middleware'
 import { NextFetchEvent, NextResponse } from 'next/server'
 import { getToken } from 'next-auth/jwt'
-import { routes } from './src/6-shared/services/routes'
+import { ROUTES } from '@/shared/config'
 
 const STATIC_PATHS = ['/_next', '/static', '/favicon', '/favicons']
 
 const authMiddleware = withAuth({
   pages: {
-    signIn: routes.login,
-    signOut: routes.login,
+    signIn: ROUTES.login,
+    signOut: ROUTES.login,
   },
   callbacks: {
     authorized: ({ token }) => !!token,
@@ -18,10 +18,7 @@ const authMiddleware = withAuth({
 
 const redirectToLoginRoute = (req: NextRequestWithAuth) => {
   const callbackUrl = `${req.nextUrl.pathname}${req.nextUrl.search}`
-  const loginUrl = new URL(
-    routes.loginWithCallback(callbackUrl),
-    req.url
-  )
+  const loginUrl = new URL(ROUTES.loginWithCallback(callbackUrl), req.url)
 
   return NextResponse.redirect(loginUrl)
 }
@@ -59,7 +56,7 @@ export default async function middleware(
     return NextResponse.next()
   }
 
-  if (!token && pathname === routes.root) {
+  if (!token && pathname === ROUTES.root) {
     return NextResponse.next()
   }
 

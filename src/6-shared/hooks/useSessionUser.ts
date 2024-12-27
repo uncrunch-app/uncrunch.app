@@ -1,6 +1,6 @@
 import { useSession } from 'next-auth/react'
 
-export function useSessionUser() {
+const useSessionUser = () => {
   const { data: session, status } = useSession()
 
   if (status === 'loading') {
@@ -14,3 +14,5 @@ export function useSessionUser() {
 
   return { sessionUser: null, isLoading: false }
 }
+
+export default useSessionUser

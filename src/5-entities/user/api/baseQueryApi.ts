@@ -1,6 +1,6 @@
 import { fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { buildApiUrl, buildHeaders } from '@/src/6-shared/utils/apiUtils'
-import { getSessionUser } from '@/src/6-shared/services/getSessionUser'
+import { buildApiUrl, buildHeaders } from '@/shared/utils/apiUtils'
+import { getSessionUser } from '@/shared/utils/getSessionUser'
 
 export const baseQueryApi = async (path: string, api: any, extraOptions: any) => {
   const user = await getSessionUser()

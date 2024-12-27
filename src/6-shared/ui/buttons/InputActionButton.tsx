@@ -1,16 +1,15 @@
 import { ReactNode, FC } from 'react'
-import { Button } from '@nextui-org/react'
+import { Button, ButtonProps } from '@nextui-org/react'
 
-interface InputActionButtonProps {
-  onClick: () => void
+interface InputActionButtonProps extends ButtonProps {
   children: ReactNode
   hasError: boolean
 }
 
 export const InputActionButton: FC<InputActionButtonProps> = ({
-  onClick,
   children,
   hasError,
+  ...props
 }) => {
   return (
     <Button
@@ -18,9 +17,8 @@ export const InputActionButton: FC<InputActionButtonProps> = ({
       color={hasError ? 'danger' : 'primary'}
       variant="light"
       radius="full"
-      onClick={onClick}
-      onPress={onClick}
       type="button"
+      {...props}
     >
       {children}
     </Button>

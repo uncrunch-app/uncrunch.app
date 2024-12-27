@@ -1,5 +1,5 @@
 //// githubUserApi.ts
-//import { githubApiBaseQuery } from '@/src/6-shared/api/githubApiConfig'
+//import { githubApiBaseQuery } from '@/shared/api/githubApiConfig'
 //import { createApi } from '@reduxjs/toolkit/query/react'
 
 //export const githubUserApi = createApi({

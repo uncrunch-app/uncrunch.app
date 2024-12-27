@@ -1,7 +1,7 @@
 'use client'
 
-import { useGetRepoQuery, useGetListReposQuery } from '@/src/5-entities/user/api/repoApi'
-import { useGetUserQuery } from '@/src/5-entities/user/api/userApi'
+import { useGetRepoQuery, useGetListReposQuery } from '@/entities/user/api/repoApi'
+import { useGetUserQuery } from '@/entities/user/api/userApi'
 
 const TestPage = () => {
   const { data, error, isLoading } = useGetListReposQuery()

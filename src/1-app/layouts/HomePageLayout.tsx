@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import { Header } from '@/src/3-widgets/header'
+import { Header } from '@/widgets/header'
 
 const HomePageLayout = ({ children }: { children: ReactNode }) => {
   return (

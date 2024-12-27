@@ -1,3 +1,3 @@
-import RootPage from '@/src/2-pages/root/page'
+import RootPage from '@/pages/root/page'
 
 export default RootPage
