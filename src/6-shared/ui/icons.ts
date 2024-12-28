@@ -11,7 +11,6 @@ import { GoTasklist } from 'react-icons/go'
 import { PiKanban } from 'react-icons/pi'
 import { IoColorPaletteOutline } from 'react-icons/io5'
 
-
 export const ForgejoIcon = SiForgejo
 export const GithubIcon = SiGithub
 export const XMarkIcon = HiMiniXMark

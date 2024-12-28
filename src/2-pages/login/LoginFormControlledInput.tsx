@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import { Controller } from 'react-hook-form'
-import { Input, InputProps } from '@nextui-org/react'
+import { Input, InputProps } from '@nextui-org/input'
 
 interface LoginFormControlledInputProps extends InputProps {
   name: string
@@ -39,7 +39,7 @@ export const LoginFormControlledInput: FC<LoginFormControlledInputProps> = ({
           }
           className="max-w-full"
           classNames={{
-            inputWrapper: 'h-16 group-data-[focus=true]:border-focus',
+            inputWrapper: 'h-16 group-data-[focus-visible=true]:border-focus',
           }}
           {...props}
         />

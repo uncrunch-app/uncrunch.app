@@ -7,8 +7,8 @@ export const CONSTANTS = {
     locale: 'en-US',
     theme: 'light',
     apiEndpoints: {
-      forgejo: '/api/v1'
-    }
+      forgejo: '/api/v1',
+    },
   },
   license: 'AGPL-3.0',
   isProduction: process.env.NODE_ENV === 'production',

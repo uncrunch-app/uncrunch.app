@@ -1,5 +1,5 @@
 // themeSettings.ts
-import { ConfigTheme, LayoutTheme } from '@nextui-org/react'
+import { ConfigTheme, LayoutTheme } from '@nextui-org/theme'
 import { COLORS } from '../config'
 import { uncrunchLight } from './uncrunchLight'
 

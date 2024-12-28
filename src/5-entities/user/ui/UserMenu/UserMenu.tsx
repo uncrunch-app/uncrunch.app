@@ -6,16 +6,6 @@ interface UserMenuProps {
   user: CustomSessionUser
 }
 
-import {
-  Avatar,
-  Dropdown,
-  DropdownItem,
-  DropdownMenu,
-  DropdownSection,
-  DropdownTrigger,
-  User,
-} from '@nextui-org/react'
-
 import { ROUTES } from '@/shared/config'
 import { useSessionUser } from '@/shared/hooks'
 import { signOut } from 'next-auth/react'
@@ -23,7 +13,21 @@ import { useTranslations } from 'next-intl'
 import { FC } from 'react'
 import { useNavigateWithTopLoader } from '@/shared/hooks'
 import LocaleSwitcher from '@/shared/ui/LocaleSwitcher'
-import { BlockedIcon, DashboardIcon, LanguageIcon, LogOutIcon } from '@/shared/ui/icons'
+import {
+  BlockedIcon,
+  DashboardIcon,
+  LanguageIcon,
+  LogOutIcon,
+} from '@/shared/ui/icons'
+import {
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownSection,
+  DropdownTrigger,
+} from '@nextui-org/dropdown'
+import { Avatar } from '@nextui-org/avatar'
+import { User } from '@nextui-org/user'
 
 const UserInfoDescription = ({ user }: UserMenuProps) => {
   return (

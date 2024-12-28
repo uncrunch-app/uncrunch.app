@@ -59,7 +59,9 @@ const convertSassToTs = async (sassFilePath, tsOutputPath) => {
       .join('\n')
 
     await fs.writeFile(tsOutputPath, tsContent)
-    console.info(`SCSS и CSS переменные успешно конвертированы в ${tsOutputPath}`)
+    console.info(
+      `SCSS и CSS переменные успешно конвертированы в ${tsOutputPath}`
+    )
   } catch (error) {
     console.error('Ошибка при конвертации переменных:', error)
   }

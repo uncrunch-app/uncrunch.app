@@ -18,9 +18,7 @@ const Header: FC = async () => {
       <Link href={usernameRoute}>
         <Logo width="48px" height="48px" />
       </Link>
-      <div className={styles.userInfo}>
-        {user && <UserMenu user={user} />}
-      </div>
+      <div className={styles.userInfo}>{user && <UserMenu user={user} />}</div>
     </div>
   )
 }

@@ -1,6 +1,6 @@
 'use client'
 
-import { debug } from "console"
+import { debug } from 'console'
 
 const TestPage = () => {
   console.debug('debug')

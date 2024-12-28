@@ -1,15 +1,13 @@
 import { Logo } from '@/shared/ui/logo'
 import { ReactNode } from 'react'
-import { fetchThemeMode } from '@/shared/services/themeCookies'
 import LocaleSwitcher from '@/shared/ui/LocaleSwitcher'
 import { getTranslations } from 'next-intl/server'
-import { Link } from '@nextui-org/react'
+import { Link } from '@nextui-org/link'
 import { CONSTANTS } from '@/shared/config'
 import { getCopyrightYears } from '@/shared/utils/getCopyrightYears'
 import { LINKS } from '@/shared/config'
 
 const LoginPageLayout = async ({ children }: { children: ReactNode }) => {
-  const initialTheme = fetchThemeMode()
   const t = await getTranslations('Pages.login.layout')
 
   return (
@@ -27,7 +25,7 @@ const LoginPageLayout = async ({ children }: { children: ReactNode }) => {
           bgColor="hsl(var(--nextui-primary))"
           color="hsl(var(--nextui-secondary))"
         />
-        <div className="w-[180px]">
+        <div className="mr-8 w-32">
           <LocaleSwitcher />
         </div>
       </header>

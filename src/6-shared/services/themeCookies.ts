@@ -8,8 +8,7 @@ import { themeNames, ThemeNames } from '../themes/themeSettings'
 export async function fetchThemeMode(): Promise<string> {
   const cookieValue = cookies().get(CONSTANTS.cookie.theme)?.value
 
-  if (!cookieValue ||
-    !themeNames.includes(cookieValue as ThemeNames)) {
+  if (!cookieValue || !themeNames.includes(cookieValue as ThemeNames)) {
     return CONSTANTS.default.theme
   }
 

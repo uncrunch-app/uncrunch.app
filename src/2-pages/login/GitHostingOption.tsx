@@ -1,5 +1,6 @@
 import { FC } from 'react'
-import { Button, ButtonProps, cn } from '@nextui-org/react'
+import { Button, ButtonProps } from '@nextui-org/button'
+import cn from 'classnames'
 
 interface GitHostingOptionProps extends ButtonProps {
   buttonText: string
@@ -16,7 +17,11 @@ export const GitHostingOption: FC<GitHostingOptionProps> = ({
     <div className="flex flex-col gap-2">
       <p className="font-light">{description}</p>
 
-      <Button fullWidth className={cn("uppercase rounded-large h-12", className)} {...props}>
+      <Button
+        fullWidth
+        className={cn('h-12 rounded-large uppercase', className)}
+        {...props}
+      >
         {buttonText}
       </Button>
     </div>

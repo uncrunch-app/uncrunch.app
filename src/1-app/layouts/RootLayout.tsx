@@ -1,22 +1,26 @@
 import { ReactNode } from 'react'
 import Providers from '../providers'
 import { NextIntlClientProvider } from 'next-intl'
-import { getMessages } from 'next-intl/server'
+import { getMessages, getLocale } from 'next-intl/server'
 import '@/shared/styles/global.css'
-
-import 'normalize.css/normalize.css'
-import '@fontsource/inter/200.css'
-import '@fontsource/inter/300.css'
-import '@fontsource/inter/400.css'
-import '@fontsource/inter/500.css'
-import '@fontsource/inter/600.css'
-import '@fontsource/inter/700.css'
-import '@fontsource/inter/800.css'
-import '@fontsource/inter/900.css'
 import { fetchThemeMode } from '@/shared/services/themeCookies'
 import { PageLoader } from '@/shared/ui/PageLoader'
 import { ConsoleMessages } from '@/shared/ConsoleMessages'
 import { InitializeCookies } from '@/shared/services/InitializeCookies'
+
+import { Inter } from 'next/font/google'
+
+const inter = Inter({
+  subsets: [
+    'cyrillic',
+    'cyrillic-ext',
+    'greek',
+    'greek-ext',
+    'latin',
+    'latin-ext',
+    'vietnamese',
+  ],
+})
 
 export const metadata = {
   title: 'Uncrunch',
@@ -67,12 +71,15 @@ const RootLayout = async ({ children }: { children: ReactNode }) => {
   // Providing all messages to the client
   // side is the easiest way to get started
   const messages = await getMessages()
+  const locale = await getLocale()
+
+  const language = locale.includes('-') ? locale.split('-')[0] : locale || 'en'
 
   const initialTheme = await fetchThemeMode()
 
   return (
-    <html lang="ru" className={initialTheme}>
-      <body>
+    <html lang={language} className={initialTheme}>
+      <body className={inter.className}>
         <PageLoader />
         <InitializeCookies />
         <NextIntlClientProvider messages={messages}>

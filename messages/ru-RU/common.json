@@ -1,0 +1,6 @@
+{
+  "common": {
+    "test": "Значение из common kk",
+    "anotherKey": "Ещё какой-то ключ"
+  }
+}

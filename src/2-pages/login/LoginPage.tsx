@@ -168,14 +168,6 @@ const LoginPage = () => {
 
       const { name, login, image } = result
 
-      //if ([name, login, image].every((value) => value === undefined)) {
-      //  handleError(
-      //    'instanceUrl',
-      //    'Возможно, URL некорректный или данные недоступны.'
-      //  )
-      //  return
-      //}
-
       console.log({
         token,
         redirect: false,

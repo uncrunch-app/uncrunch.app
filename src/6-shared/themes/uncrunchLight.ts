@@ -22,7 +22,10 @@ export const uncrunchLight = {
     content1: { DEFAULT: '#fff', foreground: '#11181C' },
     content2: { DEFAULT: '#f4f4f5', foreground: '#27272a' },
     content3: { DEFAULT: '#e4e4e7', foreground: '#3f3f46' },
-    content4: { DEFAULT: COLORS.uncrunch.light.default.default, foreground: '#1e539d' },
+    content4: {
+      DEFAULT: COLORS.uncrunch.light.default.default,
+      foreground: '#1e539d',
+    },
     default: {
       50: COLORS.uncrunch.light.default[50],
       100: COLORS.uncrunch.light.default[100],

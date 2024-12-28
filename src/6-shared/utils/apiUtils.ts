@@ -1,4 +1,4 @@
-import { CONSTANTS, ROUTES } from "@/shared/config"
+import { CONSTANTS, ROUTES } from '@/shared/config'
 
 export const buildApiUrl = (baseUrl: string, path: string, token: string) => {
   const fullUrl = `${baseUrl}${path}`

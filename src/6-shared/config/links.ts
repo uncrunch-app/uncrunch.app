@@ -4,9 +4,10 @@ export const LINKS = {
     org: 'https://github.com/uncrunch-app',
     orgRepo: 'https://github.com/uncrunch-app/uncrunch.app',
     apiUrl: 'https://api.github.com',
-    contribute: 'https://github.com/uncrunch-app/uncrunch.app/blob/main/CONTRIBUTING.md',
+    contribute:
+      'https://github.com/uncrunch-app/uncrunch.app/blob/main/CONTRIBUTING.md',
     issue: 'https://github.com/uncrunch-app/uncrunch.app/issues/new',
-    license: 'https://github.com/uncrunch-app/uncrunch.app/blob/main/LICENSE'
+    license: 'https://github.com/uncrunch-app/uncrunch.app/blob/main/LICENSE',
   },
   forgejo: {
     exampleApiUrl: 'https://codeberg.org/api/v1/',

@@ -1,9 +1,10 @@
 'use client'
 
 import { useLocale, useTranslations } from 'next-intl'
-import { Select, SelectItem, Selection } from '@nextui-org/react'
 import { saveUserLocale } from '../services/localeCookies'
 import { Locale } from '@/i18n/config'
+import { Select, SelectItem } from '@nextui-org/select'
+import { SharedSelection } from '@nextui-org/system'
 
 interface LanguageOption {
   key: Locale
@@ -25,7 +26,7 @@ export default function LocaleSwitcher() {
     },
   ]
 
-  const handleChange = async (selectedKey: Selection) => {
+  const handleChange = async (selectedKey: SharedSelection) => {
     const locale = Array.from(selectedKey).join('') as Locale
     await saveUserLocale(locale)
   }
@@ -33,7 +34,7 @@ export default function LocaleSwitcher() {
   return (
     <Select
       labelPlacement="outside-left"
-      label={t('label')}
+      aria-label={t('label')}
       variant="bordered"
       selectedKeys={[currentLocale]}
       className="items-center border-divider"
@@ -46,7 +47,9 @@ export default function LocaleSwitcher() {
       onSelectionChange={handleChange}
     >
       {langs.map((lang) => (
-        <SelectItem key={lang.key}>{lang.label}</SelectItem>
+        <SelectItem hideSelectedIcon key={lang.key}>
+          {lang.label}
+        </SelectItem>
       ))}
     </Select>
   )

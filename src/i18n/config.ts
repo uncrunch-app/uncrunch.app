@@ -1,6 +1,6 @@
-import { CONSTANTS } from "../6-shared/config";
+import { CONSTANTS } from '../6-shared/config'
 
-export type Locale = (typeof locales)[number];
+export type Locale = (typeof locales)[number]
 
-export const locales = ['en-US', 'ru-RU'] as const;
-export const defaultLocale: Locale = CONSTANTS.default.locale;
+export const locales = ['en-US', 'ru-RU'] as const
+export const defaultLocale: Locale = CONSTANTS.default.locale

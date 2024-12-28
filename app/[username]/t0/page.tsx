@@ -1,28 +1,37 @@
 'use client'
 
-import { useGetRepoQuery, useGetListReposQuery } from '@/entities/user/api/repoApi'
+import {
+  useGetRepoQuery,
+  useGetListReposQuery,
+} from '@/entities/user/api/repoApi'
 import { useGetUserQuery } from '@/entities/user/api/userApi'
 
 const TestPage = () => {
   const { data, error, isLoading } = useGetListReposQuery()
-  const { data: userData, error: useError, isLoading: userIsLoading } = useGetUserQuery()
-  
+  const {
+    data: userData,
+    error: useError,
+    isLoading: userIsLoading,
+  } = useGetUserQuery()
+
   const { data: repo, error: repoError } = useGetRepoQuery({ repo: '11' })
-  
-  console.log(repo, repoError);  
+
+  console.log(repo, repoError)
 
   if (isLoading) return <div>Loading repositories...</div>
-  if (error) return <div>Error loading repositories. Please try again later.</div>
-  
+  if (error)
+    return <div>Error loading repositories. Please try again later.</div>
+
   if (!Array.isArray(data)) {
-    console.error('Expected data to be an array but got:', data);
-    return <div>Unexpected data format. Please try again later.</div>;
+    console.error('Expected data to be an array but got:', data)
+    return <div>Unexpected data format. Please try again later.</div>
   }
-  
+
   if (data.length === 0) return <div>No repositories found for this user.</div>
 
   if (userIsLoading) return <div>Loading user data...</div>
-  if (useError) return <div>Error loading user data. Please try again later.</div>
+  if (useError)
+    return <div>Error loading user data. Please try again later.</div>
   if (!userData) return <div>No user data found.</div>
 
   return (
@@ -38,7 +47,7 @@ const TestPage = () => {
           </li>
         ))}
       </ul>
-      
+
       <h2>User Data</h2>
       {userData ? (
         <div>
@@ -56,4 +65,4 @@ const TestPage = () => {
   )
 }
 
-export default TestPage;
+export default TestPage

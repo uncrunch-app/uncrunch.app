@@ -2,8 +2,8 @@ import { FC, ReactNode } from 'react'
 import {
   Button as NextUIButton,
   ButtonProps as NextUIButtonProps,
-  cn,
-} from '@nextui-org/react'
+} from '@nextui-org/button'
+import cn from 'classnames'
 
 export interface ButtonProps extends NextUIButtonProps {
   onClick?: () => void

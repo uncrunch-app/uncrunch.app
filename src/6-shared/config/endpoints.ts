@@ -1,9 +1,9 @@
-import { GitHostingType } from "../types"
+import { GitHostingType } from '../types'
 
 interface GitHostingEndpoints {
   user: { getUser: string }
   repo: {
-    getListRepos:string
+    getListRepos: string
     getRepo: (owner: string, repo: string) => string
   }
 }
@@ -31,4 +31,4 @@ const forgejoEndpoints: GitHostingEndpoints = {
 export const ENDPOINTS: Record<GitHostingType, GitHostingEndpoints> = {
   github: githubEndpoints,
   forgejo: forgejoEndpoints,
-};
+}

@@ -7,8 +7,10 @@ import { GitHostingType } from '@/shared/types'
 import { SetStateAction, useState } from 'react'
 import { FormData } from '../LoginPage'
 import { Control, FieldErrors } from 'react-hook-form'
-import { Alert, button, Chip, Link } from '@nextui-org/react'
 import { toCapitalizeCase } from '@/shared/utils/toCapitalizeCase'
+import { Link } from '@nextui-org/link'
+import { Chip } from '@nextui-org/chip'
+import { Alert } from '@nextui-org/alert'
 
 interface LoginFormProps {
   handleSubmit: () => void
@@ -88,10 +90,10 @@ export const LoginForm = ({
                   <span>Хотите изменить api эндпоинт на кастомный? </span>
                   <Link
                     as="button"
-                    type ='button'
-                    role='button'
-                    underline='always'
-                    className="text-content4-foreground text-xs"
+                    type="button"
+                    role="button"
+                    underline="always"
+                    className="text-xs text-content4-foreground"
                     onPress={handleApiEndpointChange}
                   >
                     Нажмите сюда!
@@ -111,20 +113,10 @@ export const LoginForm = ({
                     value={protocol}
                     onChange={handleProtocolChange}
                   >
-                    {/*<option>https://</option>
-                  <option>http://</option>*/}
-
                     {protocols.map((protocol) => (
                       <option key={protocol.key}>{protocol.label}</option>
                     ))}
                   </select>
-                  {/*<Select className="w-30" label="" variant="underlined">
-                  {protocols.map((protocol) => (
-                    <SelectItem key={protocol.key}>
-                      {protocol.label}
-                    </SelectItem>
-                  ))}
-                </Select>*/}
                 </div>
               }
               endContent={
@@ -140,7 +132,6 @@ export const LoginForm = ({
             <LoginFormControlledInput
               name="apiEndpoint"
               control={control}
-              //defaultValue={apiEndpoint}
               placeholder={apiEndpoint}
               description={`${defaultApiEndpoint()} - Дефолтный эндпоинт ${toCapitalizeCase(gitHosting)} инстанса`}
               value={apiEndpoint}
@@ -185,12 +176,10 @@ export const LoginForm = ({
         <div className="flex w-full items-center justify-center">
           <Alert
             color="danger"
-            hideIcon
             isVisible={Boolean(serverError)}
-            classNames={{ base: 'items-start', mainWrapper: 'gap-1' }}
+            classNames={{ base: 'items-center', mainWrapper: 'gap-1' }}
             radius="lg"
             description={
-              //showAlertDescription && (
               <>
                 <Link
                   color="danger"
@@ -198,6 +187,7 @@ export const LoginForm = ({
                   underline="hover"
                   isExternal
                   showAnchorIcon
+                  title="Ссылка на документацию MDN с описанием ошибки"
                   href={`https://developer.mozilla.org/docs/Web/HTTP/Status/${serverError?.status}`}
                 >
                   {serverError?.status}: {serverError?.message}
@@ -206,19 +196,7 @@ export const LoginForm = ({
                   MDN
                 </Chip>
               </>
-              //)
             }
-            //endContent={
-            //  <Button
-            //    color="danger"
-            //    className="px-8 font-medium"
-            //    size="sm"
-            //    variant="flat"
-            //    onPress={handleShowAlertDescription}
-            //  >
-            //    {showAlertDescription ? 'Скрыть' : 'Подробнее'}
-            //  </Button>
-            //}
             title={serverError?.title}
             variant="bordered"
           />

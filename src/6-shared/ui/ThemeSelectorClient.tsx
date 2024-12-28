@@ -2,10 +2,10 @@
 'use client'
 
 import { useState } from 'react'
-import { RadioGroup, Radio } from '@nextui-org/react'
 import { ThemeNames, themeNames, themes } from '../themes/themeSettings'
 import { saveThemeMode } from '../services/themeCookies'
 import { toTitleCase } from '../utils/toTitleCase'
+import { Radio, RadioGroup } from '@nextui-org/radio'
 
 interface ThemeSelectorClientProps {
   initialTheme: ThemeNames
@@ -47,8 +47,8 @@ export default function ThemeSelectorClient({
   const [theme, setTheme] = useState<string>(initialTheme)
 
   const handleThemeChange = (newTheme: ThemeNames) => {
-      setTheme(newTheme)
-      saveThemeMode(newTheme)
+    setTheme(newTheme)
+    saveThemeMode(newTheme)
   }
 
   return (

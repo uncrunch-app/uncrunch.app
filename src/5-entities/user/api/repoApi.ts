@@ -3,7 +3,6 @@ import { baseQueryApi } from './baseQueryApi'
 import { ENDPOINTS } from '@/shared/config'
 import { getSessionUser } from '@/shared/utils/getSessionUser'
 
-
 const getNessesaryData = async () => {
   const user = await getSessionUser()
   const endpoint = ENDPOINTS[user.gitHosting]
