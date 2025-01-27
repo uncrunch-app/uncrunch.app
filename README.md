@@ -8,7 +8,7 @@
 
 <a href="https://uncrunch.app">uncrunch.app</a>
 
-<b>Be productive, don’t crunch! Your data is yours. Manage markdown notes, tasks and store them on a trusted Git hosting.</b>
+<b>Be productive, don't crunch! Your data is yours. Manage markdown notes, tasks and store them on your preferred Git provider</b>
 
   <img alt="Website" src="https://img.shields.io/website?url=https%3A%2F%2Funcrunch.app&up_message=online&up_color=07912E&down_message=offline&down_color=d94a4a&style=flat-square&label=uncrunch.app&labelColor=1f2033">
 
