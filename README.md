@@ -38,4 +38,4 @@ Thanks again for your support, it is much appreciated! 🙏
 </a>
 
 <h2>❤ Fund this project</h2>
-<a href="https://donate.teplostanski.dev" target="_blank">donate.teplostanski.dev</a>
+<a href="https://donate.teplostan.ski" target="_blank">donate.teplostan.ski</a>
